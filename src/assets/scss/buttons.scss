@@ -1,0 +1,78 @@
+@import '_utilities.scss';
+
+/* Action Button */
+.btn-action {
+	color: $background-color; // White
+	background-color: $primary-color; // Red
+	border-color: $primary-color; // Red
+}
+
+.btn-action:hover {
+	color: $background-color; // White
+	text-decoration: none;
+	background-color: lighten($primary-color, 10%); // Lighter red on hover
+	border-color: lighten($primary-color, 10%); // Lighter red
+}
+
+/* Primary Button */
+.btn-primary {
+	color: $background-color !important; // White
+	background-color: $primary-color !important; // Red
+	border-color: $primary-color !important; // Red
+}
+
+.btn-primary:hover {
+	color: $background-color !important; // White
+	text-decoration: none !important;
+	background-color: lighten($primary-color, 10%) !important; // Lighter red
+	border-color: lighten($primary-color, 10%) !important; // Lighter red
+}
+
+/* Clear Button */
+.btn-clear {
+	border-color: $secondary-color; // Gray
+	color: $secondary-color; // Gray
+}
+
+/* Reset Button */
+.btn-reset {
+	color: $background-color; // White
+	background-color: darken($secondary-color, 15%); // Darker gray
+	border-color: darken($secondary-color, 20%); // Even darker gray
+}
+
+.btn-reset:hover {
+	color: $background-color; // White
+	text-decoration: none;
+	background-color: darken($secondary-color, 10%); // Slightly lighter dark gray
+	border-color: darken($secondary-color, 15%); // Slightly lighter dark gray
+}
+
+/* Close Button */
+.btn-close {
+	font-size: 0.7rem !important;
+	font-weight: 600; // Corrected from "60000"
+}
+
+.btn-close:focus {
+	outline: 0;
+	box-shadow: none !important;
+	opacity: 1; // Adjusted to ensure clarity
+}
+
+/* Toggle Button */
+.mat-slide-toggle-thumb:before {
+	display: none !important;
+}
+
+.mat-slide-toggle-bar {
+	display: none !important;
+}
+
+.mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-bar {
+	background-color: rgba(214, 0, 0, 0.54) !important; // Semi-transparent red
+}
+
+.mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-thumb {
+	background-color: $primary-color !important; // Red
+}

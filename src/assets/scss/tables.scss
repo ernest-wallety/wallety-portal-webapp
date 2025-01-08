@@ -1,0 +1,118 @@
+@import '_utilities.scss';
+
+/* Color Classes */
+.bg-blue {
+	background-color: $blue;
+}
+
+.bg-orange {
+	background-color: $orange;
+}
+
+.bg-heat-1 {
+	background-color: #006400;
+}
+
+.bg-heat-2 {
+	background-color: #f9dc5c;
+}
+
+.bg-heat-3 {
+	background-color: #ffd100;
+}
+
+.bg-heat-4 {
+	background-color: #f77f00;
+}
+
+.bg-heat-5 {
+	background-color: #f77f00;
+}
+
+.bg-heat-6 {
+	background-color: #dc2f02;
+}
+
+.bg-heat-7 {
+	background-color: #9d0208;
+}
+
+.bg-prog-1 {
+	background-color: #ff0000;
+}
+
+.bg-prog-2 {
+	background-color: #ffa500;
+}
+
+.bg-prog-3 {
+	background-color: #ffff00;
+}
+
+.bg-prog-4 {
+	background-color: #008000;
+}
+
+.bg-prog-5 {
+	background-color: #0000ff;
+}
+
+.bg-prog-6 {
+	background-color: #4b0082;
+}
+
+.bg-prog-7 {
+	background-color: #ee82ee;
+}
+
+// ==============================
+// Grid Table
+// ==============================
+.grid-table {
+	width: 100%;
+
+	tbody td {
+		border: solid 0.5px $table-list-th-bgcolor-light;
+		padding: 5px;
+	}
+
+	.grid-table thead th {
+		height: 35px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		padding-left: 2px;
+		padding-right: 2px;
+		background-color: $table-list-th-bgcolor-light;
+		color: $table-list-th-fgcolor;
+		font-weight: normal;
+		border-bottom: solid 0px #b4b4b4 !important;
+		font-size: 14px;
+	}
+}
+
+// ==============================
+// List
+// ==============================
+.td-xs {
+	width: 50px;
+}
+
+.td-xs2 {
+	width: 35px;
+}
+
+.td-small {
+	width: 80px;
+}
+
+.td-med {
+	width: 160px;
+}
+
+.td-large {
+	width: 200px;
+}
+
+.td-xl {
+	width: 400px;
+}
