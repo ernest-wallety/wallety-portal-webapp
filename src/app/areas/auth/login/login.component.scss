@@ -1,0 +1,59 @@
+@import '../../../../assets/scss/_base.scss';
+
+body {
+	background: $primary-color !important;
+	background: linear-gradient(to right, #0062e6, #33aeff);
+	height: 100vh !important;
+}
+
+.btn-login {
+	font-size: 0.9rem;
+	letter-spacing: 0.05rem;
+	padding: 0.75rem 1rem;
+}
+
+.btn-forgot-password {
+	color: white !important;
+	background-color: #ea4335;
+}
+
+.btn-reset-password {
+	color: white !important;
+	background-color: #3b5998;
+}
+
+.insurify-text {
+	font-family: 'Arial', sans-serif;
+	font-size: 5rem; /* Base font size */
+	font-weight: bold;
+	color: #333;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	transition: all 0.3s ease;
+
+	&:hover {
+		color: #ffd43b;
+		text-decoration: underline;
+	}
+
+	// Responsive styles
+	@media (max-width: 1200px) {
+		font-size: 4rem; /* Reduce font size for large screens */
+		letter-spacing: 1.5px; /* Adjust letter spacing */
+	}
+
+	@media (max-width: 992px) {
+		font-size: 3.5rem; /* Reduce font size for medium screens */
+		letter-spacing: 1.2px;
+	}
+
+	@media (max-width: 768px) {
+		font-size: 3rem; /* Reduce font size for tablets */
+		letter-spacing: 1px;
+	}
+
+	@media (max-width: 576px) {
+		font-size: 2.5rem; /* Reduce font size for small screens */
+		letter-spacing: 0.8px;
+	}
+}
