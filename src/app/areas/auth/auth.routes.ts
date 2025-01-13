@@ -15,11 +15,11 @@ export const routes: Routes = [
             loadComponent: () => import(`./login/login.component`)
                .then(mod => mod.LoginComponent)
          },
-         // {
-         //    path: 'skill',
-         //    loadComponent: () => import(`./skill/skill.component`)
-         //       .then(mod => mod.SkillComponent)
-         // },
+         {
+            path: 'forgot-password',
+            loadComponent: () => import(`./forgot-password/forgot-password.component`)
+               .then(mod => mod.ForgotPasswordComponent)
+         },
 
          // {
          //    path: '**',

@@ -9,7 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Directive()
 // Component used for authenticated pages. There is a list version of this as well for list pages which inherits from this.
 export class AuthenticatedBaseComponent extends BaseComponent {
-  //Inject providers imported in app.module
+  // Inject providers imported in app.module
   constructor(
     // public override data_service: DataService,
     public override router: Router,

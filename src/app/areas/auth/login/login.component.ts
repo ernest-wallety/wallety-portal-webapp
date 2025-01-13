@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { AuthenticatedBaseComponent } from '../../../components/base/authenticated_base.component';
 // import { LoginResultModel } from '../../../components/models/login_result';
 // import { AuthenticationHelper } from '../../../components/helpers/authentication_helper';
@@ -11,13 +12,13 @@ import { AuthenticatedBaseComponent } from '../../../components/base/authenticat
    standalone: true,
    imports: [
       FormsModule,
-
+      RouterModule
    ]
 })
 export class LoginComponent extends AuthenticatedBaseComponent {
-   showPassword: boolean = false;
+   show_password: boolean = false;
 
-   public async try_login() {
+   public login = (form: NgForm) => {
       // var response = await this.post_sync_call('Auth/Login', this.ViewModel);
 
       // var login_result: LoginResultModel = response.data;
@@ -29,9 +30,5 @@ export class LoginComponent extends AuthenticatedBaseComponent {
       // } else {
       //    window.alert(this.ViewModel.loginMessage); //TODO: Replace this with toastr or something even fancier ;)
       // }
-   }
-
-   public getCurrentYear(): number {
-      return new Date().getFullYear();
    }
 }

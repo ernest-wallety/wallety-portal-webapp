@@ -23,4 +23,8 @@ export class BaseComponent {
       this.LoggedInUser = AuthenticationHelper.get_user_detail();
       this.ViewModel = Object.assign(new Object());
    }
+
+   public get_current_year(): number {
+      return new Date().getFullYear();
+   }
 }
