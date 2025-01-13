@@ -1,59 +1,56 @@
-<body>
-   <div class="container">
-      <div class="row">
-         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            <div class="card border-0 shadow-lg rounded-3 my-5">
-               <div class="card-body p-4 p-sm-5">
-                  <div class="row mb-4">
-                     <div class="col-12 text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="64" width="56" viewBox="0 0 448 512">
-                           <path fill="#FFD43B"
-                              d="M178.7 78.4c0-24.7 5.4-32.4 13.9-39.4-69.5 8.5-149.3 34-176.3 66.4-5.4 7.7-9.3 20.8-9.3 37.1C7 246 113.8 480 191.1 480c36.3 0 97.3-59.5 146.7-139-7 2.3-11.6 2.3-18.5 2.3-57.2 0-140.6-198.5-140.6-264.9zM301.5 32c-30.1 0-41.7 5.4-41.7 36.3 0 66.4 53.8 198.5 101.7 198.5 26.3 0 78.8-99.7 78.8-182.3 0-40.9-67-52.5-138.8-52.5z" />
-                        </svg>
-                        <span class="insurify-text"> Wallety</span>
-                     </div>
-                  </div>
-
-                  <form>
-                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"
-                           [(ngModel)]="ViewModel.Email" name="email_address" />
-                        <label for="floatingInput">Email address</label>
-                     </div>
-
-                     <div class="form-floating mb-3">
-                        <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="floatingPassword"
-                           placeholder="Password" [(ngModel)]="ViewModel.Password" name="password"
-                           (keyup.enter)="try_login();" />
-                        <label for="floatingPassword">Password</label>
-                     </div>
-
-                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" id="showPasswordCheckbox" name="showPassword"
-                           [(ngModel)]="showPassword">
-                        <label class="form-check-label" for="showPasswordCheckbox">
-                           Show Password
-                        </label>
-                     </div>
-
-                     <div class="d-grid mb-3">
-                        <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit"
-                           (click)="try_login()">
-                           Sign in
-                        </button>
-                     </div>
-
-                     <hr class="my-4" />
-                     <div class="mb-3 text-center mt-4">
-                        <p class="m-t">
-                           <small>Copyright © {{ getCurrentYear() }}
-                              <a href="https://njmtech.vercel.app/" target="_blank">NJM TECH</a></small>
-                        </p>
-                     </div>
-                  </form>
-               </div>
+<div class="page-background container">
+   <div class="card container__card">
+      <div class="card-body p-4 p-sm-5">
+         <div class="row mb-4">
+            <div class="col-12 text-center">
+               <span class="logo-container">
+                  <img src="https://wallety.cash/wp-content/uploads/2020/03/Wallety-Logo.png" alt="Wallety Logo" />
+               </span>
             </div>
          </div>
+
+         <form class="form__grid">
+            <div class="form-floating form-control--floating mb-3">
+               <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"
+                  [(ngModel)]="ViewModel.Email" name="email_address" />
+               <label for="floatingEmail">Email address</label>
+            </div>
+
+            <div class="form-floating form-control--floating mb-3">
+               <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="floatingPassword"
+                  placeholder="Password" [(ngModel)]="ViewModel.Password" name="password"
+                  (keyup.enter)="try_login();" />
+               <label for="floatingPassword">Password</label>
+            </div>
+
+            <div class="form-check mb-3">
+               <input class="form-check-input" type="checkbox" id="showPasswordCheckbox" name="showPassword"
+                  [(ngModel)]="showPassword">
+               <label class="form-check-label" for="showPasswordCheckbox">
+                  Show Password
+               </label>
+            </div>
+
+            <div class="d-grid">
+               <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit" (click)="try_login()">
+                  Sign in
+               </button>
+            </div>
+
+            <div class="text-center">
+               <a class="btn-forgot-password" routerLink="/auth/forgot-password">Forgot Password?</a>
+            </div>
+
+            <div class="d-grid">
+            </div>
+         </form>
       </div>
    </div>
-</body>
+</div>
+
+<div class="footer-container">
+   <p>
+      <small>Copyright © {{ getCurrentYear() }}
+         <a href="https://wallety.cash/" target="_blank">Wallety</a></small>
+   </p>
+</div>

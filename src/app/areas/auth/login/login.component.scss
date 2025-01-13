@@ -1,59 +1,155 @@
-@import '../../../../assets/scss/_base.scss';
+@import "../../../../assets/scss/_base.scss";
 
-body {
-	background: $primary-color !important;
-	background: linear-gradient(to right, #0062e6, #33aeff);
-	height: 100vh !important;
+/* Page Layout */
+.page-background {
+  background: $background-color !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  overflow-y: hidden;
 }
 
+/* Card Styling */
+.container__card {
+  width: 100%;
+  max-width: 450px;
+  margin: auto;
+  border: 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 1rem;
+  background: white;
+}
+
+.card-body {
+  padding: 2.5rem !important;
+}
+
+/* Logo Container */
+.logo-container {
+  display: block;
+  margin-bottom: 2rem;
+  text-align: center;
+
+  img {
+    width: 100%;
+    max-width: 20rem;
+    height: auto;
+    margin: 0 auto;
+  }
+}
+
+/* Form Layout */
+.form__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Form Controls */
+.form-floating {
+  position: relative;
+  margin-bottom: 0;
+
+  .form-control {
+    height: 3.5rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+
+    &:focus {
+      box-shadow: 0 0 0 0.25rem rgba($primary-color, 0.25);
+      border-color: $primary-color;
+    }
+  }
+
+  label {
+    padding: 1rem 0.75rem;
+  }
+}
+
+/* Checkbox Styling */
+.form-check {
+  display: flex;
+  align-items: center;
+  margin: 0;
+
+  .form-check-input {
+    margin-right: 0.5rem;
+
+    &:checked {
+      background-color: $primary-color;
+      border-color: $primary-color;
+    }
+  }
+
+  .form-check-label {
+    font-size: 0.9rem;
+    color: #666;
+  }
+}
+
+/* Button Styling */
 .btn-login {
-	font-size: 0.9rem;
-	letter-spacing: 0.05rem;
-	padding: 0.75rem 1rem;
+  background-color: $primary-color;
+  border-color: $primary-color;
+  color: white;
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+    border-color: darken($primary-color, 10%);
+  }
 }
 
-.btn-forgot-password {
-	color: white !important;
-	background-color: #ea4335;
+/* Copyright Text */
+hr {
+  margin: 2rem 0;
+  opacity: 0.1;
 }
 
-.btn-reset-password {
-	color: white !important;
-	background-color: #3b5998;
+.footer-container {
+  p {
+    text-align: center;
+    margin: 0;
+
+    small {
+      color: #666;
+
+      a {
+        color: $primary-color;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
 }
 
-.insurify-text {
-	font-family: 'Arial', sans-serif;
-	font-size: 5rem; /* Base font size */
-	font-weight: bold;
-	color: #333;
-	letter-spacing: 2px;
-	text-transform: uppercase;
-	transition: all 0.3s ease;
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+  .card-body {
+    padding: 1.5rem !important;
+  }
 
-	&:hover {
-		color: #ffd43b;
-		text-decoration: underline;
-	}
+  .logo-container img {
+    max-width: 15rem;
+  }
+}
 
-	// Responsive styles
-	@media (max-width: 1200px) {
-		font-size: 4rem; /* Reduce font size for large screens */
-		letter-spacing: 1.5px; /* Adjust letter spacing */
-	}
+/* Text decoration and hover styles for links */
+a {
+  &.btn-forgot-password {
+    text-decoration: none; /* Remove underline by default */
 
-	@media (max-width: 992px) {
-		font-size: 3.5rem; /* Reduce font size for medium screens */
-		letter-spacing: 1.2px;
-	}
-
-	@media (max-width: 768px) {
-		font-size: 3rem; /* Reduce font size for tablets */
-		letter-spacing: 1px;
-	}
-
-	@media (max-width: 576px) {
-		font-size: 2.5rem; /* Reduce font size for small screens */
-		letter-spacing: 0.8px;
-	}
+    &:hover {
+      text-decoration: underline; /* Add underline on hover */
+      cursor: pointer;
+    }
+  }
 }

@@ -18,6 +18,9 @@
           "builder": "@ngx-env/builder:application",
           "options": {
             "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/scss"
+              ],
               "sass": {
                 "silenceDeprecations": [
                   "mixed-decls",

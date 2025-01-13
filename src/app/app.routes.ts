@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './areas/auth/login/login.component';
 
 export const routes: Routes = [
    {
       path: '',
-      redirectTo: 'login',
+      redirectTo: 'auth/login',
       pathMatch: 'full'
    },
    {
-      path: 'login',
-      component: LoginComponent
-   }
+      path: 'auth',
+      loadChildren: () => import(`./areas/auth/auth.routes`)
+         .then(routes => routes.routes)
+   },
 ];
