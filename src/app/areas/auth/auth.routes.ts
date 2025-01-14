@@ -8,17 +8,20 @@ export const routes: Routes = [
          {
             path: '',
             loadComponent: () => import(`./login/login.component`)
-               .then(mod => mod.LoginComponent)
+               .then(mod => mod.LoginComponent),
+            data: { animation: 'LoginPage' }
          },
          {
             path: 'login',
             loadComponent: () => import(`./login/login.component`)
-               .then(mod => mod.LoginComponent)
+               .then(mod => mod.LoginComponent),
+            data: { animation: 'LoginPage' }
          },
          {
             path: 'forgot-password',
             loadComponent: () => import(`./forgot-password/forgot-password.component`)
-               .then(mod => mod.ForgotPasswordComponent)
+               .then(mod => mod.ForgotPasswordComponent),
+            data: { animation: 'ForgotPasswordPage' }
          },
 
          // {

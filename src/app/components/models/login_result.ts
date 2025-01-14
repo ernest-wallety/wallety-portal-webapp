@@ -1,14 +1,11 @@
 //Model for when the user logs in.
 export class LoginResultModel {
 
+   ResponseMessage: string = 'Login Successful';
+
    SessionToken?: string;
 
-   // Admin - WR01 
-   // CustomerServiceAgent - WR02
-   RoleCode?: string[];
-
-   AccessKey?: string;
-   ResponseMessage: string = 'Login Successful';
+   RoleCodes?: RoleCodeModel[];
 
    Success: boolean = this.ResponseMessage == 'Login Successful' ? true : false;
 
@@ -17,3 +14,10 @@ export class LoginResultModel {
    constructor() { }
 }
 
+// Admin - WR01 
+// CustomerServiceAgent - WR02
+export class RoleCodeModel {
+   Role?: string;
+   Code?: string;
+   IsDefault?: boolean
+}

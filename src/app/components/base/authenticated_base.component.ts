@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from './base.component';
 // import { PagingService } from "../services/paging_service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { DataService } from '../apiconnector/data.service';
 // import { LookupHelper } from '../helpers/lookup_helper';
 
 @Injectable()
@@ -11,10 +13,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class AuthenticatedBaseComponent extends BaseComponent {
   // Inject providers imported in app.module
   constructor(
-    // public override data_service: DataService,
+    public override data_service: DataService,
     public override router: Router,
     public override route: ActivatedRoute,
-    // public override toastr: ToastrService,
+    public override toastr: ToastrService,
     public override ngbModalService: NgbModal,
     // public override lookup_helper: LookupHelper,
 
@@ -23,10 +25,10 @@ export class AuthenticatedBaseComponent extends BaseComponent {
   ) {
     //Call inherited constructor
     super(
-      // data_service,
+      data_service,
       router,
       route,
-      // toastr,
+      toastr,
       ngbModalService,
       // lookup_helper
     );

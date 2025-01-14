@@ -20,7 +20,7 @@ export class AuthenticationHelper {
 
       try {
          const jsonObject = JSON.parse(
-            localStorage.getItem(ConfigHelper.USER_STORAGE_NAME) || '{}',
+            localStorage.getItem(ConfigHelper.NG_APP_USER_STORAGE_NAME) || '{}',
          );
 
          return jsonObject as LoginResultModel;
@@ -42,7 +42,7 @@ export class AuthenticationHelper {
          return;
       }
 
-      localStorage.setItem(ConfigHelper.USER_STORAGE_NAME, JSON.stringify(user_detail));
+      localStorage.setItem(ConfigHelper.NG_APP_USER_STORAGE_NAME, JSON.stringify(user_detail));
    }
 
    // Clear storage, good for logging out.
