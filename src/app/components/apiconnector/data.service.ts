@@ -54,6 +54,23 @@ export class DataService {
       return return_response;
    }
 
+   // Get call with no params
+   public async get_async_call_no_params(action: string): Promise<ResponseModel> {
+      var return_response = new ResponseModel();
+
+      try {
+         const response = await this.http
+            .get(this.get_full_api_path(action), this.HTTP_OPTIONS)
+            .toPromise();
+
+         return_response.Data = response;
+      } catch (exception) {
+         return_response = await this.handle_exception(exception, return_response);
+      }
+
+      return return_response;
+   }
+
    // Check if the API is up with a healthcheck.
    private async ping_api_message() {
       console.log('PING');

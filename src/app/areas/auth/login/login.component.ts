@@ -39,7 +39,7 @@ export class LoginComponent extends AuthenticatedBaseComponent {
 
          AuthenticationHelper.set_user_localstorage(login_result);
 
-         // this.router.navigate(['/system/home']);
+         this.router.navigate(['/system/home']);
       }
 
       // var login_result: LoginResultModel = response.data;

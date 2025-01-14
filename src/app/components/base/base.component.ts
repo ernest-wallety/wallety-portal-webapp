@@ -26,8 +26,17 @@ export class BaseComponent {
    ) {
       this.LoggedInUser = AuthenticationHelper.get_user_detail();
       this.ViewModel = Object.assign(new Object());
+   }
 
-      // DataService.initialize(this.http);
+   // Get call with no params
+   public async get_async_call_no_params(apiUrl: string) {
+      this.IsLoading = true;
+
+      var response = await this.data_service.get_async_call_no_params(apiUrl);
+
+      this.IsLoading = false;
+
+      return response;
    }
 
    // New posting method that uses a more synchronous way of getting the data

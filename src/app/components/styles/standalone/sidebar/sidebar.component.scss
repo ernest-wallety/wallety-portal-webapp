@@ -1,0 +1,152 @@
+// SCSS Variables
+$header-height: 3rem;
+$nav-width: 68px;
+
+$first-color: #151515;
+$first-color-light: #4a4a4a;
+$white-color: #f7f6fb;
+$yellow-color: #ffd43b;
+
+$body-font: "Nunito", sans-serif;
+$normal-font-size: 1rem;
+$z-fixed: 100;
+
+// Global styles
+
+.nav-bar a {
+  text-decoration: none;
+}
+
+// Mixins
+@mixin flex-column-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@mixin transition($time: 0.3s) {
+  transition: $time;
+}
+
+// Navbar Styles
+.l-navbar {
+  width: $nav-width;
+  height: 100vh;
+  background-color: $first-color;
+  padding: 0.5rem 1rem 0 0;
+  @include transition(0.5s);
+}
+
+.nav {
+  height: 100%;
+  @include flex-column-center;
+  overflow: hidden;
+
+  & .nav_logo,
+  & .nav_link {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: 1rem;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+  }
+
+  .nav_logo {
+    margin-bottom: 2rem;
+
+    .nav_logo-icon {
+      font-size: 1.25rem;
+      color: $white-color;
+    }
+
+    .nav_logo-name {
+      color: $white-color;
+      font-weight: 700;
+    }
+  }
+
+  .nav_link {
+    position: relative;
+    color: $first-color-light;
+    margin-bottom: 1.5rem;
+    @include transition;
+
+    &:hover {
+      color: $white-color;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 2px;
+      height: 32px;
+      background-color: $white-color;
+    }
+  }
+
+  .nav_icon {
+    font-size: 1.25rem;
+  }
+}
+
+// Utility Classes
+.show {
+  left: 0;
+}
+
+.body-pd {
+  padding-left: calc(#{$nav-width} + 1rem);
+}
+
+.active {
+  color: $white-color;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 2px;
+    height: 32px;
+    background-color: $white-color;
+  }
+}
+
+.height-100 {
+  height: 100vh;
+}
+
+// Responsive Styles
+@media screen and (min-width: 768px) {
+  body {
+    margin: calc(#{$header-height} + 1rem) 0 0 0;
+    padding-left: calc(#{$nav-width} + 2rem);
+  }
+
+  .header {
+    height: calc(#{$header-height} + 1rem);
+    padding: 0 2rem 0 calc(#{$nav-width} + 2rem);
+
+    .header_img {
+      width: 40px;
+      height: 40px;
+
+      img {
+        width: 45px;
+      }
+    }
+  }
+
+  .l-navbar {
+    left: 0;
+    padding: 1rem 1rem 0 0;
+  }
+
+  .show {
+    width: calc(#{$nav-width} + 156px);
+  }
+
+  .body-pd {
+    padding-left: calc(#{$nav-width} + 188px);
+  }
+}

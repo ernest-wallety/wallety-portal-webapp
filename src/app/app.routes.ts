@@ -11,4 +11,10 @@ export const routes: Routes = [
       loadChildren: () => import(`./areas/auth/auth.routes`)
          .then(routes => routes.routes)
    },
+   {
+      path: 'system',
+      loadChildren: () =>
+         import(`./areas/system/system.routes`).then((routes) => routes.routes),
+      // canActivate: [AuthGuard],
+   },
 ];
