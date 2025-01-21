@@ -1,0 +1,57 @@
+.history-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+}
+
+.history-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  .status {
+    font-weight: bold;
+    &.rejected {
+      color: #ff0000;
+    }
+  }
+
+  .date {
+    font-size: 0.9em;
+    color: #666;
+  }
+}
+
+.history-content {
+  margin-bottom: 10px;
+  p {
+    margin: 5px 0;
+  }
+}
+
+.history-footer {
+  font-size: 0.9em;
+  color: #333;
+}
+
+.no-records {
+  padding: 20px;
+  text-align: center;
+  font-size: 1.2em;
+  color: #666;
+  border: 1px dashed #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}

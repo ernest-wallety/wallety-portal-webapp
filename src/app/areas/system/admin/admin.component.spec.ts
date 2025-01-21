@@ -2,15 +2,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ActivatedRoute } from '@angular/router';
 import { beforeEach, describe } from 'node:test';
-import { SystemComponent } from './system.component';
+import { AdminComponent } from './admin.component';
 
-describe('SystemComponent', () => {
-   let component: SystemComponent;
-   let fixture: ComponentFixture<SystemComponent>;
+describe('AdminComponent', () => {
+   let component: AdminComponent;
+   let fixture: ComponentFixture<AdminComponent>;
 
    beforeEach(async () => {
       await TestBed.configureTestingModule({
-         imports: [SystemComponent],
+         imports: [AdminComponent],
          providers: [
             {
                provide: ActivatedRoute,
@@ -20,7 +20,7 @@ describe('SystemComponent', () => {
       })
          .compileComponents();
 
-      fixture = TestBed.createComponent(SystemComponent);
+      fixture = TestBed.createComponent(AdminComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
    });

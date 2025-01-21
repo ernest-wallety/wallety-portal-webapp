@@ -5,8 +5,6 @@ import { AuthenticatedBaseComponent } from '../../../components/base/authenticat
 import { AuthenticationHelper } from '../../../components/helpers/authentication_helper';
 import { LoginResultModel } from '../../../components/models/login_result';
 import { Utils } from '../../../components/utils';
-// import { LoginResultModel } from '../../../components/models/login_result';
-// import { AuthenticationHelper } from '../../../components/helpers/authentication_helper';
 
 @Component({
    selector: 'app-login',

@@ -29,6 +29,12 @@ export const routes: Routes = [
          //    loadComponent: () => import(`./experience/experience.component`)
          //       .then(mod => mod.ExperienceComponent)
          // },
+         {
+            path: 'logout',
+            loadComponent: () => import(`./logout/logout.component`)
+               .then(mod => mod.LogoutComponent),
+            data: { animation: 'LogoutPage' }
+         },
       ]
    },
 ];

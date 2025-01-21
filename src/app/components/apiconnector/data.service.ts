@@ -63,8 +63,12 @@ export class DataService {
             .get(this.get_full_api_path(action), this.HTTP_OPTIONS)
             .toPromise();
 
+         console.log(response)
+
          return_response.Data = response;
       } catch (exception) {
+         console.log(exception)
+
          return_response = await this.handle_exception(exception, return_response);
       }
 

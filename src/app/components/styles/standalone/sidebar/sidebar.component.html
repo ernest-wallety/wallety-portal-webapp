@@ -8,38 +8,26 @@
          </a>
 
          <div class="nav_list">
-            <a href="#" onclick="return false;" class="nav_link active" [routerLink]="'/system/home'">
-               <i class='bx bx-home-alt-2 nav_icon'></i>
-               <span class="nav_name">Home</span>
-            </a>
-            <a href="#" onclick="return false;" class="nav_link" [routerLink]="'/system/admin/users'">
-               <i class='bx bx-user nav_icon'></i>
-               <span class="nav_name">Users</span>
-            </a>
-            <a href="#" class="nav_link active">
+            <a href="#" onclick="return false;" class="nav_link"
+               [ngClass]="{'active-menu-item': isActiveRoute('/system/dashboard')}" [routerLink]="'/system/dashboard'"
+               routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                <i class='bx bx-grid-alt nav_icon'></i>
                <span class="nav_name">Dashboard</span>
             </a>
-            <a href="#" class="nav_link">
+            <a href="#" onclick="return false;" class="nav_link"
+               [ngClass]="{'active-menu-item': isActiveRoute('/system/merchants')}" [routerLink]="'/system/merchants'"
+               routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+               <i class='bx bx-store-alt nav_icon'></i>
+               <span class="nav_name">Merchants</span>
+            </a>
+            <a href="#" onclick="return false;" class="nav_link"
+               [ngClass]="{'active-menu-item': isActiveRoute('/system/customers')}"
+               [routerLink]="'/system/admin/customers'" routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact: true}">
                <i class='bx bx-user nav_icon'></i>
-               <span class="nav_name">Users</span>
+               <span class="nav_name">Admin</span>
             </a>
-            <a href="#" class="nav_link">
-               <i class='bx bx-message-square-detail nav_icon'></i>
-               <span class="nav_name">Messages</span>
-            </a>
-            <a href="#" class="nav_link">
-               <i class='bx bx-bookmark nav_icon'></i>
-               <span class="nav_name">Bookmark</span>
-            </a>
-            <a href="#" class="nav_link">
-               <i class='bx bx-folder nav_icon'></i>
-               <span class="nav_name">Files</span>
-            </a>
-            <a href="#" class="nav_link">
-               <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
-               <span class="nav_name">Stats</span>
-            </a>
+
             <!-- <ul class="nav nav-pills flex-column mb-auto">
                <li *ngFor="let item of MenuItems">
                   <a href="#" onclick="return false;" class="nav_link" [routerLink]="item?.moduleRouterLink"
@@ -52,7 +40,7 @@
          </div>
       </div>
 
-      <a href="#" class="nav_link">
+      <a href="#" class="nav_link" (click)="log_out()">
          <i class="bx bx-log-out nav_icon"></i>
          <span class="nav_name">SignOut</span>
       </a>

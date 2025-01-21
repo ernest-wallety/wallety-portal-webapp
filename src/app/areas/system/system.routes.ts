@@ -16,7 +16,12 @@ export const routes: Routes = [
             loadComponent: () => import(`./home/home.component`)
                .then(mod => mod.HomeComponent),
             data: { animation: 'HomePage' }
-         }
+         },
+         {
+            path: 'admin',
+            loadChildren: () =>
+               import(`./admin/admin.routes`).then((routes) => routes.routes),
+         },
       ]
    },
 ];

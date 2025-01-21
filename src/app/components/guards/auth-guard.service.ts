@@ -3,7 +3,9 @@ import { CanActivate, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthenticationHelper } from '../helpers/authentication_helper';
 
-@Injectable()
+@Injectable({
+   providedIn: 'root',
+})
 export class AuthGuard implements CanActivate {
 
    token?: string = AuthenticationHelper.get_user_detail().SessionToken;
@@ -19,7 +21,7 @@ export class AuthGuard implements CanActivate {
          return true;
       }
 
-      this.router.navigate(['auth/login']);
+      this.router.navigate(['auth/logout']);
 
       return false;
    }

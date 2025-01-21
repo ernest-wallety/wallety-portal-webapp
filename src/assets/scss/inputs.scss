@@ -1,5 +1,26 @@
-@import '_utilities.scss';
+@import "_utilities.scss";
 
 .form-control {
-	border-radius: 1.563rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+/* Status Badge Styles */
+.badge {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: normal;
+}
+
+.bg-prog-4 {
+  background-color: #28a745;
+}
+
+.bg-prog-2 {
+  background-color: #ffc107;
+}
+
+.bg-prog-1 {
+  background-color: #dc3545;
 }

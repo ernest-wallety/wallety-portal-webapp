@@ -84,3 +84,35 @@
   background-color: #{$primary-color} !important;
   border: 1px solid #{$primary-color} !important;
 }
+
+.btn-outline-success {
+  border-color: #e0e0e0;
+  color: #666;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px; /* Adjust the distance from the left */
+    transform: translateY(-50%);
+    color: #6c757d; /* Match input text color */
+    font-size: 1.2rem; /* Adjust icon size */
+  }
+
+  .form-control {
+    padding-left: 2.5rem; /* Add space for the icon */
+    border-radius: 0.25rem; /* Rounded corners */
+    border: 1px solid #ccc;
+    font-size: 1rem;
+
+    &:focus {
+      outline: none;
+      border-color: #6c757d;
+      box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25); /* Optional focus styling */
+    }
+  }
+}

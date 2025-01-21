@@ -21,9 +21,14 @@ export class SidebarComponent extends AuthenticatedBaseComponent implements OnIn
    @Output() public OnSidebarChange: EventEmitter<any> = new EventEmitter<any>();
 
    ngOnInit() {
-      this.get_menu_items();
+      // this.get_menu_items();
 
-      if (window.innerWidth < 1500) this.toggle_navbar();
+      if (!this.isBrowser()) {
+         console.warn('Attempted to set localStorage in a server environment.');
+         return;
+      }
+
+      if (window.innerWidth > 1500) this.toggle_navbar();
    }
 
    private async get_menu_items() {
@@ -70,4 +75,15 @@ export class SidebarComponent extends AuthenticatedBaseComponent implements OnIn
          AuthenticationHelper.clear_user_localstorage();
       }
    }
+
+   // Utility to check if the current environment is a browser.
+   private isBrowser(): boolean {
+      return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+   }
+
+   // Helper function to check if the current route matches the menu item's route
+   isActiveRoute(route: string): boolean {
+      return this.router.url === route;
+   }
+
 }
