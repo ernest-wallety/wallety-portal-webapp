@@ -7,14 +7,32 @@ COPY package*.json ./
 RUN npm ci
 # Copy the rest of the application files to the working directory
 COPY . .
+# Build the React application
+RUN npm run build:production
 
-RUN npm run build
-
+# Production Stage
 FROM nginx:alpine
-COPY --from=buidler /app/dist /usr/share/nginx/html
+# Copy the NGINX configuration file
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy the build artifacts from the build stage to NGINX web server
+COPY --from=buidler /app/build/ /usr/share/nginx/html
+WORKDIR /app
 # Add custom nginx config if needed
+RUN chown -R nginx:nginx /app && chmod -R 755 /app && \
+   chown -R nginx:nginx /var/cache/nginx && \
+   chown -R nginx:nginx /var/log/nginx && \
+   chown -R nginx:nginx /etc/nginx/conf.d
+
+RUN touch /var/run/nginx.pid && \
+   chown -R nginx:nginx /var/run/nginx.pid
+
+
+USER nginx
+
+# Expose port 80 for the NGINX server
 EXPOSE 3000
 EXPOSE 4200
 EXPOSE 80
 
-CMD [ "nginx", "-g", "daemon off;" ]
+# Command to start NGINX when the container is run
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,6 +1,6 @@
 /* This is for declaring all our global variables. Import this file into other style sheets if needed */
 
-@import '_base.scss';
+@import "_base.scss";
 
 /************************************** SIDEBAR **************************************/
 $sidebar-width: 200px;
@@ -30,7 +30,8 @@ $cl-green: #e3e149;
 $cl-lightblue: $secondary-color; // Gray (Body Text)
 
 /************************************** GENERAL **************************************/
-$font-family: Roboto, 'Helvetica Neue', sans-serif;
+// $font-family: Roboto, 'Helvetica Neue', sans-serif;
+$font-family: "Poppins", serif;
 $font-weight: 600;
 $font-size: 13px;
 $table-font-size: 13px;

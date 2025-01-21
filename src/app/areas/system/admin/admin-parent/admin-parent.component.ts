@@ -24,8 +24,8 @@ export class AdminParentComponent extends AuthenticatedBaseComponent implements 
       this.navigateToTab();
    }
 
-   navigateToTab(page: string = this.route.snapshot.params['page'].toString()) {
-      this.router.navigateByUrl("/system/admin/" + page);
-      document.getElementById(page + '-tab')?.click();
+   public navigateToTab(page: string = this.route.snapshot.params['page']?.toString()) {
+      this.router.navigateByUrl(`/system/admin/${page}`);
+      document.getElementById(`${page}-tab`)?.click();
    }
 }
