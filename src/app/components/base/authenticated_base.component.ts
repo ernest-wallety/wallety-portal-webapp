@@ -1,4 +1,4 @@
-import { Directive, Injectable } from '@angular/core';
+import { Directive, Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from './base.component';
 // import { PagingService } from "../services/paging_service";
@@ -18,6 +18,7 @@ export class AuthenticatedBaseComponent extends BaseComponent {
     public override route: ActivatedRoute,
     public override toastr: ToastrService,
     public override ngbModalService: NgbModal,
+    @Inject(PLATFORM_ID) public override platformId: object,
     // public override lookup_helper: LookupHelper,
 
 
@@ -30,6 +31,7 @@ export class AuthenticatedBaseComponent extends BaseComponent {
       route,
       toastr,
       ngbModalService,
+      platformId
       // lookup_helper
     );
   }

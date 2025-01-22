@@ -9,7 +9,7 @@ import { SearchInputComponent } from "../../../../../components/styles/standalon
 import { PhoneFormatPipe } from "../../../../../components/utils/pipes/phoneFormat";
 
 @Component({
-   selector: 'app-customer-list',
+   selector: 'app-customer-verification',
    standalone: true,
    imports: [
       CommonModule,
@@ -19,24 +19,24 @@ import { PhoneFormatPipe } from "../../../../../components/utils/pipes/phoneForm
       CustomerVerificationComponent,
       SearchInputComponent
    ],
-   templateUrl: './customer.component.html',
-   styleUrls: ['./customer.component.scss']
+   templateUrl: './customer-verification.component.html',
+   styleUrls: ['./customer-verification.component.scss']
 })
 
-export class CustomerListComponent extends AuthenticatedBaseComponent implements OnInit {
-   @ViewChild('customerVerificationComponent') customerVerificationComponent!: CustomerVerificationComponent;
+export class CustomerVerificationListComponent extends AuthenticatedBaseComponent implements OnInit {
+   @ViewChild('verificationComponent') customerVerificationComponent!: CustomerVerificationComponent;
 
    criteria: ListCriteria = ListCriteria.default();
 
-   private reasons?: any;
-   private statuses?: any;
+   private reasons?: object;
+   private statuses?: object;
 
    ngOnInit(): void {
       this.refresh();
    }
 
    async refresh() {
-      var response = await this.post_sync_call('/Customer/GetUnverifiedAccounts', undefined);
+      const response = await this.post_sync_call('/Customer/GetUnverifiedAccounts', undefined);
 
       if (!response.IsError) {
          this.ViewModel = response;
@@ -45,7 +45,7 @@ export class CustomerListComponent extends AuthenticatedBaseComponent implements
       }
    }
 
-   details(item: any) {
+   details(item: object) {
       this.customerVerificationComponent.model = item;
       this.customerVerificationComponent.reasons = this.reasons;
       this.customerVerificationComponent.statuses = this.statuses;

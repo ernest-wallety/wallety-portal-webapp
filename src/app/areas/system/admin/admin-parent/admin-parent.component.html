@@ -1,13 +1,13 @@
 <ul class="nav nav-tabs" id="myTab" role="tablist">
    <li class="nav-item" role="presentation">
       <button class="nav-link" id="customers-tab" data-bs-toggle="tab" data-bs-target="#customers" type="button"
-         role="tab" aria-controls="customers" aria-selected="false" (click)="navigateToTab('customers');">Customer
-         Registration Verification</button>
+         role="tab" aria-controls="customers" aria-selected="false" (click)="navigateToTab('customers');">Registration
+         Verification</button>
    </li>
    <li class="nav-item" role="presentation">
       <button class="nav-link" id="customer-service-agents-tab" data-bs-toggle="tab"
          data-bs-target="#customer-service-agents" type="button" role="tab" aria-controls="customer-service-agents"
-         aria-selected="false" (click)="navigateToTab('customer-service-agents');">Customer Service Agents</button>
+         aria-selected="false" (click)="navigateToTab('customer-service-agents');">Service Agents</button>
    </li>
    <!-- <li class="nav-item" role="presentation">
       <button class="nav-link" id="mobile-roles-tab" data-bs-toggle="tab" data-bs-target="#mobile-roles" type="button"
@@ -22,7 +22,7 @@
 </ul>
 <div class="tab-content" id="myTabContent">
    <div class="tab-pane fade" id="customers" role="tabpanel" aria-labelledby="customers-tab">
-      <app-customer-list #customersList></app-customer-list>
+      <app-customer-verification #verificationComponent></app-customer-verification>
    </div>
 
    <div class="tab-pane fade" id="customer-service-agents" role="tabpanel"

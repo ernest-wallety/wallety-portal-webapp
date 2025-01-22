@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export class ResponseModel {
    public Data?: any = Object.assign(new Object());
 
-   public IsError: boolean = false;
+   public IsError = false;
    public IsException?: boolean;
-   public ErrorList: Array<string> = new Array<string>();
+   public ErrorList: string[] = new Array<string>();
 }
