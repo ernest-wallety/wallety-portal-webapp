@@ -47,12 +47,17 @@
             <td>{{ a.PhoneNumber | phoneFormat }}</td>
             <td class="d-none d-md-table-cell">{{ a.Country }}</td>
             <td class="d-none d-md-table-cell">{{ a.AccountCreationDate }}</td>
-            <td>
+            <td class="position-relative">
                <span class="badge" [ngClass]="{
                   'bg-prog-4': a.RegistrationStatus === 'Approved',
                   'bg-prog-2': a.RegistrationStatus === 'Pending',
                   'bg-prog-1': a.RegistrationStatus === 'Rejected'
-              }" style="color:white">{{a.RegistrationStatus}}</span>
+              }" style="color: white; position: relative;">
+                  {{a.RegistrationStatus}}
+                  <span *ngIf="a.History.length > 0" class="status-notification-badge">
+                     {{ a.History.length }}
+                  </span>
+               </span>
             </td>
             <td class="d-none d-md-table-cell">{{ a.CustomerServiceAgent }}</td>
 
