@@ -2,7 +2,6 @@ import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseComponent } from "../../../base/authenticated_base.component";
-import { AuthenticationHelper } from "../../../helpers/authentication_helper";
 
 @Component({
    selector: 'app-sidebar', // Changed to kebab-case with 'app' prefix
@@ -66,14 +65,6 @@ export class SidebarComponent extends AuthenticatedBaseComponent implements OnIn
    toggle_navbar() {
       const sidebar: any = document.getElementById('nav-bar');
       sidebar.classList.toggle('show');
-   }
-
-   public async log_out() {
-      const response = await this.post_sync_call('/Portal/Logout');
-
-      if (!response.IsError) {
-         AuthenticationHelper.clear_user_localstorage();
-      }
    }
 
    // Utility to check if the current environment is a browser.

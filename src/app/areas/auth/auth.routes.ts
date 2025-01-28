@@ -23,12 +23,6 @@ export const routes: Routes = [
                .then(mod => mod.ForgotPasswordComponent),
             data: { animation: 'ForgotPasswordPage' }
          },
-
-         // {
-         //    path: '**',
-         //    loadComponent: () => import(`./experience/experience.component`)
-         //       .then(mod => mod.ExperienceComponent)
-         // },
          {
             path: 'logout',
             loadComponent: () => import(`./logout/logout.component`)

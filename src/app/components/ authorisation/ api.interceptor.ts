@@ -15,7 +15,7 @@ export class ApiInterceptor implements HttpInterceptor {
       request: HttpRequest<any>,
       next: HttpHandler,
    ): Observable<HttpEvent<any>> {
-      let logged_in_user = AuthenticationHelper.get_user_detail();
+      const logged_in_user = AuthenticationHelper.get_user_detail();
 
       //Intercept and shove the Auth in with our user details from above.
       if (logged_in_user) {

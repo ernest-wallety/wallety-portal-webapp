@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+import { AuthGuard } from '../../components/guards/auth-guard.service';
 import { SystemComponent } from './system.component';
 
 export const routes: Routes = [
@@ -15,7 +16,8 @@ export const routes: Routes = [
             path: 'home',
             loadComponent: () => import(`./home/home.component`)
                .then(mod => mod.HomeComponent),
-            data: { animation: 'HomePage' }
+            data: { animation: 'HomePage' },
+            canActivate: [AuthGuard]
          },
          {
             path: 'admin',

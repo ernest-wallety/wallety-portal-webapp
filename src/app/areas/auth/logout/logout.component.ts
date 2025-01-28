@@ -15,7 +15,7 @@ export class LogoutComponent extends AuthenticatedBaseComponent implements OnIni
    }
 
    public async log_out() {
-      var response = await this.post_sync_call('/Portal/Logout');
+      const response = await this.post_sync_call('/Portal/Logout');
 
       console.log(response);
 
