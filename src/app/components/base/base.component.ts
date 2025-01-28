@@ -12,7 +12,6 @@ import { LoginResultModel } from "../models/login_result";
 export class BaseComponent {
    public LoggedInUser: LoginResultModel;
    public IsLoading = false;
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
    public ViewModel: any;
    public Criteria: ListCriteria = ListCriteria.default();
 

@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseComponent } from "../../../../../components/base/authenticated_base.component";
 import { ListCriteria } from "../../../../../components/models/_base_list_criteria";
-import { CustomerVerificationComponent } from "../../../../../components/styles/standalone/popups/customer-verification/customer-verification.component";
+import { CustomerVerificationComponent } from "../../../../../components/styles/standalone/popups/customer-verification/customer-verification-popup.component";
 import { SearchInputComponent } from "../../../../../components/styles/standalone/search-input/search-input.component";
 import { PhoneFormatPipe } from "../../../../../components/utils/pipes/phoneFormat";
 

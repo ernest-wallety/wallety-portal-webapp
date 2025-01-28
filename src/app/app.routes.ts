@@ -14,7 +14,6 @@ export const routes: Routes = [
    {
       path: 'system',
       loadChildren: () =>
-         import(`./areas/system/system.routes`).then((routes) => routes.routes),
-      // canActivate: [AuthGuard],
+         import(`./areas/system/system.routes`).then((routes) => routes.routes)
    },
 ];

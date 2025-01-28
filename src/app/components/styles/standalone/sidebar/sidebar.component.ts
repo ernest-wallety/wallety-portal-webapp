@@ -32,7 +32,7 @@ export class SidebarComponent extends AuthenticatedBaseComponent implements OnIn
    }
 
    private async get_menu_items() {
-      var response = await this.get_async_call_no_params('Menu/List');
+      const response = await this.get_async_call_no_params('Menu/List');
 
       this.MenuItems = response;
 
@@ -64,12 +64,12 @@ export class SidebarComponent extends AuthenticatedBaseComponent implements OnIn
    }
 
    toggle_navbar() {
-      var sidebar: any = document.getElementById('nav-bar');
+      const sidebar: any = document.getElementById('nav-bar');
       sidebar.classList.toggle('show');
    }
 
    public async log_out() {
-      var response = await this.post_sync_call('/Portal/Logout');
+      const response = await this.post_sync_call('/Portal/Logout');
 
       if (!response.IsError) {
          AuthenticationHelper.clear_user_localstorage();

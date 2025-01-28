@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseComponent } from "../../../../components/base/authenticated_base.component";
-import { CustomerVerificationListComponent } from "./customer-verification/customer-verification.component";
+import { CustomerVerificationListComponent } from "./customer-verification/customer-verification-list.component";
 
 @Component({
    selector: 'app-admin-parent',

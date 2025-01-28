@@ -4,32 +4,32 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseComponent } from "../../../../../components/base/authenticated_base.component";
 import { ListCriteria } from "../../../../../components/models/_base_list_criteria";
-import { CustomerVerificationComponent } from "../../../../../components/styles/standalone/popups/customer-verification/customer-verification.component";
+import { CustomerVerificationPopupComponent } from "../../../../../components/styles/standalone/popups/customer-verification/customer-verification-popup.component";
 import { SearchInputComponent } from "../../../../../components/styles/standalone/search-input/search-input.component";
 import { PhoneFormatPipe } from "../../../../../components/utils/pipes/phoneFormat";
 
 @Component({
-   selector: 'app-customer-verification',
+   selector: 'app-customer-verification-list',
    standalone: true,
    imports: [
       CommonModule,
       RouterModule,
       FormsModule,
       PhoneFormatPipe,
-      CustomerVerificationComponent,
+      CustomerVerificationPopupComponent,
       SearchInputComponent
    ],
-   templateUrl: './customer-verification.component.html',
-   styleUrls: ['./customer-verification.component.scss']
+   templateUrl: './customer-verification-list.component.html',
+   styleUrls: ['./customer-verification-list.component.scss']
 })
 
 export class CustomerVerificationListComponent extends AuthenticatedBaseComponent implements OnInit {
-   @ViewChild('verificationComponent') customerVerificationComponent!: CustomerVerificationComponent;
+   @ViewChild('customerVerificationPopup') customerVerificationPopup!: CustomerVerificationPopupComponent;
 
    criteria: ListCriteria = ListCriteria.default();
 
-   private reasons?: object;
-   private statuses?: object;
+   private reasons?: any;
+   private statuses?: any;
 
    ngOnInit(): void {
       this.refresh();
@@ -45,11 +45,11 @@ export class CustomerVerificationListComponent extends AuthenticatedBaseComponen
       }
    }
 
-   details(item: object) {
-      this.customerVerificationComponent.model = item;
-      this.customerVerificationComponent.reasons = this.reasons;
-      this.customerVerificationComponent.statuses = this.statuses;
+   details(item: any) {
+      this.customerVerificationPopup.model = item;
+      this.customerVerificationPopup.reasons = this.reasons;
+      this.customerVerificationPopup.statuses = this.statuses;
 
-      this.customerVerificationComponent.showDialog();
+      this.customerVerificationPopup.showDialog();
    }
 }

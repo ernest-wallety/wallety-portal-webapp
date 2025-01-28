@@ -6,7 +6,7 @@ import {
    Input,
    Output,
    TemplateRef,
-   ViewChild,
+   ViewChild
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -16,9 +16,9 @@ import { Utils } from '../../../../utils';
 import { SelectSingleLookupComponent } from '../../select-single-lookup/select-single-lookup.component';
 
 @Component({
-   selector: 'app-customer-verification',
-   templateUrl: './customer-verification.component.html',
-   styleUrls: ['./customer-verification.component.scss'],
+   selector: 'app-customer-verification-popup',
+   templateUrl: './customer-verification-popup.component.html',
+   styleUrls: ['./customer-verification-popup.component.scss'],
    standalone: true,
    imports: [
       CommonModule,
@@ -27,7 +27,7 @@ import { SelectSingleLookupComponent } from '../../select-single-lookup/select-s
       SelectSingleLookupComponent
    ],
 })
-export class CustomerVerificationComponent extends AuthenticatedBaseComponent {
+export class CustomerVerificationPopupComponent extends AuthenticatedBaseComponent {
    @Input() model?: any;
    @Input() reasons?: any;
    @Input() statuses?: any;
@@ -45,9 +45,8 @@ export class CustomerVerificationComponent extends AuthenticatedBaseComponent {
          verificationRejectReasonId: null,
       };
 
-
    public imageUrl?: string;
-   public activeTab: string = 'customer-verification'; // Default tab
+   public activeTab = 'customer-verification'; // Default tab
 
    @ViewChild('personalDetailsTemplate') PersonalDetailsTemplate!: TemplateRef<any>;
 
@@ -57,31 +56,29 @@ export class CustomerVerificationComponent extends AuthenticatedBaseComponent {
    @Output() OnCancel: EventEmitter<any> = new EventEmitter<any>();
 
    @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+      console.log(event)
+
       if (this.modalDialog != null) {
          this.modalDialog.close();
       }
    }
 
    showDialog() {
-      let option: NgbModalOptions = { windowClass: 'modal-standard-height', size: 'lg' };
+      const option: NgbModalOptions = { windowClass: 'modal-standard-height', size: 'lg' };
       this.modalDialog = this.ngbModalService.open(this.PersonalDetailsTemplate, option);
 
       this.statuses = Utils.lookup_converter(this.statuses, 'RegistrationStatusId', 'Status');
       this.reasons = Utils.lookup_converter(this.reasons, 'RejectReasonId', 'Reason');
-      this.imageUrl = `data:image/jpeg;base64,${this.model.IdentityImage}`;
+      this.imageUrl = `data:image/jpeg;base64,${this.model?.IdentityImage}`;
       this.payload.customerId = this.model.CustomerId;
    }
 
    public async update() {
-      console.log(this.payload)
-
-      var response = await this.post_sync_call('/Customer/VerifyAccount', this.payload);
-
-      console.log(response)
+      const response = await this.post_sync_call('/Customer/VerifyAccount', this.payload);
 
       if (!response.IsError) {
-         console.debug({ 'response': response, 'ViewModel': this.ViewModel });
-
+         this.RegistrationStatus = undefined;
+         this.RejectionReason = undefined;
          this.cancelClick();
          this.OnSave.emit();
       }

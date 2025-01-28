@@ -7,10 +7,24 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 To start a local development server, run:
 
 ```bash
-ng serve
+npm run start:development
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Docker run
+
+To build an image of the project:
+
+```bash
+docker build --rm -t wallety/wallety-portal:latest .
+```
+
+Run image detached on port 3000
+
+```bash
+docker run -d -p 3000:80 --name wallety-portal wallety/wallety-portal:latest
+```
+
+Once the server is running, open your browser and navigate to `http://localhost:3000/`. The application will automatically reload whenever you modify any of the source files.
 
 ## Code scaffolding
 
@@ -31,7 +45,7 @@ ng generate --help
 To build the project run:
 
 ```bash
-ng build
+npm run build:development
 ```
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.

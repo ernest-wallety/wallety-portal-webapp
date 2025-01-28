@@ -1,6 +1,8 @@
 <ng-template #personalDetailsTemplate>
    <div class="modal-header">
-      <h4 class="modal-title float-start"></h4>
+      <h4 class="modal-title float-start">
+         <i class="bx bx-user"></i> Customer Details
+      </h4>
       <button type="button" class="btn-close float-end" aria-label="Close" (click)="modalDialog.dismiss()"></button>
    </div>
 
@@ -36,7 +38,7 @@
                            <div class="col-12">
                               <div class="row">
                                  <div class="mb-3 col">
-                                    <label class="col-form-label">Name</label>
+                                    <label for="name" class="col-form-label">Name</label>
                                     <input [disabled]="true" name="name" class="form-control form-control-sm"
                                        [(ngModel)]="model.Name" />
                                  </div>
@@ -44,7 +46,7 @@
 
                               <div class="row">
                                  <div class="mb-3 col">
-                                    <label class="col-form-label">Surname</label>
+                                    <label for="surname" class="col-form-label">Surname</label>
                                     <input [disabled]="true" name="surname" class="form-control form-control-sm"
                                        [(ngModel)]="model.Surname" />
                                  </div>
@@ -52,12 +54,12 @@
 
                               <div class="row">
                                  <div class="mb-3 col">
-                                    <label class="col-form-label">National ID No. / Passport No.</label>
+                                    <label for="passport" class="col-form-label">National ID No. / Passport No.</label>
                                     <input [disabled]="true"
-                                       *ngIf="model.PassportNumber != null && model.PassportNumber != ''"
+                                       *ngIf="model.PassportNumber !== null && model.PassportNumber !== ''"
                                        name="passport" class="form-control form-control-sm"
                                        [(ngModel)]="model.PassportNumber" />
-                                    <input [disabled]="true" *ngIf="model.IdNumber != null && model.IdNumber != ''"
+                                    <input [disabled]="true" *ngIf="model.IdNumber !== null && model.IdNumber !== ''"
                                        name="idNumber" class="form-control form-control-sm"
                                        [(ngModel)]="model.IdNumber" />
                                  </div>
@@ -65,7 +67,7 @@
 
                               <div class="row">
                                  <div class="mb-3 col">
-                                    <label class="col-form-label">Country</label>
+                                    <label for="country" class="col-form-label">Country</label>
                                     <input [disabled]="true" name="country" class="form-control form-control-sm"
                                        [(ngModel)]="model.Country" />
                                  </div>
@@ -73,7 +75,7 @@
 
                               <div class="row">
                                  <div class="mb-3 col">
-                                    <label class="col-form-label">WhatsApp Number</label>
+                                    <label for="phoneNumber" class="col-form-label">WhatsApp Number</label>
                                     <input [disabled]="true" name="phoneNumber" class="form-control form-control-sm"
                                        [(ngModel)]="model.PhoneNumber" />
                                  </div>
@@ -81,7 +83,7 @@
 
                               <div class="row">
                                  <div class="mb-3 col">
-                                    <label class="col-form-label">Registration Date</label>
+                                    <label for="accountCreationDate" class="col-form-label">Registration Date</label>
                                     <input [disabled]="true" name="accountCreationDate"
                                        class="form-control form-control-sm" [(ngModel)]="model.AccountCreationDate" />
                                  </div>
@@ -89,7 +91,7 @@
 
                               <div class="row">
                                  <div class="mb-3 col">
-                                    <label class="col-form-label">Update Status</label>
+                                    <label for="status" class="col-form-label">Update Status</label>
                                     <app-select-single-lookup #status name="status" id="status" from="body"
                                        [Items]="statuses" [BindValue]="'Name'" [(ngModel)]="RegistrationStatus"
                                        (OnChangeEmitter)="updateStatus($event, 'Status')">
@@ -98,9 +100,9 @@
                               </div>
 
                               <div class="row"
-                                 *ngIf="RegistrationStatus != undefined && RegistrationStatus === 'Rejected'">
+                                 *ngIf="RegistrationStatus !== undefined && RegistrationStatus === 'Rejected'">
                                  <div class="mb-3 col">
-                                    <label class="col-form-label">Rejection Reason</label>
+                                    <label for="reason" class="col-form-label">Rejection Reason</label>
                                     <app-select-single-lookup #reason name="reason" id="reason" from="body"
                                        [Items]="reasons" [BindValue]="'Name'" [(ngModel)]="RejectionReason"
                                        (OnChangeEmitter)="updateReason($event, 'Reasons')">
@@ -146,8 +148,8 @@
             <!-- Image Section -->
             <div class="col-lg-4 col-md-4 col-sm-12">
                <div class="image-section text-center">
-                  <img [src]="imageUrl" alt="Identity Image" class="img-fluid rounded" />
-                  <p class="mt-2">User's Identity Image</p>
+                  <img [src]="imageUrl" alt="Identity Image" class="img-fluid rounded w-100" />
+                  <p class="mt-2">Customer ID</p>
                </div>
             </div>
 
@@ -162,7 +164,7 @@
          </button>
 
          <button *ngIf="!IsLoading" type="button" class="btn btn-primary btn-sm" (click)="update()"
-            [disabled]="(RegistrationStatus != undefined || RegistrationStatus == '') &&  activeTab !== 'customer-verification'">
+            [disabled]="(RegistrationStatus !== undefined || RegistrationStatus === '') &&  activeTab !== 'customer-verification'">
             <i class='bx bxs-edit'></i> Update
          </button>
       </div>

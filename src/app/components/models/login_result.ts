@@ -1,17 +1,20 @@
 //Model for when the user logs in.
 export class LoginResultModel {
 
-   ResponseMessage: string = 'Login Successful';
+   ResponseMessage: string;
 
    SessionToken?: string;
 
    RoleCodes?: RoleCodeModel[];
 
-   Success: boolean = this.ResponseMessage == 'Login Successful' ? true : false;
+   Success: boolean;
 
    Email?: string;
 
-   constructor() { }
+   constructor() {
+      this.ResponseMessage = 'Login Successful';
+      this.Success = this.ResponseMessage == 'Login Successful' ? true : false;
+   }
 }
 
 // Admin - WR01 
