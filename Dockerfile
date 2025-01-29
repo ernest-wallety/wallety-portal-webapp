@@ -32,6 +32,7 @@ COPY --from=buidler /usr/src/app/dist/wallety-portal/browser /usr/share/nginx/ht
 COPY --from=buidler /usr/src/app/dist/wallety-portal/server /usr/share/nginx/server
 
 WORKDIR /usr/src/app
+
 # Add custom nginx config if needed
 RUN chown -R nginx:nginx /usr/src/app && chmod -R 755 /usr/src/app && \
    chown -R nginx:nginx /var/cache/nginx && \
@@ -45,6 +46,7 @@ USER nginx
 
 # Expose ports for the NGINX server
 EXPOSE 3000
+EXPOSE 443
 EXPOSE 80
 
 # Command to start NGINX when the container is run
