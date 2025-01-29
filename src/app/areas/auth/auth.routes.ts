@@ -22,13 +22,7 @@ export const routes: Routes = [
             loadComponent: () => import(`./forgot-password/forgot-password.component`)
                .then(mod => mod.ForgotPasswordComponent),
             data: { animation: 'ForgotPasswordPage' }
-         },
-         {
-            path: 'logout',
-            loadComponent: () => import(`./logout/logout.component`)
-               .then(mod => mod.LogoutComponent),
-            data: { animation: 'LogoutPage' }
-         },
+         }
       ]
    },
 ];

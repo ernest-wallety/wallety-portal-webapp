@@ -44,10 +44,9 @@ RUN touch /var/run/nginx.pid && \
 
 USER nginx
 
-# Expose ports for the NGINX server
-EXPOSE 3000
-EXPOSE 443
+# Expose port for the NGINX server
 EXPOSE 80
+EXPOSE 443
 
 # Command to start NGINX when the container is run
 CMD ["nginx", "-g", "daemon off;"]

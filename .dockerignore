@@ -39,5 +39,5 @@ README.md
 !.git/packed-refs
 !.git/refs/heads/**
 
-.angular/
-.env.*
+**/.angular
+**/.env.*
