@@ -22,4 +22,4 @@ jobs:
         if: success() # Only runs if the previous step (docker build) succeeds
         env:
           ZCLOUD_USER_TOKEN: ${{ secrets.ZCLOUD_USER_TOKEN }}
-        run: zcloud deploy --env "wallety-walletyportal-3-staging"
+        run: zcloud deploy --env "wallety-walletyportal-7-development"

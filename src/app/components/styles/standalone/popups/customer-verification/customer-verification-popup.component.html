@@ -150,14 +150,13 @@
       </div>
 
       <div class="modal-footer bg-light-gray">
-         <div class="me-auto"></div>
-
          <button *ngIf="IsLoading" type="button" class="btn btn-outline-success me-2" [disabled]="true">
             <i class="fa fa-spinner fa-spin"></i> Busy ...
          </button>
 
-         <button *ngIf="!IsLoading" type="button" class="btn btn-primary btn-sm" (click)="update()"
-            [disabled]="(RegistrationStatus !== undefined || RegistrationStatus === '') &&  activeTab !== 'customer-verification'">
+         <button *ngIf="!IsLoading && activeTab === 'customer-verification'" type="button"
+            class="btn btn-primary btn-sm" (click)="update()"
+            [disabled]="(RegistrationStatus !== undefined || RegistrationStatus === '')">
             <i class='bx bxs-edit'></i> Update
          </button>
       </div>

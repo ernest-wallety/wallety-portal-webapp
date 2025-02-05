@@ -46,7 +46,7 @@ export class CustomerVerificationPopupComponent extends AuthenticatedBaseCompone
       };
 
    public imageUrl?: string;
-   public activeTab = 'customer-verification'; // Default tab
+   public activeTab = 'customer-verification';
 
    @ViewChild('personalDetailsTemplate') PersonalDetailsTemplate!: TemplateRef<any>;
 
