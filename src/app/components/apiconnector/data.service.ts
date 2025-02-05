@@ -22,7 +22,7 @@ export class DataService {
    public constructor(private http: HttpClient) { }
 
    getListCriteriaHttpParams(criteria: ListCriteria): HttpParams {
-      let params = new HttpParams()
+      const params = new HttpParams()
          .set('pageIndex', criteria.pageIndex.toString())
          .set('pageSize', criteria.pageSize.toString())
          .set('sort', criteria.sort ?? '')
@@ -36,7 +36,7 @@ export class DataService {
 
    // Syncronous post call to which we wait for the call to complete and return a response.
    public async post_sync_call(action: string, payload?: object): Promise<ResponseModel> {
-      var return_response = new ResponseModel();
+      let return_response = new ResponseModel();
 
       try {
          const response = await this.http
@@ -56,7 +56,7 @@ export class DataService {
 
    // Get call with no params
    public async get_async_call_no_params(action: string): Promise<ResponseModel> {
-      var return_response = new ResponseModel();
+      let return_response = new ResponseModel();
 
       try {
          const response = await this.http
@@ -99,10 +99,10 @@ export class DataService {
       return_response.IsException = true;
 
       try {
-         if (exception.name = "HttpErrorResponse") {
+         if (exception.name == "HttpErrorResponse") {
             // BadRequest - so we fetch the returned data from the api that is in the BadRequest Object
             // We dig into the exception and assign it to our response model. Value = the model being returned from C#
-            if (exception.status == 400 || exception.status == 404) {
+            if (exception.status == 400 || exception.status == 404 || exception.status == 401) {
                return_response.ErrorList.push(exception.error.ResponseMessage)
             }
             // Status 0 when can't communicate with the API, we do a PING to the API just to confirm and send back relevent message.

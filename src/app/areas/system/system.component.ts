@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AuthenticatedBaseComponent } from '../../components/base/authenticated_base.component';
 import { SidebarComponent } from '../../components/styles/standalone/sidebar/sidebar.component';
 
 @Component({
@@ -22,4 +23,12 @@ import { SidebarComponent } from '../../components/styles/standalone/sidebar/sid
   `,
 })
 
-export class SystemComponent { }
+export class SystemComponent extends AuthenticatedBaseComponent implements OnInit {
+
+   ngOnInit() {
+      //Used to show and hide toast or popups after an http call is made. Subscribes to the data service which emits the response.    
+      this.data_service.Response_Emitter.subscribe((response: any) => {
+         this.handle_response(response);
+      });
+   };
+}

@@ -6,7 +6,7 @@ import { provideRouter } from '@angular/router';
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
-import { ApiInterceptor } from './components/ authorisation/ api.interceptor';
+import { ApiInterceptor } from './components/authorisation/api.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,8 +15,8 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideAnimations(),
     provideToastr({
-      timeOut: 3000, // Customize your toastr settings
-      positionClass: 'toast-top-right',
+      timeOut: 5000, // Customize your toastr settings
+      positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
     // Provide JWT_OPTIONS

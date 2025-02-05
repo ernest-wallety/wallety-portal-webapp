@@ -41,6 +41,10 @@ export class LoginComponent extends AuthenticatedBaseComponent implements OnInit
          AuthenticationHelper.set_user_localstorage(login_result);
 
          this.router.navigate(['/system/home']);
+      } else {
+         response.ErrorList.forEach(error => {
+            this.toastr.error(error);
+         });
       }
    }
 }

@@ -22,31 +22,46 @@ ENV NG_APP_API_URL="https://walletyapp-staging-wallety.svc-eu2.zcloud.ws"
 RUN npm run build:production
 
 # Production Stage
-FROM nginx:alpine
+# FROM nginx:alpine
 
-# Copy main NGINX configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# # Copy main NGINX configuration
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy the Angular SSR app's browser build and SSR server file into the container
-COPY --from=buidler /usr/src/app/dist/wallety-portal/browser /usr/share/nginx/html
-COPY --from=buidler /usr/src/app/dist/wallety-portal/server /usr/share/nginx/server
+# # Copy the Angular SSR app's browser build and SSR server file into the container
+# COPY --from=buidler /usr/src/app/dist/wallety-portal/browser /usr/share/nginx/html
+# COPY --from=buidler /usr/src/app/dist/wallety-portal/server /usr/share/nginx/server
+
+# WORKDIR /usr/src/app
+
+# # Add custom nginx config if needed
+# RUN chown -R nginx:nginx /usr/src/app && chmod -R 755 /usr/src/app && \
+#    chown -R nginx:nginx /var/cache/nginx && \
+#    chown -R nginx:nginx /var/log/nginx && \
+#    chown -R nginx:nginx /etc/nginx/conf.d
+
+# RUN touch /var/run/nginx.pid && \
+#    chown -R nginx:nginx /var/run/nginx.pid
+
+# USER nginx
+
+# # Expose port for the NGINX server
+# EXPOSE 80
+# EXPOSE 443
+
+# # Command to start NGINX when the container is run
+# CMD ["nginx", "-g", "daemon off;"]
+
+# Stage 2: Run SSR with Node.js
+FROM node:18-alpine AS server
 
 WORKDIR /usr/src/app
 
-# Add custom nginx config if needed
-RUN chown -R nginx:nginx /usr/src/app && chmod -R 755 /usr/src/app && \
-   chown -R nginx:nginx /var/cache/nginx && \
-   chown -R nginx:nginx /var/log/nginx && \
-   chown -R nginx:nginx /etc/nginx/conf.d
+# Copy built Angular SSR app from the buidler stage
+COPY --from=buidler /usr/src/app/dist ./dist
 
-RUN touch /var/run/nginx.pid && \
-   chown -R nginx:nginx /var/run/nginx.pid
-
-USER nginx
-
-# Expose port for the NGINX server
-EXPOSE 80
+# Expose port for Node SSR server
+EXPOSE 3000
 EXPOSE 443
 
-# Command to start NGINX when the container is run
-CMD ["nginx", "-g", "daemon off;"]
+# Command to start the Angular SSR server
+CMD ["node", "dist/wallety-portal/server/server.mjs"]
