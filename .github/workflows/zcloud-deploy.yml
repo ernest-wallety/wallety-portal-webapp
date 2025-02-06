@@ -36,6 +36,12 @@ jobs:
         ZCLOUD_USER_TOKEN: ${{ secrets.ZCLOUD_USER_TOKEN }}
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify source directory
+        run: ls -la ./
+
       - name: Deploy with Quave Cloud CLI
         env:
           ZCLOUD_USER_TOKEN: ${{ secrets.ZCLOUD_USER_TOKEN }}
