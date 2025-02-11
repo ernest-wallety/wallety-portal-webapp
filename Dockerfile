@@ -34,6 +34,10 @@ FROM node:18-alpine AS server
 
 WORKDIR /usr/src/app
 
+# Install only production dependencies
+COPY package*.json ./
+RUN npm ci --only=production
+
 # Copy built Angular SSR app from the buidler stage
 COPY --from=buidler /usr/src/app/dist ./dist
 
