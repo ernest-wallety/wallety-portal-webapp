@@ -2,7 +2,7 @@ name: Docs Deploy
 
 on:
   push:
-    branches: ["development"]
+    branches: ["main", "master", "production"]
 
 jobs:
   build-and-test:
@@ -25,15 +25,17 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build Docker image
-        run: docker build --rm -t wallety/wallety-portal:latest .
-
+        run: docker build --rm -t wallety/wallety-portal:latest \
+          --build-arg NODE_ENV=${{ secrets.NODE_ENV }} \
+          --build-arg NG_APP_NAME=${{ secrets.NG_APP_NAME }} \
+          --build-arg NG_APP=${{ secrets.NG_APP }} \
+          --build-arg NG_APP_USER_STORAGE_NAME=${{ secrets.NG_APP_USER_STORAGE_NAME }} \
+          --build-arg NG_APP_API_URL=${{ secrets.NG_APP_API_URL }} .
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
     container:
       image: zcloudws/zcloud-cli
-      env:
-        ZCLOUD_USER_TOKEN: ${{ secrets.ZCLOUD_USER_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -42,4 +44,4 @@ jobs:
       - name: Deploy with Quave Cloud CLI
         env:
           ZCLOUD_USER_TOKEN: ${{ secrets.ZCLOUD_USER_TOKEN }}
-        run: zcloud deploy --env "wallety-walletyportal-7-development" --dir "."
+        run: zcloud deploy --env "wallety-walletyportal-7-production" --dir "."

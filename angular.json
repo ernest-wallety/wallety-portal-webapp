@@ -1,7 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "projects",
   "projects": {
     "wallety-portal": {
       "projectType": "application",
@@ -20,15 +19,7 @@
             "stylePreprocessorOptions": {
               "includePaths": [
                 "src/assets/scss"
-              ],
-              "sass": {
-                "silenceDeprecations": [
-                  "mixed-decls",
-                  "color-functions",
-                  "global-builtin",
-                  "import"
-                ]
-              }
+              ]
             },
             "outputPath": "dist/wallety-portal",
             "index": "src/index.html",
@@ -94,6 +85,10 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "local": {
+              "optimization": false,
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -106,6 +101,9 @@
             },
             "development": {
               "buildTarget": "wallety-portal:build:development"
+            },
+            "local": {
+              "buildTarget": "wallety-portal:build:local"
             }
           },
           "defaultConfiguration": "development",
