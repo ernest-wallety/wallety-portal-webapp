@@ -34,10 +34,6 @@ FROM node:18-alpine AS server
 
 WORKDIR /usr/src/app
 
-# Install only production dependencies
-COPY package*.json ./
-RUN npm ci --only=production
-
 # Copy built Angular SSR app from the buidler stage
 COPY --from=buidler /usr/src/app/dist ./dist
 
@@ -46,4 +42,5 @@ EXPOSE 3000
 EXPOSE 443
 
 # Command to start the Angular SSR server
-CMD ["npm", "run", "serve:ssr:wallety-portal"]
+# CMD ["npm", "run", "serve:ssr:wallety-portal"]
+CMD ["node", "dist/wallety-portal/server/server.mjs"]
