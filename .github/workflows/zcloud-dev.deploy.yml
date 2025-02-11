@@ -26,7 +26,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker buildx build --rm -t wallety/wallety-portal:latest \
+          docker build --rm -t wallety/wallety-portal:latest \
             --build-arg NODE_ENV=${{ secrets.DEV_NODE_ENV }} \
             --build-arg NG_APP_NAME=${{ secrets.DEV_NG_APP_NAME }} \
             --build-arg NG_APP=${{ secrets.DEV_NG_APP }} \
