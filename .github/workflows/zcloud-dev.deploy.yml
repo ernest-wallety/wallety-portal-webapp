@@ -11,6 +11,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Remove conflicting Docker packages
+        run: |
+          sudo apt-get remove -y containerd docker docker-engine docker.io
+          sudo apt-get autoremove -y
+
       - name: Install Docker CLI
         run: |
           sudo apt-get update
