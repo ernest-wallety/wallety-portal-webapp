@@ -42,4 +42,4 @@ EXPOSE 3000
 EXPOSE 443
 
 # Command to start the Angular SSR server
-CMD ["npm", "run", "serve:ssr"]
+CMD ["npm", "run", "serve:ssr:wallety-portal"]
