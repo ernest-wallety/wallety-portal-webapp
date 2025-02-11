@@ -26,12 +26,13 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build --rm -t wallety/wallety-portal:latest \
+          docker buildx build --rm -t wallety/wallety-portal:latest \
             --build-arg NODE_ENV=${{ secrets.DEV_NODE_ENV }} \
             --build-arg NG_APP_NAME=${{ secrets.DEV_NG_APP_NAME }} \
             --build-arg NG_APP=${{ secrets.DEV_NG_APP }} \
             --build-arg NG_APP_USER_STORAGE_NAME=${{ secrets.DEV_NG_APP_USER_STORAGE_NAME }} \
-            --build-arg NG_APP_API_URL=${{ secrets.DEV_NG_APP_API_URL }} .
+            --build-arg NG_APP_API_URL=${{ secrets.DEV_NG_APP_API_URL }} \
+            .
 
   deploy:
     needs: build-and-test
