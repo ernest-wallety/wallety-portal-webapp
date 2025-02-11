@@ -7,27 +7,23 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    container:
-      image: docker:latest
     steps:
-      - name: Start Docker-in-Docker
-        run: |
-          dockerd-entrypoint.sh &
-          sleep 10
-
-      - name: Install Docker CLI
-        run: apk add --no-cache docker-cli
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install Docker CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+
       - name: Build Docker image
-        run: docker build --rm -t wallety/wallety-portal:latest \
-          --build-arg NODE_ENV=${{ secrets.DEV_NODE_ENV }} \
-          --build-arg NG_APP_NAME=${{ secrets.DEV_NG_APP_NAME }} \
-          --build-arg NG_APP=${{ secrets.DEV_NG_APP }} \
-          --build-arg NG_APP_USER_STORAGE_NAME=${{ secrets.DEV_NG_APP_USER_STORAGE_NAME }} \
-          --build-arg NG_APP_API_URL=${{ secrets.DEV_NG_APP_API_URL }} .
+        run: |
+          docker build --rm -t wallety/wallety-portal:latest \
+            --build-arg NODE_ENV=${{ secrets.DEV_NODE_ENV }} \
+            --build-arg NG_APP_NAME=${{ secrets.DEV_NG_APP_NAME }} \
+            --build-arg NG_APP=${{ secrets.DEV_NG_APP }} \
+            --build-arg NG_APP_USER_STORAGE_NAME=${{ secrets.DEV_NG_APP_USER_STORAGE_NAME }} \
+            --build-arg NG_APP_API_URL=${{ secrets.DEV_NG_APP_API_URL }} .
 
   deploy:
     needs: build-and-test
