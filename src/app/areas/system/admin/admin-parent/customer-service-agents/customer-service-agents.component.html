@@ -1,0 +1,65 @@
+<app-register-service-agent-popup #registerServiceAgentPopup (OnSave)="refresh()"></app-register-service-agent-popup>
+
+<div class="list-height">
+   <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+         <div class="d-flex justify-content-between w-100">
+            <!-- Register Button -->
+            <button class="btn btn-primary" (click)="register()">Register</button>
+
+            <!-- Search Bar -->
+            <div class="collapse navbar-collapse d-flex justify-content-end">
+               <app-search-input (valueChange)="refresh()" placeholder="Search for something..."></app-search-input>
+            </div>
+         </div>
+      </div>
+   </nav>
+
+   <!-- Table -->
+   <table class="iq-list-table">
+      <thead>
+         <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th class="d-none d-md-table-cell">Email</th>
+            <th class="d-none d-md-table-cell">Status</th>
+            <th></th>
+         </tr>
+         <tr class="filter-row table-fixed-header">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style="width: 250px;">
+               <!-- Add your select-single-lookup component here -->
+            </td>
+         </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let a of ViewModel?.Data?.CustomerServiceAgents">
+            <td> </td>
+            <td>{{ a.Name }}</td>
+            <td>{{ a.Surname }}</td>
+            <td class="d-none d-md-table-cell">{{ a.Email }}</td>
+            <td class="d-none d-md-table-cell">
+               <span [class]="a.IsActive ? 'badge bg-success' : 'badge bg-danger'">
+                  {{ a.IsActive ? 'Active' : 'Inactive' }}
+               </span>
+
+            </td>
+            <td></td>
+         </tr>
+      </tbody>
+      <tbody *ngIf="ViewModel?.Data?.CustomerServiceAgents.count === 0 && IsLoading === false">
+         <tr>
+            <td colspan="10" class="text-center border-bottom-0">
+               <h4 class="mt-5 mb-5">
+                  <i class="fa fa-exclamation-triangle me-2"></i>No results found
+               </h4>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+</div>

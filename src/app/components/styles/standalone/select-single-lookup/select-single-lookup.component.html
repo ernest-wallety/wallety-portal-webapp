@@ -1,0 +1,4 @@
+<ng-select [items]="Items" [bindLabel]="BindLabel" [bindValue]="BindValue" [groupBy]="groupBy" (blur)="onBlur($event)"
+   [(ngModel)]="val" [disabled]="disabled" [clearable]="clearable" (change)="onValueChange($event)"
+   [appendTo]="appendTo" [style.width.px]="width" [searchFn]="customSearchFn" (focus)="onTouched($event)">
+</ng-select>

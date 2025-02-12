@@ -1,0 +1,118 @@
+@import "_utilities.scss";
+
+/* Action Button */
+.btn-action {
+  color: $background-color; // White
+  background-color: $primary-color; // Red
+  border-color: $primary-color; // Red
+}
+
+.btn-action:hover {
+  color: $background-color; // White
+  text-decoration: none;
+  background-color: lighten($primary-color, 10%); // Lighter red on hover
+  border-color: lighten($primary-color, 10%); // Lighter red
+}
+
+/* Primary Button */
+.btn-primary {
+  color: $background-color !important; // White
+  background-color: $primary-color !important; // Red
+  border-color: $primary-color !important; // Red
+}
+
+.btn-primary:hover {
+  color: $background-color !important; // White
+  text-decoration: none !important;
+  background-color: lighten($primary-color, 10%) !important; // Lighter red
+  border-color: lighten($primary-color, 10%) !important; // Lighter red
+}
+
+/* Clear Button */
+.btn-clear {
+  border-color: $secondary-color; // Gray
+  color: $secondary-color; // Gray
+}
+
+/* Reset Button */
+.btn-reset {
+  color: $background-color; // White
+  background-color: darken($secondary-color, 15%); // Darker gray
+  border-color: darken($secondary-color, 20%); // Even darker gray
+}
+
+.btn-reset:hover {
+  color: $background-color; // White
+  text-decoration: none;
+  background-color: darken($secondary-color, 10%); // Slightly lighter dark gray
+  border-color: darken($secondary-color, 15%); // Slightly lighter dark gray
+}
+
+/* Close Button */
+.btn-close {
+  font-size: 0.7rem !important;
+  font-weight: 600; // Corrected from "60000"
+}
+
+.btn-close:focus {
+  outline: 0;
+  box-shadow: none !important;
+  opacity: 1; // Adjusted to ensure clarity
+}
+
+.btn-outline-primary {
+  --bs-btn-color: #{$primary-color} !important;
+  --bs-btn-border-color: #{$primary-color} !important;
+  --bs-btn-hover-color: #fff !important;
+  --bs-btn-hover-bg: #{$primary-color} !important;
+  --bs-btn-hover-border-color: #fff !important;
+  --bs-btn-focus-shadow-rgb: #{$primary-color} !important;
+  --bs-btn-active-color: #fff !important;
+  --bs-btn-active-bg: #{$primary-color} !important;
+  --bs-btn-active-border-color: #{$primary-color} !important;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+  --bs-gradient: none !important;
+}
+
+.btn-green {
+  background-color: $green !important;
+  color: $off-white !important;
+}
+
+.bs-btn-hover {
+  color: white !important;
+  background-color: #{$primary-color} !important;
+  border: 1px solid #{$primary-color} !important;
+}
+
+.btn-outline-success {
+  border-color: #e0e0e0;
+  color: #666;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px; /* Adjust the distance from the left */
+    transform: translateY(-50%);
+    color: #6c757d; /* Match input text color */
+    font-size: 1.2rem; /* Adjust icon size */
+  }
+
+  .form-control {
+    padding-left: 2.5rem; /* Add space for the icon */
+    border-radius: 0.25rem; /* Rounded corners */
+    border: 1px solid #ccc;
+    font-size: 1rem;
+
+    &:focus {
+      outline: none;
+      border-color: #6c757d;
+      box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25); /* Optional focus styling */
+    }
+  }
+}

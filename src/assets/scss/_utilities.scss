@@ -1,0 +1,75 @@
+/* This is for declaring all our global variables. Import this file into other style sheets if needed */
+
+@import "_base.scss";
+
+/************************************** SIDEBAR **************************************/
+$sidebar-width: 200px;
+$sidebar-border: 1px solid rgba(255, 255, 255, 0.1);
+$sidebar-font-size: 16px;
+$sidebar-font-weight: 600;
+$sidebar-font-weight-active: 800;
+$sidebar-font-submenu-size: 14px;
+$sidebar-font-submenu-weight: 500;
+$sidebar-left-padding: 20px;
+$sidebar-bgcolor: $secondary-color; // Adjusted to match new base color
+$sidebar-bgcolor-active: #003152; // Keeping as is unless further updates are needed
+$sidebar-bgcolor-hover: #045077;
+$sidebar-fgcolor: #d3d3d3;
+$sidebar-fgcolor-active: $text-color; // Adjusted to match new base color
+$sidebar-icon-width: 35px;
+$sidebar-icon-font-weight: 400;
+
+$sidebar-active-bg: #d60000; // Red as primary color for active sidebar
+$sidebar-header-active-bg: #d60000; // Matching primary color
+
+$menu-hightlight: #d60000; // Matching primary color
+
+$body-color: $text-color; // Black (Main Text)
+
+$cl-green: #e3e149;
+$cl-lightblue: $secondary-color; // Gray (Body Text)
+
+/************************************** GENERAL **************************************/
+// $font-family: Roboto, 'Helvetica Neue', sans-serif;
+$font-family: "Poppins", serif;
+$font-weight: 600;
+$font-size: 13px;
+$table-font-size: 13px;
+$color-primary: $primary-color; // Red (Logo & Buttons)
+$color-primary-border: #d60000; // Matching primary color
+$color-secondary: $secondary-color; // Gray (Body Text)
+$color-secondary-border: $secondary-color; // Matching secondary color
+$color-tertiary: $primary-color; // Red for tertiary as an example
+$color-tertiary-border: $primary-color; // Red for tertiary border
+$color-gray: $secondary-color; // Gray
+$nav-height: 54px;
+$nav-bgcolor: $primary-color; // Red for navigation
+$nav-fgcolor: $background-color; // White for foreground
+$nav-text-weight: 600;
+
+$off-white: #f7f7f7;
+$off-white-border: #ebebeb;
+$blue: #045077; // Adjusted to complement primary
+$orange: #f49b2d;
+$green: #56a84d;
+$gray: #646464;
+$red: $primary-color; // Matching primary color
+$mustard-yellow: #fca311;
+
+/************************************** TABLES **************************************/
+$table-list-th-bgcolor: $secondary-color; // Gray
+$table-list-th-bgcolor-light: #ebebeb;
+$table-list-th-fgcolor: $text-color; // Black
+$table-list-tr-hover: rgba(214, 0, 0, 0.1); // Slight red tint for hover
+$table-list-tr-active: rgba(214, 0, 0, 0.56); // Stronger red tint for active
+
+$tab-container-background: #02283c;
+$tab-background: $primary-color; // Red
+$tab-foreground: #ebebeb;
+$tab-active-background: $background-color; // White
+$tab-hover-background: $primary-color; // Red
+
+/************************************** Buttons **************************************/
+$color-btn-grey: #ebebeb;
+$btn-back-border: $text-color; // Black
+$btn-action-border: $primary-color; // Red

@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /bazel-out
+/.angular
 
 # Node
 /node_modules
@@ -177,3 +178,5 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+docker-run.sh
