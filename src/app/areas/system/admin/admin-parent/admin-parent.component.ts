@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseComponent } from "../../../../components/base/authenticated_base.component";
+import { CustomerServiceAgentsComponent } from "./customer-service-agents/customer-service-agents.component";
 import { CustomerVerificationListComponent } from "./customer-verification/customer-verification-list.component";
 
 @Component({
@@ -12,7 +13,8 @@ import { CustomerVerificationListComponent } from "./customer-verification/custo
       FormsModule,
       CommonModule,
       RouterModule,
-      CustomerVerificationListComponent
+      CustomerVerificationListComponent,
+      CustomerServiceAgentsComponent
    ],
    templateUrl: './admin-parent.component.html',
    styleUrls: ['./admin-parent.component.scss']

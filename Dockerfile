@@ -25,10 +25,17 @@ ENV NG_APP_NAME=$NG_APP_NAME
 ENV NG_APP=$NG_APP
 ENV NG_APP_USER_STORAGE_NAME=$NG_APP_USER_STORAGE_NAME
 ENV NG_APP_API_URL=$NG_APP_API_URL
+ENV BRANCH_NAME=$BRANCH_NAME
 
-# Build the React application
-RUN npm run build:production
-
+# Set the build environment based on the branch name
+RUN if [ "$BRANCH_NAME" = "main" ] || [ "$BRANCH_NAME" = "master" ] || [ "$BRANCH_NAME" = "production" ]; then \
+      npm run build:production; \
+    elif [ "$BRANCH_NAME" = "development" ]; then \
+      npm run build:development; \
+    else \
+      npm run build:local; \
+    fi
+    
 # Stage 2: Run SSR with Node.js
 FROM node:18-alpine AS server
 
@@ -42,5 +49,4 @@ EXPOSE 3000
 EXPOSE 443
 
 # Command to start the Angular SSR server
-# CMD ["npm", "run", "serve:ssr:wallety-portal"]
 CMD ["node", "dist/wallety-portal/server/server.mjs"]

@@ -8,6 +8,7 @@
     "start:development": "NODE_ENV=development ng serve --port 3000",
     "start:production": "NODE_ENV=production ng serve",
     "build": "ng build:development",
+    "build:local": "NODE_ENV=development ng build",
     "build:development": "NODE_ENV=development ng build",
     "build:production": "NODE_ENV=production ng build",
     "watch": "ng build --watch --configuration development",

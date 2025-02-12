@@ -27,6 +27,7 @@ jobs:
       - name: Build Docker image
         run: |
           docker build --rm -t wallety/wallety-portal:latest \
+            --build-arg BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD) \
             --build-arg NODE_ENV="${{ secrets.DEV_NODE_ENV }}" \
             --build-arg NG_APP_NAME="${{ secrets.DEV_NG_APP_NAME }}" \
             --build-arg NG_APP="${{ secrets.DEV_NG_APP }}" \

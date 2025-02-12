@@ -4,52 +4,44 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseComponent } from "../../../../../components/base/authenticated_base.component";
 import { ListCriteria } from "../../../../../components/models/_base_list_criteria";
-import { CustomerVerificationComponent } from "../../../../../components/styles/standalone/popups/customer-verification/customer-verification-popup.component";
+import { RegisterServiceAgentPopupComponent } from "../../../../../components/styles/standalone/popups/register-service-agent/register-service-agent-popup.component";
 import { SearchInputComponent } from "../../../../../components/styles/standalone/search-input/search-input.component";
-import { PhoneFormatPipe } from "../../../../../components/utils/pipes/phoneFormat";
 
 @Component({
-   selector: 'app-customer-list',
+   selector: 'app-customer-service-agents',
    standalone: true,
    imports: [
       CommonModule,
       RouterModule,
       FormsModule,
-      PhoneFormatPipe,
-      CustomerVerificationComponent,
-      SearchInputComponent
+      SearchInputComponent,
+      RegisterServiceAgentPopupComponent
    ],
-   templateUrl: './customer.component.html',
-   styleUrls: ['./customer.component.scss']
+   templateUrl: './customer-service-agents.component.html',
+   styleUrls: ['./customer-service-agents.component.scss']
 })
 
-export class CustomerListComponent extends AuthenticatedBaseComponent implements OnInit {
-   @ViewChild('customerVerificationComponent') customerVerificationComponent!: CustomerVerificationComponent;
+export class CustomerServiceAgentsComponent extends AuthenticatedBaseComponent implements OnInit {
+   @ViewChild('registerServiceAgentPopup') registerServiceAgentPopup!: RegisterServiceAgentPopupComponent;
 
    criteria: ListCriteria = ListCriteria.default();
 
-   private reasons?: any;
-   private statuses?: any;
 
    ngOnInit(): void {
       this.refresh();
    }
 
    async refresh() {
-      var response = await this.post_sync_call('/Customer/GetUnverifiedAccounts', undefined);
+      const response = await this.get_async_call_no_params('/CustomerServiceAgent/GetAccounts');
+
+      console.log(response);
 
       if (!response.IsError) {
          this.ViewModel = response;
-         this.statuses = this.ViewModel?.Data.RegistrationStatuses
-         this.reasons = this.ViewModel?.Data.VerificationRejectReasons
       }
    }
 
-   details(item: any) {
-      this.customerVerificationComponent.model = item;
-      this.customerVerificationComponent.reasons = this.reasons;
-      this.customerVerificationComponent.statuses = this.statuses;
-
-      this.customerVerificationComponent.showDialog();
+   register() {
+      this.registerServiceAgentPopup.showDialog();
    }
 }
