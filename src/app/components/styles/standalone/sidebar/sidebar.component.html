@@ -8,36 +8,36 @@
          </a>
 
          <div class="nav_list">
-            <a href="#" onclick="return false;" class="nav_link"
-               [ngClass]="{'active-menu-item': isActiveRoute('/system/dashboard')}" [routerLink]="'/system/dashboard'"
+            <!-- <a href="#" onclick="return false;" class="nav_link"
+               [ngClass]="{'active-menu-item': is_active_route('/system/dashboard')}" [routerLink]="'/system/dashboard'"
                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                <i class='bx bx-grid-alt nav_icon'></i>
                <span class="nav_name">Dashboard</span>
             </a>
             <a href="#" onclick="return false;" class="nav_link"
-               [ngClass]="{'active-menu-item': isActiveRoute('/system/merchants')}" [routerLink]="'/system/merchants'"
+               [ngClass]="{'active-menu-item': is_active_route('/system/merchants')}" [routerLink]="'/system/merchants'"
                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                <i class='bx bx-store-alt nav_icon'></i>
                <span class="nav_name">Merchants</span>
             </a>
 
             <a href="#" onclick="return false;" class="nav_link"
-               [ngClass]="{'active-menu-item': isActiveRoute('/system/customer-verification')}"
+               [ngClass]="{'active-menu-item': is_active_route('/system/customer-verification')}"
                [routerLink]="'/system/admin/customer-verification'" routerLinkActive="active"
                [routerLinkActiveOptions]="{exact: true}">
                <i class='bx bx-user nav_icon'></i>
                <span class="nav_name">Admin</span>
-            </a>
+            </a> -->
 
-            <!-- <ul class="nav nav-pills flex-column mb-auto">
+            <ul class="nav nav-pills flex-column mb-auto">
                <li *ngFor="let item of MenuItems">
-                  <a href="#" onclick="return false;" class="nav_link" [routerLink]="item?.moduleRouterLink"
+                  <a href="#" onclick="return false;" class="nav_link" [routerLink]="item?.MenuRoute"
                      (click)="set_sidebar_children_class(item)">
-                     <i class="{{ item.moduleIcon }} nav_icon"></i>
-                     <span class="nav_name">{{ item.moduleName }}</span>
+                     <i class="{{ item.MenuIcon }} nav_icon"></i>
+                     <span class="nav_name">{{ item.MenuName }}</span>
                   </a>
                </li>
-            </ul> -->
+            </ul>
          </div>
       </div>
 

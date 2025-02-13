@@ -89,4 +89,17 @@ export class BaseComponent {
          });
       }
    }
+
+   get is_logged_in(): boolean {
+      return AuthenticationHelper.is_logged_in();
+   }
+   get is_admin(): boolean {
+      return AuthenticationHelper.is_admin();
+   }
+   get is_service_agent(): boolean {
+      return AuthenticationHelper.is_service_agent();
+   }
+   get is_customer(): boolean {
+      return AuthenticationHelper.is_customer();
+   }
 }

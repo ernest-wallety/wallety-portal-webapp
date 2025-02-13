@@ -3,7 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthenticatedBaseComponent } from '../../../components/base/authenticated_base.component';
 import { AuthenticationHelper } from '../../../components/helpers/authentication_helper';
+import { MenuHelper } from '../../../components/helpers/menu_helper';
 import { LoginResultModel } from '../../../components/models/login_result';
+import { MenuModel } from '../../../components/models/menu_model';
 import { Utils } from '../../../components/utils';
 
 @Component({
@@ -40,11 +42,29 @@ export class LoginComponent extends AuthenticatedBaseComponent implements OnInit
 
          AuthenticationHelper.set_user_localstorage(login_result);
 
-         this.router.navigate(['/system/home']);
+         await this.menu();
+
+         if (this.is_admin) {
+            this.router.navigate(['/system/admin/customer-verification']);
+         } else if (this.is_service_agent) {
+            this.router.navigate(['/system/admin/customer-verification']);
+         } else {
+            this.router.navigate(['/system/merchants']);
+         }
+
       } else {
          response.ErrorList.forEach(error => {
             this.toastr.error(error);
          });
+      }
+   }
+
+   private menu = async () => {
+      const response = await this.get_async_call_no_params('/Portal/MenuStructure');
+
+      if (!response.IsError) {
+         const menu_result: MenuModel = response.Data.MenuAccess
+         MenuHelper.set_menu_localstorage(menu_result);
       }
    }
 }
