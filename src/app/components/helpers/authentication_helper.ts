@@ -1,13 +1,22 @@
-import { LoginResultModel } from "../models/login_result";
+import { LoginResultModel, RoleCodeModel } from "../models/login_result";
+import { BaseHelper } from "./base_helper";
 import { ConfigHelper } from "./config_helper";
 
-export class AuthenticationHelper {
+export class AuthenticationHelper extends BaseHelper {
    /**
-    * Check if the user is logged in.
+    * Set user details in localStorage. Only works in a browser environment.
     */
-   public static is_logged_in(): boolean {
-      const userDetail = this.get_user_detail();
-      return userDetail ? userDetail.Success! : false;
+   public static set_user_localstorage(user_detail: LoginResultModel): void {
+      if (!this.is_browser()) {
+         console.warn("Attempted to set localStorage in a server environment.");
+         return;
+      }
+
+      try {
+         localStorage.setItem(ConfigHelper.NG_APP_USER_STORAGE_NAME, JSON.stringify(user_detail));
+      } catch (error) {
+         console.error("Error setting localStorage:", error);
+      }
    }
 
    /**
@@ -15,7 +24,7 @@ export class AuthenticationHelper {
    * Returns a default value if not running in a browser.
    */
    public static get_user_detail(): LoginResultModel {
-      if (!this.isBrowser()) {
+      if (!this.is_browser()) {
          // Default value for server-side environment.
          return Object.assign(new LoginResultModel(), {
             Success: false,
@@ -47,41 +56,47 @@ export class AuthenticationHelper {
    }
 
    /**
-    * Set user details in localStorage. Only works in a browser environment.
+    * Checks if the user is logged in.
+    * @returns {boolean} True if the user is logged in, otherwise false.
     */
-   public static set_user_localstorage(user_detail: LoginResultModel): void {
-      if (!this.isBrowser()) {
-         console.warn("Attempted to set localStorage in a server environment.");
-         return;
-      }
-
-      try {
-         localStorage.setItem(ConfigHelper.NG_APP_USER_STORAGE_NAME, JSON.stringify(user_detail));
-      } catch (error) {
-         console.error("Error setting localStorage:", error);
-      }
+   public static is_logged_in(): boolean {
+      const userDetail = this.get_user_detail();
+      return userDetail ? userDetail.Success! : false;
    }
 
    /**
-    * Clear user details from localStorage. Only works in a browser environment.
-    */
-   public static clear_user_localstorage(): void {
-      if (!this.isBrowser()) {
-         console.warn("Attempted to clear localStorage in a server environment.");
-         return;
-      }
-
-      try {
-         localStorage.removeItem(ConfigHelper.NG_APP_USER_STORAGE_NAME);
-      } catch (error) {
-         console.error("Error clearing localStorage:", error);
-      }
+   * Retrieves all roles assigned to the user.
+   * @returns {RoleCodeModel[] | undefined} An array of role objects or undefined if no roles exist.
+   */
+   private static role_codes(): RoleCodeModel[] | undefined {
+      const roleDetail = this.get_user_detail().RoleCodes;
+      return roleDetail;
    }
 
    /**
-    * Utility method to determine if the current environment is a browser.
-    */
-   private static isBrowser(): boolean {
-      return typeof window !== "undefined" && typeof localStorage !== "undefined";
+   * Checks if the user has an "ADMIN" role.
+   * @returns {boolean} True if the user has an "ADMIN" role, otherwise false.
+   */
+   public static is_admin(): boolean {
+      const roles = this.role_codes();
+      return roles?.some(role => role.Code === "WR01") ?? false;
+   }
+
+   /**
+   * Checks if the user has a "CUSTOMER" role.
+   * @returns {boolean} True if the user has a "CUSTOMER" role, otherwise false.
+   */
+   public static is_customer(): boolean {
+      const roles = this.role_codes();
+      return roles?.some(role => role.Code === "WR03") ?? false;
+   }
+
+   /**
+   * Checks if the user has a "CUSTOMERSERVICEAGENT" role.
+   * @returns {boolean} True if the user has a "CUSTOMERSERVICEAGENT" role, otherwise false.
+   */
+   public static is_service_agent(): boolean {
+      const roles = this.role_codes();
+      return roles?.some(role => role.Code === "WR02") ?? false;
    }
 }

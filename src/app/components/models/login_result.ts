@@ -19,6 +19,7 @@ export class LoginResultModel {
 
 // Admin - WR01 
 // CustomerServiceAgent - WR02
+// Customer - WR03
 export class RoleCodeModel {
    Role?: string;
    Code?: string;

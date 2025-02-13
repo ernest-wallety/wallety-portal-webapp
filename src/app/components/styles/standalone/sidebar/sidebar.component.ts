@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseComponent } from "../../../base/authenticated_base.component";
 import { AuthenticationHelper } from "../../../helpers/authentication_helper";
+import { MenuHelper } from "../../../helpers/menu_helper";
 
 @Component({
    selector: 'app-sidebar', // Changed to kebab-case with 'app' prefix
@@ -21,9 +22,9 @@ export class SidebarComponent extends AuthenticatedBaseComponent implements OnIn
    @Output() public OnSidebarChange: EventEmitter<any> = new EventEmitter<any>();
 
    ngOnInit() {
-      // this.get_menu_items();
+      this.get_menu_items();
 
-      if (!this.isBrowser()) {
+      if (!this.is_browser()) {
          console.warn('Attempted to set localStorage in a server environment.');
          return;
       }
@@ -32,18 +33,20 @@ export class SidebarComponent extends AuthenticatedBaseComponent implements OnIn
    }
 
    private async get_menu_items() {
-      const response = await this.get_async_call_no_params('Menu/List');
+      const response = MenuHelper.get_menu_detail()
+
+      console.log(response)
 
       this.MenuItems = response;
 
       this.MenuItems.forEach((menuItem: any) => {
          menuItem.moduleSidebarClass = 'expanded-module-item-inactive';
 
-         menuItem.menuList.forEach((item: any) => {
-            if (this.router.url.indexOf(item.routerLink) !== -1) {
-               menuItem.moduleSidebarClass = 'expanded-module-item-active';
-            }
-         });
+         // menuItem.forEach((item: any) => {
+         //    if (this.router.url.indexOf(item.routerLink) !== -1) {
+         //       menuItem.moduleSidebarClass = 'expanded-module-item-active';
+         //    }
+         // });
       });
    }
 
@@ -69,19 +72,17 @@ export class SidebarComponent extends AuthenticatedBaseComponent implements OnIn
    }
 
    // Utility to check if the current environment is a browser.
-   private isBrowser(): boolean {
+   private is_browser(): boolean {
       return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
    }
 
    // Helper function to check if the current route matches the menu item's route
-   isActiveRoute(route: string): boolean {
+   is_active_route(route: string): boolean {
       return this.router.url === route;
    }
 
    public async log_out() {
       const response = await this.post_sync_call('/Portal/Logout');
-
-      console.log(response);
 
       if (!response.IsError) {
          AuthenticationHelper.clear_user_localstorage();
