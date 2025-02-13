@@ -32,6 +32,7 @@ jobs:
             --build-arg NG_APP_NAME="${{ secrets.DEV_NG_APP_NAME }}" \
             --build-arg NG_APP="${{ secrets.DEV_NG_APP }}" \
             --build-arg NG_APP_USER_STORAGE_NAME="${{ secrets.DEV_NG_APP_USER_STORAGE_NAME }}" \
+            --build-arg NG_APP_USER_MENU_NAME=${{ secrets.DEV_NG_APP_USER_MENU_NAME }} \
             --build-arg NG_APP_API_URL="${{ secrets.DEV_NG_APP_API_URL }}" .
 
   deploy:
