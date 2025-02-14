@@ -38,7 +38,7 @@
          </tr>
       </thead>
       <tbody>
-         <tr *ngFor="let a of ViewModel?.Data?.CustomerServiceAgents">
+         <tr *ngFor="let a of ViewModel?.CustomerServiceAgents">
             <td> </td>
             <td>{{ a.Name }}</td>
             <td>{{ a.Surname }}</td>
@@ -52,7 +52,7 @@
             <td></td>
          </tr>
       </tbody>
-      <tbody *ngIf="ViewModel?.Data?.CustomerServiceAgents.count === 0 && IsLoading === false">
+      <tbody *ngIf="ViewModel?.CustomerServiceAgents?.length === 0 && IsLoading === false">
          <tr>
             <td colspan="10" class="text-center border-bottom-0">
                <h4 class="mt-5 mb-5">

@@ -1,4 +1,4 @@
-import { Directive, Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import { ChangeDetectorRef, Directive, Inject, Injectable, PLATFORM_ID } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
@@ -15,6 +15,7 @@ export class AuthenticatedBaseListComponent extends AuthenticatedBaseComponent {
       public override route: ActivatedRoute,
       public override toastr: ToastrService,
       public override ngbModalService: NgbModal,
+      public override cd: ChangeDetectorRef,
       @Inject(PLATFORM_ID) public override platformId: object,
       // public override lookup_helper: LookupHelper,
       // public override paging_service: PagingService
@@ -26,6 +27,7 @@ export class AuthenticatedBaseListComponent extends AuthenticatedBaseComponent {
          route,
          toastr,
          ngbModalService,
+         cd,
          platformId
          // lookup_helper
          // paging_service

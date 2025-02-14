@@ -41,7 +41,7 @@
          </tr>
       </thead>
       <tbody>
-         <tr *ngFor="let a of ViewModel?.Data?.UnverifiedCustomersAccounts">
+         <tr *ngFor="let a of ViewModel?.UnverifiedCustomersAccounts">
             <td> </td>
             <td>{{ a.Name }} <strong>{{ a.Surname }}</strong></td>
             <td>{{ a.PhoneNumber | phoneFormat }}</td>
@@ -75,7 +75,7 @@
             </td>
          </tr>
       </tbody>
-      <tbody *ngIf="ViewModel?.Data?.UnverifiedCustomersAccounts.count === 0 && IsLoading === false">
+      <tbody *ngIf="ViewModel?.UnverifiedCustomersAccounts?.length === 0 && IsLoading === false">
          <tr>
             <td colspan="10" class="text-center border-bottom-0">
                <h4 class="mt-5 mb-5">

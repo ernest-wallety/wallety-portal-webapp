@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -23,6 +24,7 @@ export class LoginComponent extends AuthenticatedBaseComponent implements OnInit
    ngOnInit(): void {
       this.ViewModel = { Email: '', Password: '' };
    }
+
    public show_password = false;
    public year: number = Utils.get_current_year();
 
@@ -60,10 +62,12 @@ export class LoginComponent extends AuthenticatedBaseComponent implements OnInit
    }
 
    private menu = async () => {
-      const response = await this.get_async_call_no_params('/Portal/MenuStructure');
+      const email = AuthenticationHelper.get_user_detail().Email;
+
+      const response = await this.get_async_call('/Portal/MenuStructure', new HttpParams().set('email', email!));
 
       if (!response.IsError) {
-         const menu_result: MenuModel = response.Data.MenuAccess
+         const menu_result: MenuModel = response.Data
          MenuHelper.set_menu_localstorage(menu_result);
       }
    }

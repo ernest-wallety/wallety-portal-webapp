@@ -34,10 +34,10 @@ export class CustomerServiceAgentsComponent extends AuthenticatedBaseComponent i
    async refresh() {
       const response = await this.get_async_call_no_params('/CustomerServiceAgent/GetAccounts');
 
-      console.log(response);
+      console.log(response)
 
       if (!response.IsError) {
-         this.ViewModel = response;
+         this.ViewModel = response.Data;
       }
    }
 

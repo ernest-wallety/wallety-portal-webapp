@@ -1,4 +1,5 @@
-import { Directive, Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import { HttpParams } from "@angular/common/http";
+import { ChangeDetectorRef, Directive, Inject, Injectable, PLATFORM_ID } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -25,6 +26,7 @@ export class BaseComponent {
       public route: ActivatedRoute,
       public toastr: ToastrService,
       public ngbModalService: NgbModal,
+      public cd: ChangeDetectorRef,
       @Inject(PLATFORM_ID) public platformId: object,
       // public lookup_helper: LookupHelper,
    ) {
@@ -43,6 +45,16 @@ export class BaseComponent {
       return response;
    }
 
+   public async get_async_call(apiUrl: string, params: HttpParams) {
+      this.IsLoading = true;
+
+      const response = await this.data_service.get_async_call(apiUrl, params);
+
+      this.IsLoading = false;
+
+      return response;
+   }
+
    // New posting method that uses a more synchronous way of getting the data
    // This will also handle the is loading variable that we reuse everywhere and rather in a more central place.
    public async post_sync_call(apiUrl: string, payload?: object) {
@@ -55,10 +67,20 @@ export class BaseComponent {
       return response;
    }
 
+   // New posting method that uses a more synchronous way of getting the data
+   // This will also handle the is loading variable that we reuse everywhere and rather in a more central place.
+   public async post_sync_call_non_object(apiUrl: string, payload?: any) {
+      this.IsLoading = true;
+
+      const response = await this.data_service.post_sync_call_non_object(apiUrl, payload);
+
+      this.IsLoading = false;
+
+      return response;
+   }
+
    //This uses the responses received by the data service http calls and decides what to do with it.
    public handle_response(response: ResponseModel) {
-      console.log(response);
-
       if (response.IsError && response.ShowError) {
          this.handle_dialogs(response);
       } else if (response.IsException && response.ShowException) {
@@ -66,7 +88,19 @@ export class BaseComponent {
          response.ErrorDisplay = EnumValidationDisplay.Popup;
          this.handle_dialogs(response);
       } else if (response.IsError == false && response.ShowSuccess == true) {
-         this.toastr.success(response.SuccessMessage);
+         if (
+            response.StatusCode == 400 ||
+            response.StatusCode == 404 ||
+            response.StatusCode == 401 ||
+            response.StatusCode == 424 ||
+            response.StatusCode == 403 ||
+            response.StatusCode == 501 ||
+            response.StatusCode == 409
+         ) {
+            this.toastr.error(response.ResponseMessage);
+         } else {
+            this.toastr.success(response.ResponseMessage);
+         }
       }
    }
 

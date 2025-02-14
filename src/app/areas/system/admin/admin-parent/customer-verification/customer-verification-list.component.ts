@@ -36,12 +36,12 @@ export class CustomerVerificationListComponent extends AuthenticatedBaseComponen
    }
 
    async refresh() {
-      const response = await this.post_sync_call('/Customer/GetUnverifiedAccounts', undefined);
+      const response = await this.get_async_call_no_params('/Customer/GetUnverifiedAccounts');
 
       if (!response.IsError) {
-         this.ViewModel = response;
-         this.statuses = this.ViewModel?.Data.RegistrationStatuses
-         this.reasons = this.ViewModel?.Data.VerificationRejectReasons
+         this.ViewModel = response.Data;
+         this.statuses = this.ViewModel?.RegistrationStatuses
+         this.reasons = this.ViewModel?.VerificationRejectReasons
       }
    }
 

@@ -39,11 +39,35 @@ export class DataService {
       let return_response = new ResponseModel();
 
       try {
-         const response = await this.http
+         const response: any = await this.http
             .post<object>(this.get_full_api_path(action), payload, this.HTTP_OPTIONS)
             .toPromise();
 
-         return_response.Data = response;
+         return_response.Data = response.Data;
+         return_response.ResponseMessage = response.ResponseMessage;
+         return_response.StatusCode = response.StatusCode;
+
+      } catch (exception) {
+         return_response = await this.handle_exception(exception, return_response);
+      }
+
+      this.Response_Emitter.emit(return_response);
+
+      return return_response;
+   }
+
+   // Syncronous post call to which we wait for the call to complete and return a response.
+   public async post_sync_call_non_object(action: string, payload?: any): Promise<ResponseModel> {
+      let return_response = new ResponseModel();
+
+      try {
+         const response: any = await this.http
+            .post<object>(this.get_full_api_path(action), payload, this.HTTP_OPTIONS)
+            .toPromise();
+
+         return_response.Data = response.Data;
+         return_response.ResponseMessage = response.ResponseMessage;
+         return_response.StatusCode = response.StatusCode;
 
       } catch (exception) {
          return_response = await this.handle_exception(exception, return_response);
@@ -59,18 +83,45 @@ export class DataService {
       let return_response = new ResponseModel();
 
       try {
-         const response = await this.http
+         const response: any = await this.http
             .get(this.get_full_api_path(action), this.HTTP_OPTIONS)
             .toPromise();
 
-         console.log(response)
+         return_response.Data = response.Data;
+         return_response.ResponseMessage = response.ResponseMessage;
+         return_response.StatusCode = response.StatusCode;
 
-         return_response.Data = response;
       } catch (exception) {
          console.log(exception)
 
          return_response = await this.handle_exception(exception, return_response);
       }
+
+      return return_response;
+   }
+
+   //Gives the basics to do the get call but needs to be wrapped in the source location, does not wait for this to complete and needs to be subscribed to.
+   public async get_async_call(action: string, params: HttpParams): Promise<ResponseModel> {
+      let return_response = new ResponseModel();
+
+      try {
+         this.HTTP_OPTIONS.params = params;
+
+         const response: any = await this.http
+            .get(this.get_full_api_path(action), this.HTTP_OPTIONS)
+            .toPromise();
+
+         return_response.Data = response.Data;
+         return_response.ResponseMessage = response.ResponseMessage;
+         return_response.StatusCode = response.StatusCode;
+
+      } catch (exception) {
+         console.error(exception);
+
+         return_response = await this.handle_exception(exception, return_response);
+      }
+
+      this.Response_Emitter.emit(return_response);
 
       return return_response;
    }
@@ -82,8 +133,8 @@ export class DataService {
          // await this.http.get(this.get_full_api_path('auth/ping'), this.HTTP_OPTIONS).toPromise();
 
          return 'The API is functioning correctly';
-      } catch (e) {
-         return 'The API is down, a deployment may be in progress';
+      } catch (error: any) {
+         return `The API is down, a deployment may be in progress (Reason: ${error.toString()}`;
       }
    }
 
@@ -98,11 +149,25 @@ export class DataService {
       return_response.IsError = true;
       return_response.IsException = true;
 
+      console.log(exception)
+
       try {
          if (exception.name == "HttpErrorResponse") {
             // BadRequest - so we fetch the returned data from the api that is in the BadRequest Object
             // We dig into the exception and assign it to our response model. Value = the model being returned from C#
-            if (exception.status == 400 || exception.status == 404 || exception.status == 401) {
+            if (
+               exception.status == 400 ||
+               exception.status == 404 ||
+               exception.status == 401 ||
+               exception.status == 424 ||
+               exception.status == 403 ||
+               exception.status == 501 ||
+               exception.status == 409
+            ) {
+               return_response.ErrorTitle = exception.Title;
+               return_response.ErrorDetail = exception.Detail;
+               return_response.ErrorType = exception.Type;
+               return_response.ErrorInstance = exception.Instance;
                return_response.ErrorList.push(exception.error.ResponseMessage)
             }
             // Status 0 when can't communicate with the API, we do a PING to the API just to confirm and send back relevent message.

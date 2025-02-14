@@ -70,6 +70,7 @@ export class CustomerVerificationPopupComponent extends AuthenticatedBaseCompone
       this.statuses = Utils.lookup_converter(this.statuses, 'RegistrationStatusId', 'Status');
       this.reasons = Utils.lookup_converter(this.reasons, 'RejectReasonId', 'Reason');
       this.imageUrl = `data:image/jpeg;base64,${this.model?.IdentityImage}`;
+
       this.payload.customerId = this.model.CustomerId;
    }
 

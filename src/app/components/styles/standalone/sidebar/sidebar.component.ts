@@ -35,8 +35,6 @@ export class SidebarComponent extends AuthenticatedBaseComponent implements OnIn
    private async get_menu_items() {
       const response = MenuHelper.get_menu_detail()
 
-      console.log(response)
-
       this.MenuItems = response;
 
       this.MenuItems.forEach((menuItem: any) => {
