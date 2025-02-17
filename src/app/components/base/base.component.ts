@@ -81,6 +81,18 @@ export class BaseComponent {
 
    //This uses the responses received by the data service http calls and decides what to do with it.
    public handle_response(response: ResponseModel) {
+      if (
+         response.StatusCode == 400 ||
+         response.StatusCode == 404 ||
+         response.StatusCode == 401 ||
+         response.StatusCode == 424 ||
+         response.StatusCode == 403 ||
+         response.StatusCode == 501 ||
+         response.StatusCode == 409
+      ) {
+         response.IsError = true;
+      }
+
       if (response.IsError && response.ShowError) {
          this.handle_dialogs(response);
       } else if (response.IsException && response.ShowException) {
