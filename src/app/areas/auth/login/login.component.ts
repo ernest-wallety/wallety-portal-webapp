@@ -6,7 +6,7 @@ import { AuthenticatedBaseComponent } from '../../../components/base/authenticat
 import { AuthenticationHelper } from '../../../components/helpers/authentication_helper';
 import { MenuHelper } from '../../../components/helpers/menu_helper';
 import { LoginResultModel } from '../../../components/models/login_result';
-import { MenuModel } from '../../../components/models/menu_model';
+import { MenuListModel } from '../../../components/models/menu_model';
 import { Utils } from '../../../components/utils';
 
 @Component({
@@ -33,7 +33,6 @@ export class LoginComponent extends AuthenticatedBaseComponent implements OnInit
       const response = await this.post_sync_call('/Portal/Login', this.ViewModel);
 
       if (!response.IsError) {
-
          const login_result: LoginResultModel = {
             ResponseMessage: response.Data.ResponseMessage,
             SessionToken: response.Data.SessionToken,
@@ -45,14 +44,6 @@ export class LoginComponent extends AuthenticatedBaseComponent implements OnInit
          AuthenticationHelper.set_user_localstorage(login_result);
 
          await this.menu();
-
-         if (this.is_admin) {
-            this.router.navigate(['/system/admin/customer-verification']);
-         } else if (this.is_service_agent) {
-            this.router.navigate(['/system/admin/customer-verification']);
-         } else {
-            this.router.navigate(['/system/merchants']);
-         }
 
       } else {
          response.ErrorList.forEach(error => {
@@ -67,8 +58,10 @@ export class LoginComponent extends AuthenticatedBaseComponent implements OnInit
       const response = await this.get_async_call('/Portal/MenuStructure', new HttpParams().set('email', email!));
 
       if (!response.IsError) {
-         const menu_result: MenuModel = response.Data
+         const menu_result: MenuListModel = response.Data
          MenuHelper.set_menu_localstorage(menu_result);
+
+         this.router.navigate(['/system/dashboard']);
       }
    }
 }

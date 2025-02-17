@@ -2,11 +2,11 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
-import { AuthenticatedBaseComponent } from "../../../../../components/base/authenticated_base.component";
-import { ListCriteria } from "../../../../../components/models/_base_list_criteria";
-import { CustomerVerificationPopupComponent } from "../../../../../components/styles/standalone/popups/customer-verification/customer-verification-popup.component";
-import { SearchInputComponent } from "../../../../../components/styles/standalone/search-input/search-input.component";
-import { PhoneFormatPipe } from "../../../../../components/utils/pipes/phoneFormat";
+import { AuthenticatedBaseComponent } from "../../../components/base/authenticated_base.component";
+import { ListCriteria } from "../../../components/models/_base_list_criteria";
+import { CustomerVerificationPopupComponent } from "../../../components/styles/standalone/popups/customer-verification/customer-verification-popup.component";
+import { SearchInputComponent } from "../../../components/styles/standalone/search-input/search-input.component";
+import { PhoneFormatPipe } from "../../../components/utils/pipes/phoneFormat";
 
 @Component({
    selector: 'app-customer-verification-list',
