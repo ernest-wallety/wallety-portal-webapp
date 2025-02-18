@@ -15,8 +15,23 @@ export class ResponseModel {
    public ShowSuccess = true;
 
 
-   public ErrorTitle = "An error has occured.";
+   public ErrorTitle?: string;
    public ErrorDetail?: string;
    public ErrorType?: string;
    public ErrorInstance?: string;
+}
+
+// API exception error
+export class ProblemDetailModel {
+   Type?: string;
+   Title?: string;
+   Status?: number;
+   Detail?: string;
+   Instance?: string;
+   Extensions?: Extensions;
+}
+
+class Extensions {
+   traceID?: string;
+   raw?: string;
 }

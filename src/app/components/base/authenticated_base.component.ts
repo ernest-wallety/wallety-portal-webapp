@@ -4,7 +4,8 @@ import { BaseComponent } from './base.component';
 // import { PagingService } from "../services/paging_service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { DataService } from '../apiconnector/data.service';
+import { DataService } from '../services/apiconnector/data.service';
+import { TitleService } from '../services/title.service';
 // import { LookupHelper } from '../helpers/lookup_helper';
 
 @Injectable()
@@ -19,6 +20,7 @@ export class AuthenticatedBaseComponent extends BaseComponent {
     public override toastr: ToastrService,
     public override ngbModalService: NgbModal,
     public override cd: ChangeDetectorRef,
+    public override titleService: TitleService,
     @Inject(PLATFORM_ID) public override platformId: object
     // public override lookup_helper: LookupHelper,
 
@@ -33,6 +35,7 @@ export class AuthenticatedBaseComponent extends BaseComponent {
       toastr,
       ngbModalService,
       cd,
+      titleService,
       platformId
       // lookup_helper
     );

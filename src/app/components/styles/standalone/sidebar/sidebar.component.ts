@@ -7,7 +7,7 @@ import { MenuHelper } from "../../../helpers/menu_helper";
 import { MenuAccessModel, MenuListModel } from "../../../models/menu_model";
 
 @Component({
-   selector: 'app-sidebar', // Changed to kebab-case with 'app' prefix
+   selector: 'app-sidebar',
    standalone: true,
    imports: [CommonModule, RouterModule],
    templateUrl: './sidebar.component.html',

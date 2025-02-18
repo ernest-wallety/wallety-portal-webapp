@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
-import { AuthenticatedBaseComponent } from "../../../components/base/authenticated_base.component";
+import { AuthenticatedBaseListComponent } from "../../../components/base/authenticated_base_list.component";
 import { ListCriteria } from "../../../components/models/_base_list_criteria";
 import { CustomerVerificationPopupComponent } from "../../../components/styles/standalone/popups/customer-verification/customer-verification-popup.component";
 import { SearchInputComponent } from "../../../components/styles/standalone/search-input/search-input.component";
@@ -23,7 +23,7 @@ import { PhoneFormatPipe } from "../../../components/utils/pipes/phoneFormat";
    styleUrls: ['./customer-verification-list.component.scss']
 })
 
-export class CustomerVerificationListComponent extends AuthenticatedBaseComponent implements OnInit {
+export class CustomerVerificationListComponent extends AuthenticatedBaseListComponent implements OnInit {
    @ViewChild('customerVerificationPopup') customerVerificationPopup!: CustomerVerificationPopupComponent;
 
    criteria: ListCriteria = ListCriteria.default();
@@ -32,6 +32,7 @@ export class CustomerVerificationListComponent extends AuthenticatedBaseComponen
    private statuses?: any;
 
    ngOnInit(): void {
+      this.titleService.setTitle("Customer Verification");
       this.refresh();
    }
 

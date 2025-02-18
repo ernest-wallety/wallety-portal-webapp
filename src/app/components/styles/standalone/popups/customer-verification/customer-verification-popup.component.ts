@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticatedBaseComponent } from '../../../../base/authenticated_base.component';
+import { ExtensionMethods } from '../../../../helpers/extension_methods';
 import { Utils } from '../../../../utils';
 import { SelectSingleLookupComponent } from '../../select-single-lookup/select-single-lookup.component';
 
@@ -69,7 +70,7 @@ export class CustomerVerificationPopupComponent extends AuthenticatedBaseCompone
 
       this.statuses = Utils.lookup_converter(this.statuses, 'RegistrationStatusId', 'Status');
       this.reasons = Utils.lookup_converter(this.reasons, 'RejectReasonId', 'Reason');
-      this.imageUrl = `data:image/jpeg;base64,${this.model?.IdentityImage}`;
+      this.imageUrl = ExtensionMethods.to_base_64_image(this.model?.IdentityImage);
 
       this.payload.customerId = this.model.CustomerId;
    }

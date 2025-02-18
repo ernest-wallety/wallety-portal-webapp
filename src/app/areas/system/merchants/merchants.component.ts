@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { AuthenticatedBaseComponent } from "../../../components/base/authenticated_base.component";
+import { Component, OnInit } from "@angular/core";
+import { AuthenticatedBaseListComponent } from "../../../components/base/authenticated_base_list.component";
 
 @Component({
    selector: 'app-merchants',
@@ -11,4 +11,8 @@ import { AuthenticatedBaseComponent } from "../../../components/base/authenticat
    `
 })
 
-export class MerchantsComponent extends AuthenticatedBaseComponent { }
+export class MerchantsComponent extends AuthenticatedBaseListComponent implements OnInit {
+   ngOnInit(): void {
+      this.titleService.setTitle("Merchants");
+   }
+}

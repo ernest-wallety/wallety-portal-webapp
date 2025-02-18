@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { EventEmitter, Injectable, Output } from "@angular/core";
-import { ConfigHelper } from "../helpers/config_helper";
-import { ListCriteria } from "../models/_base_list_criteria";
-import { ResponseModel } from "../models/response_model";
-
+import { ConfigHelper } from "../../helpers/config_helper";
+import { ExtensionMethods } from "../../helpers/extension_methods";
+import { ListCriteria } from "../../models/_base_list_criteria";
+import { ResponseModel } from "../../models/response_model";
 
 @Injectable({
    providedIn: 'root',
@@ -43,9 +43,7 @@ export class DataService {
             .post<object>(this.get_full_api_path(action), payload, this.HTTP_OPTIONS)
             .toPromise();
 
-         return_response.Data = response.Data;
-         return_response.ResponseMessage = response.ResponseMessage;
-         return_response.StatusCode = response.StatusCode;
+         return_response = this.handle_api_response(response, return_response);
 
       } catch (exception) {
          return_response = await this.handle_exception(exception, return_response);
@@ -65,9 +63,7 @@ export class DataService {
             .post<object>(this.get_full_api_path(action), payload, this.HTTP_OPTIONS)
             .toPromise();
 
-         return_response.Data = response.Data;
-         return_response.ResponseMessage = response.ResponseMessage;
-         return_response.StatusCode = response.StatusCode;
+         return_response = this.handle_api_response(response, return_response);
 
       } catch (exception) {
          return_response = await this.handle_exception(exception, return_response);
@@ -87,15 +83,13 @@ export class DataService {
             .get(this.get_full_api_path(action), this.HTTP_OPTIONS)
             .toPromise();
 
-         return_response.Data = response.Data;
-         return_response.ResponseMessage = response.ResponseMessage;
-         return_response.StatusCode = response.StatusCode;
+         return_response = this.handle_api_response(response, return_response);
 
       } catch (exception) {
-         console.log(exception)
-
          return_response = await this.handle_exception(exception, return_response);
       }
+
+      this.Response_Emitter.emit(return_response);
 
       return return_response;
    }
@@ -111,17 +105,41 @@ export class DataService {
             .get(this.get_full_api_path(action), this.HTTP_OPTIONS)
             .toPromise();
 
-         return_response.Data = response.Data;
-         return_response.ResponseMessage = response.ResponseMessage;
-         return_response.StatusCode = response.StatusCode;
+         return_response = this.handle_api_response(response, return_response);
 
       } catch (exception) {
-         console.error(exception);
-
          return_response = await this.handle_exception(exception, return_response);
       }
 
       this.Response_Emitter.emit(return_response);
+
+      return return_response;
+   }
+
+   // Function that handles response logic
+   private handle_api_response(response: any, return_response: ResponseModel): ResponseModel {
+      if (ExtensionMethods.is_success_status(response.StatusCode)) {
+         return_response.Data = response.Data;
+         return_response.ResponseMessage = response.ResponseMessage;
+         return_response.StatusCode = response.StatusCode;
+         return_response.IsError = ExtensionMethods.is_error_status(response.StatusCode)
+      } else if (ExtensionMethods.is_error_status(response.StatusCode)) {
+         return_response.Data = response.Data;
+         return_response.ResponseMessage = response.ResponseMessage;
+         return_response.StatusCode = response.StatusCode;
+         return_response.IsError = ExtensionMethods.is_error_status(response.StatusCode);
+      } else {
+         return_response.IsError = true
+         return_response.ErrorTitle = response.Title;
+         return_response.ErrorDetail = response.Detail;
+         return_response.ErrorType = response.Type;
+         return_response.ErrorInstance = response.Instance;
+         return_response.ResponseMessage = response.Detail;
+      }
+
+      if (return_response.IsError) {
+         throw new Error(`${return_response.ResponseMessage}`);
+      }
 
       return return_response;
    }
@@ -149,21 +167,11 @@ export class DataService {
       return_response.IsError = true;
       return_response.IsException = true;
 
-      console.log(exception)
-
       try {
          if (exception.name == "HttpErrorResponse") {
             // BadRequest - so we fetch the returned data from the api that is in the BadRequest Object
             // We dig into the exception and assign it to our response model. Value = the model being returned from C#
-            if (
-               exception.status == 400 ||
-               exception.status == 404 ||
-               exception.status == 401 ||
-               exception.status == 424 ||
-               exception.status == 403 ||
-               exception.status == 501 ||
-               exception.status == 409
-            ) {
+            if (ExtensionMethods.is_error_status(exception.status)) {
                return_response.ErrorTitle = exception.Title;
                return_response.ErrorDetail = exception.Detail;
                return_response.ErrorType = exception.Type;
@@ -181,7 +189,7 @@ export class DataService {
          }
          // Any other exceptions we just add to the error list
          else {
-            return_response.ErrorList.push(exception.message);
+            return_response.ErrorList.push(return_response.ResponseMessage!);
          }
 
       }
