@@ -45,6 +45,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
          await this.menu();
       }
+
+      this.cd.detectChanges();
    }
 
    private menu = async () => {
@@ -58,6 +60,8 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
          this.router.navigate(['/system/dashboard']);
       }
+
+      this.cd.detectChanges();
    }
 
    togglePassword() {

@@ -1,3 +1,5 @@
+<app-user-profile-popup #userProfilePopupComponent></app-user-profile-popup>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
    <div class="container-fluid">
       <h3>{{ PageTitle }}</h3>
@@ -8,7 +10,8 @@
          <ul class="navbar-nav align-items-center">
             <!-- Updated Notification Bell -->
             <li class="nav-item me-3">
-               <a class="nav-link notification-bell p-0" onclick="return false;" href="#" (click)="openNotifications()">
+               <a class="nav-link notification-bell p-0" onclick="return false;" href="#"
+                  (click)="open_notifications()">
                   <i class='bx bx-bell fs-3'></i>
                   <span *ngIf="UnreadNotifications > 0" class="badge rounded-pill bg-danger">
                      {{ UnreadNotifications }}
@@ -28,8 +31,9 @@
                   </div>
                </a>
                <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" onclick="return false;" href="#">Profile</a></li>
-                  <li><a class="dropdown-item" onclick="return false;" href="#">Settings</a></li>
+                  <li><a href="#" class="dropdown-item" onclick="return false;" (click)="user_profile()">Profile</a>
+                  </li>
+                  <li><a href="#" class="dropdown-item" onclick="return false;">Settings</a></li>
                </ul>
             </li>
          </ul>

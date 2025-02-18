@@ -4,6 +4,8 @@ import { BaseComponent } from './base.component';
 // import { PagingService } from "../services/paging_service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationHelper } from '../helpers/authentication_helper';
+import { ExtensionMethods } from '../helpers/extension_methods';
 import { DataService } from '../services/apiconnector/data.service';
 import { TitleService } from '../services/title.service';
 // import { LookupHelper } from '../helpers/lookup_helper';
@@ -27,6 +29,7 @@ export class AuthenticatedBaseComponent extends BaseComponent {
 
     // public paging_service: PagingService
   ) {
+
     //Call inherited constructor
     super(
       data_service,
@@ -39,6 +42,17 @@ export class AuthenticatedBaseComponent extends BaseComponent {
       platformId
       // lookup_helper
     );
+
+
   }
+
+  public PageTitle = '';
+  public ImageUrl = ExtensionMethods.to_base_64_image(
+    AuthenticationHelper.get_user_detail().User?.IdentityImage || ''
+  );
+
+  public FullName = `${AuthenticationHelper.get_user_detail().User?.Name} ${AuthenticationHelper.get_user_detail().User?.Surname}`;
+  public Colour = "#dfdfdf"
+  public Role = AuthenticationHelper.get_user_detail().RoleCodes?.filter(role => role.IsDefault === true) || [];
 }
 
