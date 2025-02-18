@@ -9,7 +9,7 @@ export class LoginResultModel {
 
    Success: boolean;
 
-   Email?: string;
+   User?: UserDetailsModel;
 
    constructor() {
       this.ResponseMessage = 'Login Successful';
@@ -24,4 +24,25 @@ export class RoleCodeModel {
    Role?: string;
    Code?: string;
    IsDefault?: boolean
+}
+
+export class UserDetailsModel {
+   Name = '';
+   Surname = '';
+   Email?: string;
+   IdNumber?: string;
+   PassportNumber?: string;
+   IdentityImage = '';
+   AccountNumber = '';
+   AccountCreationDate?: Date;
+   IsAccountActive = true;
+   CommunicationConsent?: boolean;
+   VerifyAttempts = 3;
+   IsFrozen = false;
+   IsVerified = false;
+
+   PhoneNumber?: string;
+   PanicCode = '';
+
+   DisplayNumber?: string;
 }

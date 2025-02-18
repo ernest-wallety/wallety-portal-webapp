@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { BaseComponent } from './components/base/base.component';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,12 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss'
 })
 
-export class AppComponent {
-  title = 'wallety-portal';
+export class AppComponent extends BaseComponent implements OnInit {
+  ngOnInit() {
+    this.titleService.setTitle();
+
+    this.data_service.Response_Emitter.subscribe((response: any) => {
+      this.handle_response(response);
+    });
+  };
 }

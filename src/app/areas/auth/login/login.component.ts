@@ -2,7 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AuthenticatedBaseComponent } from '../../../components/base/authenticated_base.component';
+import { BaseComponent } from '../../../components/base/base.component';
 import { AuthenticationHelper } from '../../../components/helpers/authentication_helper';
 import { MenuHelper } from '../../../components/helpers/menu_helper';
 import { LoginResultModel } from '../../../components/models/login_result';
@@ -20,13 +20,13 @@ import { Utils } from '../../../components/utils';
    ]
 })
 
-export class LoginComponent extends AuthenticatedBaseComponent implements OnInit {
+export class LoginComponent extends BaseComponent implements OnInit {
+   public show_password = false;
+   public year: number = Utils.get_current_year();
+
    ngOnInit(): void {
       this.ViewModel = { Email: '', Password: '' };
    }
-
-   public show_password = false;
-   public year: number = Utils.get_current_year();
 
    public login = async () => {
 
@@ -37,23 +37,20 @@ export class LoginComponent extends AuthenticatedBaseComponent implements OnInit
             ResponseMessage: response.Data.ResponseMessage,
             SessionToken: response.Data.SessionToken,
             RoleCodes: response.Data.RoleCodes,
-            Email: this.ViewModel.Email,
+            User: response.Data.UserDetails,
             Success: true
          }
 
          AuthenticationHelper.set_user_localstorage(login_result);
 
          await this.menu();
-
-      } else {
-         response.ErrorList.forEach(error => {
-            this.toastr.error(error);
-         });
       }
+
+      this.cd.detectChanges();
    }
 
    private menu = async () => {
-      const email = AuthenticationHelper.get_user_detail().Email;
+      const email = AuthenticationHelper.get_user_detail().User?.Email;
 
       const response = await this.get_async_call('/Portal/MenuStructure', new HttpParams().set('email', email!));
 
@@ -63,5 +60,11 @@ export class LoginComponent extends AuthenticatedBaseComponent implements OnInit
 
          this.router.navigate(['/system/dashboard']);
       }
+
+      this.cd.detectChanges();
+   }
+
+   togglePassword() {
+      this.show_password = !this.show_password;
    }
 }

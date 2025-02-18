@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthenticationHelper } from '../helpers/authentication_helper';
+import { AuthenticationHelper } from '../../helpers/authentication_helper';
 
 //Extend from the HttpInterceptor and add the AuthToken and whatever else we need to the headers.
 @Injectable()

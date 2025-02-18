@@ -1,0 +1,87 @@
+<ng-template #userProfileTemplate>
+   <div class="modal-header">
+      <h4 class="modal-title float-start">
+         <i class="bx bx-user"></i> User Profile
+      </h4>
+      <button type="button" class="btn-close float-end" aria-label="Close" (click)="modalDialog.dismiss()"></button>
+   </div>
+
+   <form #form="ngForm" autocomplete="off">
+      <div class="modal-body rs-modal-content">
+
+         <div class="row g-0 pt-4 pb-1">
+            <div class="col-1 me-5">
+               <div class="mb-3 col-lg-12">
+                  <app-avatar [Size]="'xl'" [Image]="ImageUrl" [FullName]="FullName" [Colour]="Colour"></app-avatar>
+               </div>
+            </div>
+
+            <div class="col-3 pb-0">
+               <div class="mb-3 col-lg-12 pt-3 ps-0">
+                  <div class="p-0">
+                     <span
+                        class="col-form-label p-0 bold"><strong>{{ViewModel.Name}}&nbsp;{{ViewModel.Surname}}</strong></span>
+                  </div>
+                  <div class="p-0">
+                     <span class="col-form-label p-0">{{ViewModel.Email}}</span>
+                  </div>
+                  <div class="p-0">
+                     <span class="col-form-label p-0"><small>{{ Role[0]?.Role }}</small></span>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="mb-3 col">
+               <label for="name" class="col-form-label">Name</label>
+               <input name="name" class="form-control form-control-sm" [(ngModel)]="ViewModel.Name" />
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="mb-3 col">
+               <label for="surname" class="col-form-label">Surname</label>
+               <input name="surname" class="form-control form-control-sm" [(ngModel)]="ViewModel.Surname" />
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="mb-3 col">
+               <label for="email" class="col-form-label">Email</label>
+               <input [disabled]="true" name="email" class="form-control form-control-sm"
+                  [(ngModel)]="ViewModel.Email" />
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="mb-3 col">
+               <label for="phoneNumber" class="col-form-label">Phone Number</label>
+               <input name="phoneNumber" class="form-control form-control-sm" [(ngModel)]="ViewModel.PhoneNumber" />
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="mb-3 col">
+               <label for="roles" class="col-form-label">Roles</label>
+               <app-select-single-lookup #roles name="roles" id="roles" from="body" [Items]="Roles" [BindValue]="'Name'"
+                  [(ngModel)]="ViewModel.Role" (OnChangeEmitter)="updateRoles($event, 'Roles')">
+               </app-select-single-lookup>
+            </div>
+         </div>
+      </div>
+   </form>
+
+   <div class="modal-footer bg-light-gray">
+      <button *ngIf="IsLoading" type="button" class="btn btn-outline-success me-2" [disabled]="true">
+         <i class="fa fa-spinner fa-spin"></i> Busy ...
+      </button>
+
+      <button *ngIf="!IsLoading"
+         [disabled]="!ViewModel.Name || !ViewModel.Surname || !ViewModel.Email || !ViewModel.PhoneNumber || !ViewModel.Role"
+         type="button" class="btn btn-primary btn-sm" (click)="save()">
+         <i class='bx bxs-edit'></i> Save
+      </button>
+
+   </div>
+</ng-template>

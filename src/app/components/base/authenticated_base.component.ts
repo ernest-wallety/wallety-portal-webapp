@@ -4,7 +4,11 @@ import { BaseComponent } from './base.component';
 // import { PagingService } from "../services/paging_service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { DataService } from '../apiconnector/data.service';
+import { AuthenticationHelper } from '../helpers/authentication_helper';
+import { ExtensionMethods } from '../helpers/extension_methods';
+import { DataService } from '../services/apiconnector/data.service';
+import { TitleService } from '../services/title.service';
+import { Utils } from '../utils';
 // import { LookupHelper } from '../helpers/lookup_helper';
 
 @Injectable()
@@ -19,12 +23,14 @@ export class AuthenticatedBaseComponent extends BaseComponent {
     public override toastr: ToastrService,
     public override ngbModalService: NgbModal,
     public override cd: ChangeDetectorRef,
+    public override titleService: TitleService,
     @Inject(PLATFORM_ID) public override platformId: object
     // public override lookup_helper: LookupHelper,
 
 
     // public paging_service: PagingService
   ) {
+
     //Call inherited constructor
     super(
       data_service,
@@ -33,9 +39,26 @@ export class AuthenticatedBaseComponent extends BaseComponent {
       toastr,
       ngbModalService,
       cd,
+      titleService,
       platformId
       // lookup_helper
     );
+
+
   }
+
+  public PageTitle = '';
+
+  // User related
+  public ImageUrl = ExtensionMethods.to_base_64_image(
+    AuthenticationHelper.get_user_detail().User?.IdentityImage || ''
+  );
+
+  public FullName = `${AuthenticationHelper.get_user_detail().User?.Name} ${AuthenticationHelper.get_user_detail().User?.Surname}`;
+  public Colour = "#dfdfdf"
+  public Role = AuthenticationHelper.get_user_detail().RoleCodes?.filter(role => role.IsDefault === true) || [];
+
+  // Lookup
+  public Roles = Utils.lookup_converter(AuthenticationHelper.get_user_detail().RoleCodes!, 'Code', 'Role');
 }
 

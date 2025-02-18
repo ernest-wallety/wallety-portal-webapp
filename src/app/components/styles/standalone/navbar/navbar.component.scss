@@ -1,0 +1,66 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.l-navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  padding-top: 1rem;
+  transition: 0.5s;
+  z-index: 100;
+}
+
+.nav {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-item.dropdown .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Align avatar and text */
+.nav-link {
+  .d-flex {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .ms-3 {
+    margin-left: 1rem;
+  }
+}
+
+/* Common border style for both the avatar and notification bell */
+.border-thin {
+  border: 1px solid #ddd; /* Light grey border */
+  border-radius: 50%; /* Ensures rounded corners for the avatar */
+  padding: 2px; /* Space between the border and the content */
+}
+
+.badge {
+  font-size: 0.65rem;
+  padding: 0.25em 0.4em;
+  margin-left: -0.8em; // Moved closer to the icon
+  margin-top: -0.2em; // Moved higher up
+}
+
+.notification-bell {
+  position: relative; // Added to ensure proper badge positioning
+
+  .bx-bell {
+    color: #666;
+    &:hover {
+      color: #333;
+    }
+  }
+}

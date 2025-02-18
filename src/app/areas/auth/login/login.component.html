@@ -32,12 +32,19 @@
             </div>
 
             <div class="d-grid">
-               <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">
+               <button [hidden]="IsLoading" type="submit" class="btn btn-primary btn-login text-uppercase fw-bold">
                   Login
+               </button>
+
+               <button [hidden]="!IsLoading" [disabled]="true" type="submit"
+                  class="btn btn-primary btn-login text-uppercase fw-bold">
+                  <i class="fa fa-spinner fa-spin"></i> Busy ...
                </button>
             </div>
 
-            <a class="btn-forgot-password" [routerLink]="'/auth/forgot-password'">Forgot Password?</a>
+            <a [hidden]="IsLoading" class="btn-forgot-password" [routerLink]="'/auth/forgot-password'">Forgot
+               Password?</a>
+
          </div>
       </div>
    </div>

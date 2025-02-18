@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseComponent } from "../../../../../components/base/authenticated_base.component";
-import { CustomerServiceAgentsComponent } from "./customer-service-agents/customer-service-agents.component";
+import { CustomerServiceAgentListComponent } from "./customer-service-agents/customer-service-agent-list.component";
 
 @Component({
    selector: 'app-user-parent',
@@ -12,7 +12,7 @@ import { CustomerServiceAgentsComponent } from "./customer-service-agents/custom
       FormsModule,
       CommonModule,
       RouterModule,
-      CustomerServiceAgentsComponent
+      CustomerServiceAgentListComponent
    ],
    templateUrl: './user-parent.component.html',
    styleUrls: ['./user-parent.component.scss']

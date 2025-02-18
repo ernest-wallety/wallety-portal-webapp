@@ -3,12 +3,14 @@ import { ChangeDetectorRef, Directive, Inject, Injectable, PLATFORM_ID } from "@
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { DataService } from "../apiconnector/data.service";
 import { EnumValidationDisplay } from "../enum/enum_validation_display";
 import { AuthenticationHelper } from "../helpers/authentication_helper";
+import { ExtensionMethods } from "../helpers/extension_methods";
 import { ListCriteria } from "../models/_base_list_criteria";
 import { LoginResultModel } from "../models/login_result";
 import { ResponseModel } from "../models/response_model";
+import { DataService } from "../services/apiconnector/data.service";
+import { TitleService } from "../services/title.service";
 import { ValidationPopupComponent } from "../styles/standalone/popups/validation/validation-popup.component";
 
 @Injectable()
@@ -27,6 +29,7 @@ export class BaseComponent {
       public toastr: ToastrService,
       public ngbModalService: NgbModal,
       public cd: ChangeDetectorRef,
+      public titleService: TitleService,
       @Inject(PLATFORM_ID) public platformId: object,
       // public lookup_helper: LookupHelper,
    ) {
@@ -81,17 +84,8 @@ export class BaseComponent {
 
    //This uses the responses received by the data service http calls and decides what to do with it.
    public handle_response(response: ResponseModel) {
-      if (
-         response.StatusCode == 400 ||
-         response.StatusCode == 404 ||
-         response.StatusCode == 401 ||
-         response.StatusCode == 424 ||
-         response.StatusCode == 403 ||
-         response.StatusCode == 501 ||
-         response.StatusCode == 409
-      ) {
-         response.IsError = true;
-      }
+
+      if (ExtensionMethods.is_error_status(response.StatusCode!)) response.IsError = true;
 
       if (response.IsError && response.ShowError) {
          this.handle_dialogs(response);
@@ -100,15 +94,7 @@ export class BaseComponent {
          response.ErrorDisplay = EnumValidationDisplay.Popup;
          this.handle_dialogs(response);
       } else if (response.IsError == false && response.ShowSuccess == true) {
-         if (
-            response.StatusCode == 400 ||
-            response.StatusCode == 404 ||
-            response.StatusCode == 401 ||
-            response.StatusCode == 424 ||
-            response.StatusCode == 403 ||
-            response.StatusCode == 501 ||
-            response.StatusCode == 409
-         ) {
+         if (ExtensionMethods.is_error_status(response.StatusCode!)) {
             this.toastr.error(response.ResponseMessage);
          } else {
             this.toastr.success(response.ResponseMessage);

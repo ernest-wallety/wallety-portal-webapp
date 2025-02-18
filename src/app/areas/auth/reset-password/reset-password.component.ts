@@ -25,45 +25,33 @@ export class ResetPasswordComponent extends AuthenticatedBaseComponent implement
    }
 
    public search = async (form: NgForm) => {
-      this.IsLoading = true;
       const email = form.value.email_address.trim();
 
-      try {
-         const response = await this.get_async_call('/Auth/GetUserByEmail', new HttpParams().set('email', email));
+      const response = await this.get_async_call('/Auth/GetUserByEmail', new HttpParams().set('email', email));
 
-         if (!response.IsError && response.Data.IsSuccess) {
-            this.response = response.Data;
-            this.invalid_email = false;
-            this.step = 2; // Move to the reset password step
-         } else {
-            this.invalid_email = true;
-         }
-      } catch (error) {
-         console.error("Error fetching user:", error);
-      } finally {
-         this.IsLoading = false;
-         this.cd.detectChanges(); // Ensure UI updates
+      if (!response.IsError && response.Data.IsSuccess) {
+         this.response = response.Data;
+         this.invalid_email = false;
+         this.step = 2;
+      } else {
+         this.invalid_email = true;
       }
+
+      this.cd.detectChanges();
    };
 
    public reset = async (form: NgForm) => {
-      this.IsLoading = true;
       const email = form.value.email_address;
 
-      try {
-         const response = await this.post_sync_call_non_object('/Auth/ResetPassword', email);
+      const response = await this.post_sync_call_non_object('/Auth/ResetPassword', `"${email}"`);
 
-         if (!response.IsError) {
-            this.email_sent = true;
-            this.router.navigate(['/login']);
-         } else {
-            this.email_sent = false;
-         }
-      } catch (error) {
-         console.error("Error resetting password:", error);
-      } finally {
-         this.IsLoading = false;
-         this.cd.detectChanges();
+      if (!response.IsError) {
+         this.email_sent = true;
+         this.router.navigate(['/auth/login']);
+      } else {
+         this.email_sent = false;
       }
+
+      this.cd.detectChanges();
    };
 }

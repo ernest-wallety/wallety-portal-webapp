@@ -2,13 +2,13 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
-import { AuthenticatedBaseComponent } from "../../../../../../components/base/authenticated_base.component";
+import { AuthenticatedBaseListComponent } from "../../../../../../components/base/authenticated_base_list.component";
 import { ListCriteria } from "../../../../../../components/models/_base_list_criteria";
 import { RegisterServiceAgentPopupComponent } from "../../../../../../components/styles/standalone/popups/register-service-agent/register-service-agent-popup.component";
 import { SearchInputComponent } from "../../../../../../components/styles/standalone/search-input/search-input.component";
 
 @Component({
-   selector: 'app-customer-service-agents',
+   selector: 'app-customer-service-agent-list',
    standalone: true,
    imports: [
       CommonModule,
@@ -17,16 +17,17 @@ import { SearchInputComponent } from "../../../../../../components/styles/standa
       SearchInputComponent,
       RegisterServiceAgentPopupComponent
    ],
-   templateUrl: './customer-service-agents.component.html',
-   styleUrls: ['./customer-service-agents.component.scss']
+   templateUrl: './customer-service-agent-list.component.html',
+   styleUrls: ['./customer-service-agent-list.component.scss']
 })
 
-export class CustomerServiceAgentsComponent extends AuthenticatedBaseComponent implements OnInit {
+export class CustomerServiceAgentListComponent extends AuthenticatedBaseListComponent implements OnInit {
    @ViewChild('registerServiceAgentPopup') registerServiceAgentPopup!: RegisterServiceAgentPopupComponent;
 
    criteria: ListCriteria = ListCriteria.default();
 
    ngOnInit(): void {
+      this.titleService.setTitle("Customer Service Agents");
       this.refresh();
    }
 
