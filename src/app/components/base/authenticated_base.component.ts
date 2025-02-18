@@ -8,6 +8,7 @@ import { AuthenticationHelper } from '../helpers/authentication_helper';
 import { ExtensionMethods } from '../helpers/extension_methods';
 import { DataService } from '../services/apiconnector/data.service';
 import { TitleService } from '../services/title.service';
+import { Utils } from '../utils';
 // import { LookupHelper } from '../helpers/lookup_helper';
 
 @Injectable()
@@ -47,6 +48,8 @@ export class AuthenticatedBaseComponent extends BaseComponent {
   }
 
   public PageTitle = '';
+
+  // User related
   public ImageUrl = ExtensionMethods.to_base_64_image(
     AuthenticationHelper.get_user_detail().User?.IdentityImage || ''
   );
@@ -54,5 +57,8 @@ export class AuthenticatedBaseComponent extends BaseComponent {
   public FullName = `${AuthenticationHelper.get_user_detail().User?.Name} ${AuthenticationHelper.get_user_detail().User?.Surname}`;
   public Colour = "#dfdfdf"
   public Role = AuthenticationHelper.get_user_detail().RoleCodes?.filter(role => role.IsDefault === true) || [];
+
+  // Lookup
+  public Roles = Utils.lookup_converter(AuthenticationHelper.get_user_detail().RoleCodes!, 'Code', 'Role');
 }
 

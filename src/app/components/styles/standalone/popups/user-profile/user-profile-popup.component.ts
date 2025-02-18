@@ -7,6 +7,7 @@ import { AuthenticatedBaseComponent } from "../../../../base/authenticated_base.
 import { AuthenticationHelper } from "../../../../helpers/authentication_helper";
 import { ExtensionMethods } from "../../../../helpers/extension_methods";
 import { AvatarComponent } from "../../avatar/avatar.component";
+import { SelectSingleLookupComponent } from "../../select-single-lookup/select-single-lookup.component";
 
 @Component({
    selector: 'app-user-profile-popup',
@@ -17,7 +18,8 @@ import { AvatarComponent } from "../../avatar/avatar.component";
       CommonModule,
       FormsModule,
       RouterModule,
-      AvatarComponent
+      AvatarComponent,
+      SelectSingleLookupComponent
    ],
 })
 
@@ -52,6 +54,7 @@ export class UserProfilePopupComponent extends AuthenticatedBaseComponent {
       this.ViewModel.Surname = AuthenticationHelper.get_user_detail().User?.Surname
       this.ViewModel.Email = AuthenticationHelper.get_user_detail().User?.Email
       this.ViewModel.PhoneNumber = AuthenticationHelper.get_user_detail().User?.PhoneNumber
+      this.ViewModel.Role = this.Role[0].Role
    }
 
    async save() {
@@ -68,4 +71,11 @@ export class UserProfilePopupComponent extends AuthenticatedBaseComponent {
       // }
    }
 
+   public updateRoles(event: any, field: string) {
+      console.log(event, field);
+
+      if (event != null) {
+         this.ViewModel.RoleCode = event.Id;
+      }
+   }
 }  
