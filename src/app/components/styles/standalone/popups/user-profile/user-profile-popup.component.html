@@ -65,7 +65,7 @@
          <div class="row">
             <div class="mb-3 col">
                <label for="roles" class="col-form-label">Roles</label>
-               <app-select-single-lookup #roles name="roles" id="roles" from="body" [Items]="LoggedInUser.RoleCodes"
+               <app-select-single-lookup #roles name="roles" id="roles" from="body" [Items]="UserRoles"
                   [BindValue]="'Name'" [(ngModel)]="ViewModel.Role" (OnChangeEmitter)="updateRoles($event, 'Roles')">
                </app-select-single-lookup>
             </div>

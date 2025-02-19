@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 import { NgbModalOptions, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { AuthenticatedBaseComponent } from "../../../../base/authenticated_base.component";
 import { ExtensionMethods } from "../../../../helpers/extension_methods";
+import { Utils } from "../../../../utils";
 import { AvatarComponent } from "../../avatar/avatar.component";
 import { SelectSingleLookupComponent } from "../../select-single-lookup/select-single-lookup.component";
 
@@ -24,6 +25,7 @@ import { SelectSingleLookupComponent } from "../../select-single-lookup/select-s
 
 export class UserProfilePopupComponent extends AuthenticatedBaseComponent {
    public ImageUrl = '';
+   public UserRoles = Utils.lookup_converter(this.LoggedInUser.RoleCodes!, 'Code', 'Role')
 
    @ViewChild('userProfileTemplate') userProfileTemplate!: TemplateRef<any>;
 
