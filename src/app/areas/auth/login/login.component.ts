@@ -1,4 +1,3 @@
-import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -7,6 +6,7 @@ import { AuthenticationHelper } from '../../../components/helpers/authentication
 import { MenuHelper } from '../../../components/helpers/menu_helper';
 import { LoginResultModel } from '../../../components/models/login_result';
 import { MenuListModel } from '../../../components/models/menu_model';
+import { UserDetailsModel } from '../../../components/models/user_detail_model';
 import { Utils } from '../../../components/utils';
 
 @Component({
@@ -21,6 +21,8 @@ import { Utils } from '../../../components/utils';
 })
 
 export class LoginComponent extends BaseComponent implements OnInit {
+   UserDetails?: UserDetailsModel;
+
    public show_password = false;
    public year: number = Utils.get_current_year();
 
@@ -28,7 +30,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
       this.ViewModel = { Email: '', Password: '' };
    }
 
-   public login = async () => {
+   public login = async (): Promise<void> => {
 
       const response = await this.post_sync_call('/Portal/Login', this.ViewModel);
 
@@ -37,7 +39,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
             ResponseMessage: response.Data.ResponseMessage,
             SessionToken: response.Data.SessionToken,
             RoleCodes: response.Data.RoleCodes,
-            User: response.Data.UserDetails,
+            User: undefined,
             Success: true
          }
 
@@ -49,14 +51,29 @@ export class LoginComponent extends BaseComponent implements OnInit {
       this.cd.detectChanges();
    }
 
-   private menu = async () => {
-      const email = AuthenticationHelper.get_user_detail().User?.Email;
-
-      const response = await this.get_async_call('/Portal/MenuStructure', new HttpParams().set('email', email!));
+   private menu = async (): Promise<void> => {
+      const response = await this.get_async_call_no_params('/Portal/MenuStructure');
 
       if (!response.IsError) {
          const menu_result: MenuListModel = response.Data
+
          MenuHelper.set_menu_localstorage(menu_result);
+
+         await this.user_details();
+
+         if (AuthenticationHelper.get_user_detail().User == undefined) {
+
+            const login_result: LoginResultModel = {
+               ResponseMessage: AuthenticationHelper.get_user_detail().ResponseMessage,
+               SessionToken: AuthenticationHelper.get_user_detail().SessionToken,
+               RoleCodes: AuthenticationHelper.get_user_detail().RoleCodes,
+               User: this.UserDetails,
+               Success: true
+            }
+
+            AuthenticationHelper.set_user_localstorage(login_result);
+
+         }
 
          this.router.navigate(['/system/dashboard']);
       }
@@ -66,5 +83,15 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
    togglePassword() {
       this.show_password = !this.show_password;
+   }
+
+   private user_details = async (): Promise<void> => {
+      const response = await this.get_async_call_no_params('/Portal/UserDetails');
+
+      if (!response.IsError) {
+         this.UserDetails = response.Data
+      }
+
+      this.cd.detectChanges();
    }
 }

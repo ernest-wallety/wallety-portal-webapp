@@ -1,3 +1,5 @@
+import { UserDetailsModel } from "./user_detail_model";
+
 //Model for when the user logs in.
 export class LoginResultModel {
 
@@ -26,23 +28,3 @@ export class RoleCodeModel {
    IsDefault?: boolean
 }
 
-export class UserDetailsModel {
-   Name = '';
-   Surname = '';
-   Email?: string;
-   IdNumber?: string;
-   PassportNumber?: string;
-   IdentityImage = '';
-   AccountNumber = '';
-   AccountCreationDate?: Date;
-   IsAccountActive = true;
-   CommunicationConsent?: boolean;
-   VerifyAttempts = 3;
-   IsFrozen = false;
-   IsVerified = false;
-
-   PhoneNumber?: string;
-   PanicCode = '';
-
-   DisplayNumber?: string;
-}
