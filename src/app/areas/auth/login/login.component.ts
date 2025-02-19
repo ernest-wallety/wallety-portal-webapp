@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { BaseComponent } from '../../../components/base/base.component';
 import { AuthenticationHelper } from '../../../components/helpers/authentication_helper';
 import { LoginResultModel } from '../../../components/models/login_result';
-import { UserDetailsModel } from '../../../components/models/user_detail_model';
 import { Utils } from '../../../components/utils';
 
 @Component({
@@ -35,7 +34,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
             ResponseMessage: response.ResponseMessage,
             SessionToken: response.Data.SessionToken,
             RoleCodes: response.Data.RoleCodes,
-            User: new UserDetailsModel(),
+            User: response.Data.UserDetails,
             Success: true
          }
 
