@@ -12,7 +12,7 @@
          <div class="row g-0 pt-4 pb-1">
             <div class="col-1 me-5">
                <div class="mb-3 col-lg-12">
-                  <app-avatar [Size]="'xl'" [Image]="ImageUrl" [FullName]="FullName" [Colour]="Colour"></app-avatar>
+                  <app-avatar [Size]="'xl'" [Image]="ImageUrl"></app-avatar>
                </div>
             </div>
 
@@ -26,7 +26,8 @@
                      <span class="col-form-label p-0">{{ViewModel.Email}}</span>
                   </div>
                   <div class="p-0">
-                     <span class="col-form-label p-0">{{ Role?.Role }} <small>{{ Role?.Code }}</small></span>
+                     <span class="col-form-label p-0">{{ ViewModel.Role?.Role }} <small>{{ ViewModel.Role?.Code
+                           }}</small></span>
                   </div>
                </div>
             </div>

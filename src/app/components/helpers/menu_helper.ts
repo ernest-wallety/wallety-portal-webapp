@@ -50,4 +50,12 @@ export class MenuHelper extends BaseHelper {
          return new MenuListModel();
       }
    }
+
+   public static is_menu_stored(platformId: object): boolean {
+      if (!BaseHelper.is_browser(platformId)) {
+         return false; // localStorage is not available on the server
+      }
+
+      return localStorage.getItem(ConfigHelper.NG_APP_MENU_STORAGE_NAME) !== null;
+   }
 }

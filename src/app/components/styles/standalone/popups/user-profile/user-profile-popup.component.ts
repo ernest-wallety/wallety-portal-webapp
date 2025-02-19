@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { NgbModalOptions, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { AuthenticatedBaseComponent } from "../../../../base/authenticated_base.component";
+import { ExtensionMethods } from "../../../../helpers/extension_methods";
 import { AvatarComponent } from "../../avatar/avatar.component";
 import { SelectSingleLookupComponent } from "../../select-single-lookup/select-single-lookup.component";
 
@@ -22,6 +23,8 @@ import { SelectSingleLookupComponent } from "../../select-single-lookup/select-s
 })
 
 export class UserProfilePopupComponent extends AuthenticatedBaseComponent {
+   public ImageUrl = '';
+
    @ViewChild('userProfileTemplate') userProfileTemplate!: TemplateRef<any>;
 
    public modalDialog!: NgbModalRef;
@@ -45,25 +48,22 @@ export class UserProfilePopupComponent extends AuthenticatedBaseComponent {
    }
 
    refresh(): void {
+      this.ImageUrl = ExtensionMethods.to_base_64_image(this.LoggedInUser.User?.IdentityImage || '');
       this.ViewModel.Name = this.LoggedInUser.User.Name
       this.ViewModel.Surname = this.LoggedInUser.User.Surname
       this.ViewModel.Email = this.LoggedInUser.User.Email
       this.ViewModel.PhoneNumber = this.LoggedInUser.User.PhoneNumber
-      this.ViewModel.Role = this.Role
+      this.ViewModel.Role = this.LoggedInUser.RoleCodes?.find(role => role.IsDefault === true);
    }
 
    async save() {
 
-      console.log(this.ViewModel);
+      const response = await this.post_sync_call('/Portal/UserRoleChange', this.ViewModel);
 
-      // const response = await this.post_sync_call('/CustomerServiceAgent/Register', this.ViewModel);
-
-      // console.log(response);
-
-      // if (!response.IsError) {
-      //    this.OnSave.emit(response.Data);
-      //    this.modalDialog.close();
-      // }
+      if (!response.IsError) {
+         this.OnSave.emit(response.Data);
+         this.modalDialog.close();
+      }
    }
 
    public updateRoles(event: any, field: string) {

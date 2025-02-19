@@ -4,8 +4,6 @@ import { BaseComponent } from './base.component';
 // import { PagingService } from "../services/paging_service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { ExtensionMethods } from '../helpers/extension_methods';
-import { RoleCodeModel } from '../models/login_result';
 import { DataService } from '../services/apiconnector/data.service';
 import { TitleService } from '../services/title.service';
 // import { LookupHelper } from '../helpers/lookup_helper';
@@ -15,13 +13,6 @@ import { TitleService } from '../services/title.service';
 // Component used for authenticated pages. There is a list version of this as well for list pages which inherits from this.
 export class AuthenticatedBaseComponent extends BaseComponent {
   public PageTitle = '';
-
-  // User related
-  public ImageUrl = '';
-  public FullName = '';
-  public Colour = '';
-  public Role?: RoleCodeModel;
-
 
   // Inject providers imported in app.module
   constructor(
@@ -51,11 +42,5 @@ export class AuthenticatedBaseComponent extends BaseComponent {
       platformId
       // lookup_helper
     );
-
-    // User related
-    this.ImageUrl = ExtensionMethods.to_base_64_image(this.LoggedInUser.User?.IdentityImage || '');
-    this.FullName = `${this.LoggedInUser.User.Name} ${this.LoggedInUser.User.Surname}`;
-    this.Colour = "#dfdfdf"
-    this.Role = this.LoggedInUser.RoleCodes?.find(role => role.IsDefault === true);
   }
 }

@@ -11,7 +11,7 @@ export class LoginResultModel {
 
    Success: boolean;
 
-   User: UserDetailsModel = new UserDetailsModel;
+   User: UserDetailsModel = new UserDetailsModel();
 
    constructor() {
       this.ResponseMessage = 'Login Successful';

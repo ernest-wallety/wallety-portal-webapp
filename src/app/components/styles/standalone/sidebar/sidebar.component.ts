@@ -26,19 +26,7 @@ export class SidebarComponent extends AuthenticatedBaseComponent implements OnIn
    @Output() public OnSidebarChange: EventEmitter<any> = new EventEmitter<any>();
 
    ngOnInit() {
-      this.get_menu_items();
-      this.set_active_menu_item();
-
-      // Initialize expanded state
-      const sidebar = document.getElementById('nav-bar');
-      this.isExpanded = sidebar?.classList.contains('show') ?? false;
-   }
-
-   toggle_navbar(): void {
-      const sidebar: any = document.getElementById('nav-bar');
-      sidebar.classList.toggle('show');
-      this.isExpanded = !this.isExpanded;
-      this.OnSidebarChange.emit(this.isExpanded);
+      this.initialize_sidebar();
    }
 
    // Helper function to check if the current route matches the menu item's route
@@ -56,7 +44,7 @@ export class SidebarComponent extends AuthenticatedBaseComponent implements OnIn
       }
    }
 
-   set_sidebar_children_class(selectedItem: MenuAccessModel) {
+   public set_sidebar_children_class(selectedItem: MenuAccessModel) {
       this.MenuItems.forEach((menuItem: MenuAccessModel) => {
          if (menuItem === selectedItem) {
             // Toggle the selected item (expand/collapse)
@@ -72,6 +60,26 @@ export class SidebarComponent extends AuthenticatedBaseComponent implements OnIn
 
       // Set the active module for highlighting
       // this.activeModule = selectedItem.ModuleSidebarClass === this.expandedModuleActive ? selectedItem.ModuleSidebarClass : '';
+   }
+
+   public toggle_navbar(): void {
+      const sidebar: any = document.getElementById('nav-bar');
+      sidebar.classList.toggle('show');
+      this.isExpanded = !this.isExpanded;
+      this.OnSidebarChange.emit(this.isExpanded);
+   }
+
+   private async initialize_sidebar() {
+      if (!MenuHelper.is_menu_stored(this.platformId)) {
+         await this.store_menu(); // Ensure menu is stored before proceeding
+      }
+
+      this.get_menu_items();
+      this.set_active_menu_item();
+
+      // Initialize expanded state
+      const sidebar = document.getElementById('nav-bar');
+      this.isExpanded = sidebar?.classList.contains('show') ?? false;
    }
 
    private async get_menu_items() {
@@ -104,9 +112,14 @@ export class SidebarComponent extends AuthenticatedBaseComponent implements OnIn
       });
    }
 
-   // Utility to check if the current environment is a browser.
-   private is_browser(): boolean {
-      return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
-   }
+   private store_menu = async (): Promise<void> => {
+      const response = await this.get_async_call_no_params('/Portal/MenuStructure');
 
+      if (!response.IsError) {
+         const menu_result: MenuListModel = response.Data
+         MenuHelper.set_menu_localstorage(menu_result, this.platformId);
+      }
+
+      this.cd.detectChanges();
+   }
 }
