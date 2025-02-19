@@ -3,7 +3,7 @@ import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AuthenticatedBaseComponent } from '../../../components/base/authenticated_base.component';
+import { BaseComponent } from '../../../components/base/base.component';
 import { Utils } from '../../../components/utils';
 
 @Component({
@@ -13,7 +13,7 @@ import { Utils } from '../../../components/utils';
    standalone: true,
    imports: [FormsModule, CommonModule, RouterModule]
 })
-export class ResetPasswordComponent extends AuthenticatedBaseComponent implements OnInit {
+export class ResetPasswordComponent extends BaseComponent implements OnInit {
    public step = 1;
    public invalid_email = false;
    public response?: object;
