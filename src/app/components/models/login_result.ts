@@ -3,7 +3,7 @@ import { UserDetailsModel } from "./user_detail_model";
 //Model for when the user logs in.
 export class LoginResultModel {
 
-   ResponseMessage: string;
+   ResponseMessage?: string;
 
    SessionToken?: string;
 
@@ -11,7 +11,7 @@ export class LoginResultModel {
 
    Success: boolean;
 
-   User?: UserDetailsModel;
+   User: UserDetailsModel = new UserDetailsModel;
 
    constructor() {
       this.ResponseMessage = 'Login Successful';

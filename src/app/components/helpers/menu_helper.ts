@@ -1,13 +1,18 @@
+import { Inject, PLATFORM_ID } from '@angular/core';
 import { MenuListModel } from "../models/menu_model";
 import { BaseHelper } from "./base_helper";
 import { ConfigHelper } from "./config_helper";
 
 export class MenuHelper extends BaseHelper {
+   constructor(@Inject(PLATFORM_ID) platformId: object) {
+      super(platformId); // Pass platformId to the parent constructor
+   }
+
    /**
        * Set user details in localStorage. Only works in a browser environment.
        */
-   public static set_menu_localstorage(menu_detail: MenuListModel): void {
-      if (!this.is_browser()) {
+   public static set_menu_localstorage(menu_detail: MenuListModel, platformId: object): void {
+      if (!BaseHelper.is_browser(platformId)) {
          console.warn("Attempted to set localStorage in a server environment.");
          return;
       }
@@ -23,8 +28,8 @@ export class MenuHelper extends BaseHelper {
       * Get the information about the logged-in user and convert it to a LoginResultModel.
       * Returns a default value if not running in a browser.
       */
-   public static get_menu_detail(): MenuListModel {
-      if (!this.is_browser()) {
+   public static get_menu_detail(platformId: object): MenuListModel {
+      if (!BaseHelper.is_browser(platformId)) {
          // Default value for server-side environment.
          return new MenuListModel();
       }
@@ -45,5 +50,4 @@ export class MenuHelper extends BaseHelper {
          return new MenuListModel();
       }
    }
-
 }

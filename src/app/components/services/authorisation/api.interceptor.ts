@@ -4,21 +4,22 @@ import {
    HttpInterceptor,
    HttpRequest,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthenticationHelper } from '../../helpers/authentication_helper';
 
-//Extend from the HttpInterceptor and add the AuthToken and whatever else we need to the headers.
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
+   constructor(@Inject(PLATFORM_ID) private platformId: object) { }
+
    intercept(
       request: HttpRequest<any>,
       next: HttpHandler,
    ): Observable<HttpEvent<any>> {
-      const logged_in_user = AuthenticationHelper.get_user_detail();
+      const logged_in_user = AuthenticationHelper.get_user_detail(this.platformId);
 
-      //Intercept and shove the Auth in with our user details from above.
-      if (logged_in_user) {
+      // Intercept and add the AuthToken to the request headers if the user is logged in
+      if (logged_in_user && logged_in_user.SessionToken) {
          request = request.clone({
             setHeaders: {
                Authorization: `bearer ${logged_in_user.SessionToken}`,

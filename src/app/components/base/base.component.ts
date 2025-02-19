@@ -33,7 +33,7 @@ export class BaseComponent {
       @Inject(PLATFORM_ID) public platformId: object,
       // public lookup_helper: LookupHelper,
    ) {
-      this.LoggedInUser = AuthenticationHelper.get_user_detail();
+      this.LoggedInUser = AuthenticationHelper.get_user_detail(this.platformId);
       this.ViewModel = Object.assign(new Object());
    }
 
@@ -123,15 +123,15 @@ export class BaseComponent {
    }
 
    get is_logged_in(): boolean {
-      return AuthenticationHelper.is_logged_in();
+      return AuthenticationHelper.is_logged_in(this.platformId);
    }
    get is_admin(): boolean {
-      return AuthenticationHelper.is_admin();
+      return AuthenticationHelper.is_admin(this.platformId);
    }
    get is_service_agent(): boolean {
-      return AuthenticationHelper.is_service_agent();
+      return AuthenticationHelper.is_service_agent(this.platformId);
    }
    get is_customer(): boolean {
-      return AuthenticationHelper.is_customer();
+      return AuthenticationHelper.is_customer(this.platformId);
    }
 }

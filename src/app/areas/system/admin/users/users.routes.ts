@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+import { AuthGuard } from '../../../../components/guards/auth-guard.service';
 import { UserComponent } from './users.component';
 
 export const routes: Routes = [
@@ -9,7 +10,8 @@ export const routes: Routes = [
             path: '',
             loadComponent: () => import(`./user-parent/user-parent.component`)
                .then(mod => mod.UserParentComponent),
-            data: { animation: 'UserParentPage' }
+            data: { animation: 'UserParentPage' },
+            canActivate: [AuthGuard]
          },
          // {
          //    path: ':page',

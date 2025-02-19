@@ -50,7 +50,7 @@ export class SidebarComponent extends AuthenticatedBaseComponent implements OnIn
       const response = await this.post_sync_call('/Portal/Logout');
 
       if (!response.IsError) {
-         AuthenticationHelper.clear_user_localstorage();
+         AuthenticationHelper.clear_user_localstorage(this.platformId);
 
          this.router.navigate(['auth/login']);
       }
@@ -75,7 +75,7 @@ export class SidebarComponent extends AuthenticatedBaseComponent implements OnIn
    }
 
    private async get_menu_items() {
-      const response = MenuHelper.get_menu_detail()
+      const response = MenuHelper.get_menu_detail(this.platformId)
 
       this.MenuItems = response;
 

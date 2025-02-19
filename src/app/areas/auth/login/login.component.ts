@@ -6,7 +6,6 @@ import { AuthenticationHelper } from '../../../components/helpers/authentication
 import { MenuHelper } from '../../../components/helpers/menu_helper';
 import { LoginResultModel } from '../../../components/models/login_result';
 import { MenuListModel } from '../../../components/models/menu_model';
-import { UserDetailsModel } from '../../../components/models/user_detail_model';
 import { Utils } from '../../../components/utils';
 
 @Component({
@@ -21,8 +20,6 @@ import { Utils } from '../../../components/utils';
 })
 
 export class LoginComponent extends BaseComponent implements OnInit {
-   UserDetails?: UserDetailsModel;
-
    public show_password = false;
    public year: number = Utils.get_current_year();
 
@@ -34,16 +31,17 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
       const response = await this.post_sync_call('/Portal/Login', this.ViewModel);
 
+
       if (!response.IsError) {
          const login_result: LoginResultModel = {
-            ResponseMessage: response.Data.ResponseMessage,
+            ResponseMessage: response.ResponseMessage,
             SessionToken: response.Data.SessionToken,
             RoleCodes: response.Data.RoleCodes,
-            User: undefined,
+            User: this.LoggedInUser.User,
             Success: true
          }
 
-         AuthenticationHelper.set_user_localstorage(login_result);
+         AuthenticationHelper.set_user_localstorage(login_result, this.platformId);
 
          await this.menu();
       }
@@ -57,22 +55,20 @@ export class LoginComponent extends BaseComponent implements OnInit {
       if (!response.IsError) {
          const menu_result: MenuListModel = response.Data
 
-         MenuHelper.set_menu_localstorage(menu_result);
+         MenuHelper.set_menu_localstorage(menu_result, this.platformId);
 
-         await this.user_details();
+         const success = await this.user_details();
 
-         if (AuthenticationHelper.get_user_detail().User == undefined) {
-
+         if (success) {
             const login_result: LoginResultModel = {
-               ResponseMessage: AuthenticationHelper.get_user_detail().ResponseMessage,
-               SessionToken: AuthenticationHelper.get_user_detail().SessionToken,
-               RoleCodes: AuthenticationHelper.get_user_detail().RoleCodes,
-               User: this.UserDetails,
+               ResponseMessage: this.LoggedInUser.ResponseMessage,
+               SessionToken: this.LoggedInUser.SessionToken,
+               RoleCodes: this.LoggedInUser.RoleCodes,
+               User: this.LoggedInUser.User,
                Success: true
             }
 
-            AuthenticationHelper.set_user_localstorage(login_result);
-
+            AuthenticationHelper.set_user_localstorage(login_result, this.platformId);
          }
 
          this.router.navigate(['/system/dashboard']);
@@ -81,17 +77,20 @@ export class LoginComponent extends BaseComponent implements OnInit {
       this.cd.detectChanges();
    }
 
-   togglePassword() {
-      this.show_password = !this.show_password;
-   }
-
-   private user_details = async (): Promise<void> => {
+   private user_details = async (): Promise<boolean> => {
       const response = await this.get_async_call_no_params('/Portal/UserDetails');
 
       if (!response.IsError) {
-         this.UserDetails = response.Data
+         this.LoggedInUser.User = response.Data
+         return true;
       }
 
       this.cd.detectChanges();
+
+      return false;
+   }
+
+   togglePassword() {
+      this.show_password = !this.show_password;
    }
 }

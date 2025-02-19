@@ -15,11 +15,15 @@ import { UserProfilePopupComponent } from "../popups/user-profile/user-profile-p
 })
 
 export class NavbarComponent extends AuthenticatedBaseComponent implements OnInit {
+
+
    UnreadNotifications = 0; // Add counter for notifications
 
    @ViewChild('userProfilePopupComponent') userProfilePopupComponent!: UserProfilePopupComponent;
 
    ngOnInit(): void {
+      console.log(this.LoggedInUser.User)
+
       this.titleService.getTitleObservable().subscribe(title => {
          this.PageTitle = title;
       });
