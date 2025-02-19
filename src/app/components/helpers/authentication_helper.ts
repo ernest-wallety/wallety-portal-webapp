@@ -60,6 +60,11 @@ export class AuthenticationHelper extends BaseHelper {
       }
    }
 
+   public static is_user_detail_stored(platformId: object): boolean {
+
+      return this.get_user_detail(platformId).User.Email !== null || this.get_user_detail(platformId).User.Email !== undefined;
+   }
+
    /**
     * Checks if the user is logged in.
     * @returns {boolean} True if the user is logged in, otherwise false.

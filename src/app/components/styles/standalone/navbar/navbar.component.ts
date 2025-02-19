@@ -42,24 +42,26 @@ export class NavbarComponent extends AuthenticatedBaseComponent implements OnIni
    }
 
    private async initialize_navbar() {
-      const success = await this.user_details();
 
-      if (success) {
-         const login_result: LoginResultModel = {
-            ResponseMessage: this.LoggedInUser.ResponseMessage,
-            SessionToken: this.LoggedInUser.SessionToken,
-            RoleCodes: this.LoggedInUser.RoleCodes,
-            User: this.LoggedInUser.User,
-            Success: true
+      if (AuthenticationHelper.is_user_detail_stored(this.platformId)) {
+         const success = await this.user_details();
+
+         if (success) {
+            const login_result: LoginResultModel = {
+               ResponseMessage: this.LoggedInUser.ResponseMessage,
+               SessionToken: this.LoggedInUser.SessionToken,
+               RoleCodes: this.LoggedInUser.RoleCodes,
+               User: this.LoggedInUser.User,
+               Success: true
+            }
+
+            AuthenticationHelper.set_user_localstorage(login_result, this.platformId);
          }
-
-         AuthenticationHelper.set_user_localstorage(login_result, this.platformId);
       }
 
       // User related
       this.ImageUrl = ExtensionMethods.to_base_64_image(this.LoggedInUser.User?.IdentityImage || '');
       this.FullName = `${this.LoggedInUser.User.Name} ${this.LoggedInUser.User.Surname}`;
-      this.Colour = "#dfdfdf"
       this.Role = this.LoggedInUser.RoleCodes?.find(role => role.IsDefault === true);
 
 
