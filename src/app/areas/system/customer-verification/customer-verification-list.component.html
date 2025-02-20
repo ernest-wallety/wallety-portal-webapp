@@ -1,88 +1,115 @@
-<app-customer-verification-popup #customerVerificationPopup (OnSave)="refresh()"></app-customer-verification-popup>
+<app-customer-verification-popup
+  #customerVerificationPopup
+  (OnSave)="refresh()"
+></app-customer-verification-popup>
 
 <div class="list-height">
-   <!-- Search Bar -->
-   <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
-         <div class="collapse navbar-collapse d-flex justify-content-end">
-            <app-search-input (valueChange)="refresh()" placeholder="Search for something..."></app-search-input>
-         </div>
+  <!-- Search Bar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse d-flex justify-content-end">
+        <app-search-input
+          (valueChange)="refresh()"
+          placeholder="Search for something..."
+        ></app-search-input>
       </div>
-   </nav>
+    </div>
+  </nav>
 
-   <!-- Table -->
-   <table class="iq-list-table">
-      <thead>
-         <tr>
-            <th></th>
-            <th>Name</th>
-            <th>WhatsApp Number</th>
-            <th class="d-none d-md-table-cell">Country</th>
-            <th class="d-none d-md-table-cell">Registration Date</th>
-            <th>Status</th>
-            <th class="d-none d-md-table-cell">Updated By</th>
-            <th></th>
-         </tr>
-         <tr class="filter-row table-fixed-header">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td style="width: 250px;">
-               <!-- Add your select-single-lookup component here -->
-            </td>
-            <td style="width: 250px;">
-               <!-- Add your select-single-lookup component here -->
-            </td>
-            <td>
-               <!-- Add your select-single-lookup component here -->
-            </td>
-         </tr>
-      </thead>
-      <tbody>
-         <tr *ngFor="let a of ViewModel?.UnverifiedCustomersAccounts">
-            <td> </td>
-            <td>{{ a.Name }} <strong>{{ a.Surname }}</strong></td>
-            <td>{{ a.PhoneNumber | phoneFormat }}</td>
-            <td class="d-none d-md-table-cell">{{ a.Country }}</td>
-            <td class="d-none d-md-table-cell">{{ a.AccountCreationDate }}</td>
-            <td class="position-relative">
-               <span class="badge" [ngClass]="{
-                  'bg-prog-4': a.RegistrationStatus === 'Approved',
-                  'bg-prog-2': a.RegistrationStatus === 'Pending',
-                  'bg-prog-1': a.RegistrationStatus === 'Rejected'
-              }" style="color: white; position: relative;">
-                  {{a.RegistrationStatus}}
-                  <span *ngIf="a.History.length > 0" class="status-notification-badge">
-                     {{ a.History.length }}
-                  </span>
-               </span>
-            </td>
-            <td class="d-none d-md-table-cell">{{ a.CustomerServiceAgent }}</td>
+  <!-- Table -->
+  <table class="iq-list-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>WhatsApp Number</th>
+        <th class="d-none d-md-table-cell">Country</th>
+        <th class="d-none d-md-table-cell">Registration Date</th>
+        <th>Status</th>
+        <th class="d-none d-md-table-cell">Updated By</th>
+        <th></th>
+      </tr>
+      <tr class="filter-row table-fixed-header">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="width: 250px">
+          <!-- Add your select-single-lookup component here -->
+        </td>
+        <td style="width: 250px">
+          <!-- Add your select-single-lookup component here -->
+        </td>
+        <td>
+          <!-- Add your select-single-lookup component here -->
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of ViewModel?.UnverifiedCustomersAccounts">
+        <td></td>
+        <td>
+          {{ a.Name }}
+          <strong>{{ a.Surname }}</strong>
+        </td>
+        <td>{{ a.PhoneNumber | phoneFormat }}</td>
+        <td class="d-none d-md-table-cell">{{ a.Country }}</td>
+        <td class="d-none d-md-table-cell">{{ a.AccountCreationDate }}</td>
+        <td class="position-relative">
+          <span
+            class="badge"
+            [ngClass]="{
+              'bg-prog-4': a.RegistrationStatus === 'Approved',
+              'bg-prog-2': a.RegistrationStatus === 'Pending',
+              'bg-prog-1': a.RegistrationStatus === 'Rejected',
+            }"
+            style="color: white; position: relative"
+          >
+            {{ a.RegistrationStatus }}
+            <span
+              *ngIf="a.History.length > 0"
+              class="status-notification-badge"
+            >
+              {{ a.History.length }}
+            </span>
+          </span>
+        </td>
+        <td class="d-none d-md-table-cell">{{ a.CustomerServiceAgent }}</td>
 
-            <!-- <td>
+        <!-- <td>
                <span>
                   <span class="fa fa-circle"
                      [ngClass]="{ 'text-danger': a.deleted, 'text-success': !a.deleted }"></span>
                   {{ a.email }}
                </span>
             </td> -->
-            <td>
-               <a href="#" onclick="return false;" class="table-action-link" (click)="details(a)">
-                  Verify
-               </a>
-            </td>
-         </tr>
-      </tbody>
-      <tbody *ngIf="ViewModel?.UnverifiedCustomersAccounts?.length === 0 && IsLoading === false">
-         <tr>
-            <td colspan="10" class="text-center border-bottom-0">
-               <h4 class="mt-5 mb-5">
-                  <i class="fa fa-exclamation-triangle me-2"></i>No results found
-               </h4>
-            </td>
-         </tr>
-      </tbody>
-   </table>
+        <td>
+          <a
+            href="#"
+            onclick="return false;"
+            class="table-action-link"
+            (click)="details(a)"
+          >
+            Verify
+          </a>
+        </td>
+      </tr>
+    </tbody>
+    <tbody
+      *ngIf="
+        ViewModel?.UnverifiedCustomersAccounts?.length === 0 &&
+        IsLoading === false
+      "
+    >
+      <tr>
+        <td colspan="10" class="text-center border-bottom-0">
+          <h4 class="mt-5 mb-5">
+            <i class="fa fa-exclamation-triangle me-2"></i>
+            No results found
+          </h4>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -1,4 +1,4 @@
 export enum EnumValidationDisplay {
-   Toastr,
-   Popup
+  Toastr,
+  Popup,
 }

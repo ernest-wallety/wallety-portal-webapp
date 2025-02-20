@@ -8,38 +8,43 @@ import { RegisterServiceAgentPopupComponent } from "../../../../../../components
 import { SearchInputComponent } from "../../../../../../components/styles/standalone/search-input/search-input.component";
 
 @Component({
-   selector: 'app-customer-service-agent-list',
-   standalone: true,
-   imports: [
-      CommonModule,
-      RouterModule,
-      FormsModule,
-      SearchInputComponent,
-      RegisterServiceAgentPopupComponent
-   ],
-   templateUrl: './customer-service-agent-list.component.html',
-   styleUrls: ['./customer-service-agent-list.component.scss']
+  selector: "app-customer-service-agent-list",
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    SearchInputComponent,
+    RegisterServiceAgentPopupComponent,
+  ],
+  templateUrl: "./customer-service-agent-list.component.html",
+  styleUrls: ["./customer-service-agent-list.component.scss"],
 })
+export class CustomerServiceAgentListComponent
+  extends AuthenticatedBaseListComponent
+  implements OnInit
+{
+  @ViewChild("registerServiceAgentPopup")
+  registerServiceAgentPopup!: RegisterServiceAgentPopupComponent;
 
-export class CustomerServiceAgentListComponent extends AuthenticatedBaseListComponent implements OnInit {
-   @ViewChild('registerServiceAgentPopup') registerServiceAgentPopup!: RegisterServiceAgentPopupComponent;
+  criteria: ListCriteria = ListCriteria.default();
 
-   criteria: ListCriteria = ListCriteria.default();
+  ngOnInit(): void {
+    this.titleService.setTitle("Customer Service Agents");
+    this.refresh();
+  }
 
-   ngOnInit(): void {
-      this.titleService.setTitle("Customer Service Agents");
-      this.refresh();
-   }
+  async refresh() {
+    const response = await this.get_async_call_no_params(
+      "/CustomerServiceAgent/GetAccounts",
+    );
 
-   async refresh() {
-      const response = await this.get_async_call_no_params('/CustomerServiceAgent/GetAccounts');
+    if (!response.IsError) {
+      this.ViewModel = response.Data;
+    }
+  }
 
-      if (!response.IsError) {
-         this.ViewModel = response.Data;
-      }
-   }
-
-   register() {
-      this.registerServiceAgentPopup.showDialog();
-   }
+  register() {
+    this.registerServiceAgentPopup.showDialog();
+  }
 }

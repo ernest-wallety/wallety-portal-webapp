@@ -1,13 +1,21 @@
-import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
-import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
-import { provideToastr } from 'ngx-toastr';
-import { routes } from './app.routes';
-import { AuthGuard } from './components/guards/auth-guard.service';
-import { ApiInterceptor } from './components/services/authorisation/api.interceptor';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withFetch,
+  withInterceptorsFromDi,
+} from "@angular/common/http";
+import { ApplicationConfig, provideZoneChangeDetection } from "@angular/core";
+import {
+  provideClientHydration,
+  withEventReplay,
+} from "@angular/platform-browser";
+import { provideAnimations } from "@angular/platform-browser/animations";
+import { provideRouter } from "@angular/router";
+import { JWT_OPTIONS, JwtHelperService } from "@auth0/angular-jwt";
+import { provideToastr } from "ngx-toastr";
+import { routes } from "./app.routes";
+import { AuthGuard } from "./components/guards/auth-guard.service";
+import { ApiInterceptor } from "./components/services/authorisation/api.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,7 +25,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideToastr({
       timeOut: 5000, // Customize your toastr settings
-      positionClass: 'toast-bottom-right',
+      positionClass: "toast-bottom-right",
       preventDuplicates: true,
     }),
     // Provide JWT_OPTIONS
@@ -31,8 +39,6 @@ export const appConfig: ApplicationConfig = {
       useClass: ApiInterceptor,
       multi: true,
     },
-    provideHttpClient(withFetch(), withInterceptorsFromDi())
-  ]
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
+  ],
 };
-
-

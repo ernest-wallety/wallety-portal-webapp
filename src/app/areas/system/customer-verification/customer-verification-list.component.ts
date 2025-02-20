@@ -9,48 +9,53 @@ import { SearchInputComponent } from "../../../components/styles/standalone/sear
 import { PhoneFormatPipe } from "../../../components/utils/pipes/phoneFormat";
 
 @Component({
-   selector: 'app-customer-verification-list',
-   standalone: true,
-   imports: [
-      CommonModule,
-      RouterModule,
-      FormsModule,
-      PhoneFormatPipe,
-      CustomerVerificationPopupComponent,
-      SearchInputComponent
-   ],
-   templateUrl: './customer-verification-list.component.html',
-   styleUrls: ['./customer-verification-list.component.scss']
+  selector: "app-customer-verification-list",
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    PhoneFormatPipe,
+    CustomerVerificationPopupComponent,
+    SearchInputComponent,
+  ],
+  templateUrl: "./customer-verification-list.component.html",
+  styleUrls: ["./customer-verification-list.component.scss"],
 })
+export class CustomerVerificationListComponent
+  extends AuthenticatedBaseListComponent
+  implements OnInit
+{
+  @ViewChild("customerVerificationPopup")
+  customerVerificationPopup!: CustomerVerificationPopupComponent;
 
-export class CustomerVerificationListComponent extends AuthenticatedBaseListComponent implements OnInit {
-   @ViewChild('customerVerificationPopup') customerVerificationPopup!: CustomerVerificationPopupComponent;
+  criteria: ListCriteria = ListCriteria.default();
 
-   criteria: ListCriteria = ListCriteria.default();
+  private reasons?: any;
+  private statuses?: any;
 
-   private reasons?: any;
-   private statuses?: any;
+  ngOnInit(): void {
+    this.titleService.setTitle("Customer Verification");
+    this.refresh();
+  }
 
-   ngOnInit(): void {
-      this.titleService.setTitle("Customer Verification");
-      this.refresh();
-   }
+  async refresh() {
+    const response = await this.get_async_call_no_params(
+      "/Customer/GetUnverifiedAccounts",
+    );
 
-   async refresh() {
-      const response = await this.get_async_call_no_params('/Customer/GetUnverifiedAccounts');
+    if (!response.IsError) {
+      this.ViewModel = response.Data;
+      this.statuses = this.ViewModel?.RegistrationStatuses;
+      this.reasons = this.ViewModel?.VerificationRejectReasons;
+    }
+  }
 
-      if (!response.IsError) {
-         this.ViewModel = response.Data;
-         this.statuses = this.ViewModel?.RegistrationStatuses
-         this.reasons = this.ViewModel?.VerificationRejectReasons
-      }
-   }
+  details(item: any) {
+    this.customerVerificationPopup.model = item;
+    this.customerVerificationPopup.reasons = this.reasons;
+    this.customerVerificationPopup.statuses = this.statuses;
 
-   details(item: any) {
-      this.customerVerificationPopup.model = item;
-      this.customerVerificationPopup.reasons = this.reasons;
-      this.customerVerificationPopup.statuses = this.statuses;
-
-      this.customerVerificationPopup.showDialog();
-   }
+    this.customerVerificationPopup.showDialog();
+  }
 }

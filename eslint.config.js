@@ -31,6 +31,7 @@ module.exports = tseslint.config(
         },
       ],
       "@typescript-eslint/no-explicit-any": "off", // Disable the no-explicit-any rule
+      "@typescript-eslint/quotes": ["error", "double"], // Enforce double quotes
     },
   },
   {

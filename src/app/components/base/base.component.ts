@@ -1,8 +1,14 @@
 import { HttpParams } from "@angular/common/http";
-import { ChangeDetectorRef, Directive, Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Directive,
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ToastrService } from "ngx-toastr";
 import { EnumValidationDisplay } from "../enum/enum_validation_display";
 import { AuthenticationHelper } from "../helpers/authentication_helper";
 import { ExtensionMethods } from "../helpers/extension_methods";
@@ -16,122 +22,122 @@ import { ValidationPopupComponent } from "../styles/standalone/popups/validation
 @Injectable()
 @Directive()
 export class BaseComponent {
-   public LoggedInUser: LoginResultModel;
-   public IsLoading = false;
-   public ViewModel: any;
-   public Criteria: ListCriteria = ListCriteria.default();
+  public LoggedInUser: LoginResultModel;
+  public IsLoading = false;
+  public ViewModel: any;
+  public Criteria: ListCriteria = ListCriteria.default();
 
-   // Get user detail every load and just blank populate the viewmodel
-   constructor(
-      public data_service: DataService,
-      public router: Router,
-      public route: ActivatedRoute,
-      public toastr: ToastrService,
-      public ngbModalService: NgbModal,
-      public cd: ChangeDetectorRef,
-      public titleService: TitleService,
-      @Inject(PLATFORM_ID) public platformId: object,
-      // public lookup_helper: LookupHelper,
-   ) {
-      this.LoggedInUser = AuthenticationHelper.get_user_detail(this.platformId);
-      this.ViewModel = Object.assign(new Object());
-   }
+  // Get user detail every load and just blank populate the viewmodel
+  constructor(
+    public data_service: DataService,
+    public router: Router,
+    public route: ActivatedRoute,
+    public toastr: ToastrService,
+    public ngbModalService: NgbModal,
+    public cd: ChangeDetectorRef,
+    public titleService: TitleService,
+    @Inject(PLATFORM_ID) public platformId: object,
+    // public lookup_helper: LookupHelper,
+  ) {
+    this.LoggedInUser = AuthenticationHelper.get_user_detail(this.platformId);
+    this.ViewModel = Object.assign(new Object());
+  }
 
-   // Get call with no params
-   public async get_async_call_no_params(apiUrl: string) {
-      this.IsLoading = true;
+  // Get call with no params
+  public async get_async_call_no_params(apiUrl: string) {
+    this.IsLoading = true;
 
-      const response = await this.data_service.get_async_call_no_params(apiUrl);
+    const response = await this.data_service.get_async_call_no_params(apiUrl);
 
-      this.IsLoading = false;
+    this.IsLoading = false;
 
-      return response;
-   }
+    return response;
+  }
 
-   public async get_async_call(apiUrl: string, params: HttpParams) {
-      this.IsLoading = true;
+  public async get_async_call(apiUrl: string, params: HttpParams) {
+    this.IsLoading = true;
 
-      const response = await this.data_service.get_async_call(apiUrl, params);
+    const response = await this.data_service.get_async_call(apiUrl, params);
 
-      this.IsLoading = false;
+    this.IsLoading = false;
 
-      return response;
-   }
+    return response;
+  }
 
-   // New posting method that uses a more synchronous way of getting the data
-   // This will also handle the is loading variable that we reuse everywhere and rather in a more central place.
-   public async post_sync_call(apiUrl: string, payload?: object) {
-      this.IsLoading = true;
+  // New posting method that uses a more synchronous way of getting the data
+  // This will also handle the is loading variable that we reuse everywhere and rather in a more central place.
+  public async post_sync_call(apiUrl: string, payload?: object) {
+    this.IsLoading = true;
 
-      const response = await this.data_service.post_sync_call(apiUrl, payload);
+    const response = await this.data_service.post_sync_call(apiUrl, payload);
 
-      this.IsLoading = false;
+    this.IsLoading = false;
 
-      return response;
-   }
+    return response;
+  }
 
-   // New posting method that uses a more synchronous way of getting the data
-   // This will also handle the is loading variable that we reuse everywhere and rather in a more central place.
-   public async post_sync_call_non_object(apiUrl: string, payload?: any) {
-      this.IsLoading = true;
+  // New posting method that uses a more synchronous way of getting the data
+  // This will also handle the is loading variable that we reuse everywhere and rather in a more central place.
+  public async post_sync_call_non_object(apiUrl: string, payload?: any) {
+    this.IsLoading = true;
 
-      const response = await this.data_service.post_sync_call_non_object(apiUrl, payload);
+    const response = await this.data_service.post_sync_call(apiUrl, payload);
 
-      this.IsLoading = false;
+    this.IsLoading = false;
 
-      return response;
-   }
+    return response;
+  }
 
-   //This uses the responses received by the data service http calls and decides what to do with it.
-   public handle_response(response: ResponseModel) {
+  //This uses the responses received by the data service http calls and decides what to do with it.
+  public handle_response(response: ResponseModel) {
+    if (ExtensionMethods.is_error_status(response.StatusCode!))
+      response.IsError = true;
 
-      if (ExtensionMethods.is_error_status(response.StatusCode!)) response.IsError = true;
-
-      if (response.IsError && response.ShowError) {
-         this.handle_dialogs(response);
-      } else if (response.IsException && response.ShowException) {
-         //Only want popups for exception errors.
-         response.ErrorDisplay = EnumValidationDisplay.Popup;
-         this.handle_dialogs(response);
-      } else if (response.IsError == false && response.ShowSuccess == true) {
-         if (ExtensionMethods.is_error_status(response.StatusCode!)) {
-            this.toastr.error(response.ResponseMessage);
-         } else {
-            this.toastr.success(response.ResponseMessage);
-         }
+    if (response.IsError && response.ShowError) {
+      this.handle_dialogs(response);
+    } else if (response.IsException && response.ShowException) {
+      //Only want popups for exception errors.
+      response.ErrorDisplay = EnumValidationDisplay.Popup;
+      this.handle_dialogs(response);
+    } else if (response.IsError == false && response.ShowSuccess == true) {
+      if (ExtensionMethods.is_error_status(response.StatusCode!)) {
+        this.toastr.error(response.ResponseMessage);
+      } else {
+        this.toastr.success(response.ResponseMessage);
       }
-   }
+    }
+  }
 
-   //Handle the toastr or popup dialogs based off the response model.
-   private handle_dialogs(response: ResponseModel) {
-      if (response.ErrorDisplay == EnumValidationDisplay.Popup) {
-         const modalRef = this.ngbModalService.open(ValidationPopupComponent, {
-            backdrop: "static",
-            size: "lg",
-            keyboard: false,
-            centered: true,
-         });
+  //Handle the toastr or popup dialogs based off the response model.
+  private handle_dialogs(response: ResponseModel) {
+    if (response.ErrorDisplay == EnumValidationDisplay.Popup) {
+      const modalRef = this.ngbModalService.open(ValidationPopupComponent, {
+        backdrop: "static",
+        size: "lg",
+        keyboard: false,
+        centered: true,
+      });
 
-         modalRef.componentInstance.ListString = response.ErrorList;
-         modalRef.componentInstance.Title = response.ErrorTitle;
-      } else if (response.ErrorDisplay == EnumValidationDisplay.Toastr) {
-         const toastr = this.toastr;
-         response.ErrorList.forEach(function (a) {
-            toastr.error(a);
-         });
-      }
-   }
+      modalRef.componentInstance.ListString = response.ErrorList;
+      modalRef.componentInstance.Title = response.ErrorTitle;
+    } else if (response.ErrorDisplay == EnumValidationDisplay.Toastr) {
+      const toastr = this.toastr;
+      response.ErrorList.forEach(function (a) {
+        toastr.error(a);
+      });
+    }
+  }
 
-   get is_logged_in(): boolean {
-      return AuthenticationHelper.is_logged_in(this.platformId);
-   }
-   get is_admin(): boolean {
-      return AuthenticationHelper.is_admin(this.platformId);
-   }
-   get is_service_agent(): boolean {
-      return AuthenticationHelper.is_service_agent(this.platformId);
-   }
-   get is_customer(): boolean {
-      return AuthenticationHelper.is_customer(this.platformId);
-   }
+  get is_logged_in(): boolean {
+    return AuthenticationHelper.is_logged_in(this.platformId);
+  }
+  get is_admin(): boolean {
+    return AuthenticationHelper.is_admin(this.platformId);
+  }
+  get is_service_agent(): boolean {
+    return AuthenticationHelper.is_service_agent(this.platformId);
+  }
+  get is_customer(): boolean {
+    return AuthenticationHelper.is_customer(this.platformId);
+  }
 }

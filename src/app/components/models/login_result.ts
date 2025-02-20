@@ -2,29 +2,27 @@ import { UserDetailsModel } from "./user_detail_model";
 
 //Model for when the user logs in.
 export class LoginResultModel {
+  ResponseMessage?: string;
 
-   ResponseMessage?: string;
+  SessionToken?: string;
 
-   SessionToken?: string;
+  RoleCodes?: RoleCodeModel[];
 
-   RoleCodes?: RoleCodeModel[];
+  Success: boolean;
 
-   Success: boolean;
+  User: UserDetailsModel = new UserDetailsModel();
 
-   User: UserDetailsModel = new UserDetailsModel();
-
-   constructor() {
-      this.ResponseMessage = 'Login Successful';
-      this.Success = this.ResponseMessage == 'Login Successful' ? true : false;
-   }
+  constructor() {
+    this.ResponseMessage = "Login Successful";
+    this.Success = this.ResponseMessage == "Login Successful" ? true : false;
+  }
 }
 
-// Admin - WR01 
+// Admin - WR01
 // CustomerServiceAgent - WR02
 // Customer - WR03
 export class RoleCodeModel {
-   Role?: string;
-   Code?: string;
-   IsDefault?: boolean
+  Role?: string;
+  Code?: string;
+  IsDefault?: boolean;
 }
-
