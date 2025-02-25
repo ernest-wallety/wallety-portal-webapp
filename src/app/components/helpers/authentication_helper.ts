@@ -94,29 +94,35 @@ export class AuthenticationHelper extends BaseHelper {
   }
 
   /**
-   * Checks if the user has an "ADMIN" role.
-   * @returns {boolean} True if the user has an "ADMIN" role, otherwise false.
+   * Checks if the user has an "ADMIN" role and if it is the default role.
+   * @returns {boolean} True if the user has an "ADMIN" role and it is default, otherwise false.
    */
   public static is_admin(platformId: object): boolean {
     const roles = this.role_codes(platformId);
-    return roles?.some((role) => role.Code === "WR01") ?? false;
+    return (
+      roles?.some((role) => role.Code === "WR01" && role.IsDefault) ?? false
+    );
   }
 
   /**
-   * Checks if the user has a "CUSTOMER" role.
-   * @returns {boolean} True if the user has a "CUSTOMER" role, otherwise false.
+   * Checks if the user has a "CUSTOMER" role and if it is the default role.
+   * @returns {boolean} True if the user has a "CUSTOMER" role and it is default, otherwise false.
    */
   public static is_customer(platformId: object): boolean {
     const roles = this.role_codes(platformId);
-    return roles?.some((role) => role.Code === "WR03") ?? false;
+    return (
+      roles?.some((role) => role.Code === "WR03" && role.IsDefault) ?? false
+    );
   }
 
   /**
-   * Checks if the user has a "CUSTOMERSERVICEAGENT" role.
-   * @returns {boolean} True if the user has a "CUSTOMERSERVICEAGENT" role, otherwise false.
+   * Checks if the user has a "CUSTOMERSERVICEAGENT" role and if it is the default role.
+   * @returns {boolean} True if the user has a "CUSTOMERSERVICEAGENT" role and it is default, otherwise false.
    */
   public static is_service_agent(platformId: object): boolean {
     const roles = this.role_codes(platformId);
-    return roles?.some((role) => role.Code === "WR02") ?? false;
+    return (
+      roles?.some((role) => role.Code === "WR02" && role.IsDefault) ?? false
+    );
   }
 }

@@ -2,7 +2,6 @@ import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseComponent } from "../../../base/authenticated_base.component";
-import { AuthenticationHelper } from "../../../helpers/authentication_helper";
 import { MenuHelper } from "../../../helpers/menu_helper";
 import { MenuAccessModel, MenuListModel } from "../../../models/menu_model";
 
@@ -36,15 +35,15 @@ export class SidebarComponent
     return this.router.url === route;
   }
 
-  public async log_out() {
-    const response = await this.post_sync_call("/Portal/Logout");
+  // public async log_out() {
+  //   const response = await this.post_sync_call("/Portal/Logout");
 
-    if (!response.IsError) {
-      AuthenticationHelper.clear_user_localstorage(this.platformId);
+  //   if (!response.IsError) {
+  //     AuthenticationHelper.clear_user_localstorage(this.platformId);
 
-      this.router.navigate(["auth/login"]);
-    }
-  }
+  //     this.router.navigate(["auth/login"]);
+  //   }
+  // }
 
   public set_sidebar_children_class(selectedItem: MenuAccessModel) {
     this.MenuItems.forEach((menuItem: MenuAccessModel) => {
@@ -66,8 +65,11 @@ export class SidebarComponent
 
   public toggle_navbar(): void {
     const sidebar: any = document.getElementById("nav-bar");
+
     sidebar.classList.toggle("show");
+
     this.isExpanded = !this.isExpanded;
+
     this.OnSidebarChange.emit(this.isExpanded);
   }
 
@@ -115,17 +117,4 @@ export class SidebarComponent
       }
     });
   }
-
-  private store_menu = async (): Promise<void> => {
-    const response = await this.get_async_call_no_params(
-      "/Portal/MenuStructure",
-    );
-
-    if (!response.IsError) {
-      const menu_result: MenuListModel = response.Data;
-      MenuHelper.set_menu_localstorage(menu_result, this.platformId);
-    }
-
-    this.cd.detectChanges();
-  };
 }

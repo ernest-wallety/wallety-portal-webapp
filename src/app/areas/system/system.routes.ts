@@ -11,17 +11,13 @@ export const routes: Routes = [
       {
         path: "",
         loadComponent: () =>
-          import(`./dashboard/dashboard.component`).then(
-            (mod) => mod.DashboardComponent,
-          ),
+          import(`./home/home.component`).then((mod) => mod.HomeComponent),
         data: { animation: "HomePage" },
       },
       {
-        path: "dashboard",
+        path: "home",
         loadComponent: () =>
-          import(`./dashboard/dashboard.component`).then(
-            (mod) => mod.DashboardComponent,
-          ),
+          import(`./home/home.component`).then((mod) => mod.HomeComponent),
         data: { animation: "HomePage" },
         canActivate: [AuthGuard],
       },

@@ -4,10 +4,15 @@ export class Utils {
   }
 
   public static lookup_converter(
-    items: any[],
+    items: any[] | undefined | null,
     idField: string,
     nameField: string,
   ): any[] {
+    // Add null/undefined check
+    if (!items) {
+      return [];
+    }
+
     return items.map((item: any) => {
       return {
         Id: item[idField],

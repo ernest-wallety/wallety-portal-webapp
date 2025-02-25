@@ -1,16 +1,8 @@
 <app-user-profile-popup #userProfilePopupComponent></app-user-profile-popup>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <h3>{{ PageTitle }}</h3>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-    >
-      <i class="bx bx-chevron-down"></i>
-    </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav align-items-center">
         <!-- Updated Notification Bell -->
@@ -31,45 +23,109 @@
           </a>
         </li>
 
-        <li class="nav-item dropdown">
+        <li
+          class="nav-item dropdown"
+          (click)="toggle_profile_popup($event)"
+          tabindex="0"
+          (keyup.enter)="toggle_profile_popup($event)"
+        >
           <a
-            class="nav-link dropdown-toggle"
+            class="nav-link"
             href="#"
             id="profileDropdown"
             role="button"
-            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            onclick="return false;"
           >
             <div class="d-flex align-items-center">
-              <app-avatar
-                [Image]="ImageUrl"
-                [FullName]="FullName"
-                [Colour]="Colour"
-              ></app-avatar>
-              <div class="ms-3">
-                <div>{{ FullName }}</div>
-                <div>
-                  <small>{{ Role?.Code }}</small>
-                </div>
-              </div>
+              <app-avatar [Image]="ImageUrl" [FullName]="FullName"></app-avatar>
             </div>
           </a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li>
-              <a
-                href="#"
-                class="dropdown-item"
-                onclick="return false;"
-                (click)="user_profile()"
-              >
-                Profile
-              </a>
-            </li>
-            <li>
-              <a href="#" class="dropdown-item" onclick="return false;">
-                Settings
-              </a>
-            </li>
-          </ul>
+
+          <div
+            class="profile-popup dropdown-menu show dropdown-menu-end"
+            [hidden]="!IsProfilePopupVisible"
+          >
+            <!-- Close Button -->
+            <button
+              type="button"
+              class="btn-close float-end"
+              aria-label="Close"
+              (click)="toggle_profile_popup($event)"
+            ></button>
+            <!-- Profile Header (User Info) -->
+            <div class="profile-header">
+              <div class="profile-avatar">
+                <app-avatar
+                  [Image]="ImageUrl"
+                  [FullName]="FullName"
+                ></app-avatar>
+              </div>
+              <div class="profile-info">
+                <h5>{{ FullName }}</h5>
+                <p>{{ Email }}</p>
+              </div>
+            </div>
+
+            <hr />
+
+            <!-- Expand/Collapse Button for Roles -->
+            <button class="toggle-roles-btn" (click)="toggle_roles($event)">
+              {{ ShowRoles ? "Hide roles" : "Switch Role" }}
+              <i
+                class="bx"
+                [ngClass]="{
+                  'bx-chevron-up': ShowRoles,
+                  'bx-chevron-down': !ShowRoles,
+                }"
+              ></i>
+            </button>
+
+            <!-- Roles Section (Initially Collapsed) -->
+            <div
+              class="profile-roles"
+              [@expandCollapse]="ShowRoles ? 'expanded' : 'collapsed'"
+            >
+              <ul class="roles-list">
+                <li
+                  *ngFor="let item of NonDefaultRoles"
+                  (click)="select_role($event, item)"
+                  tabindex="0"
+                  (keyup.enter)="select_role($event, item)"
+                >
+                  <div class="role-item">
+                    <div class="role-avatar">
+                      {{ get_initial(item?.Role ?? "") }}
+                    </div>
+                    <div class="role-info">
+                      <p class="role-name">{{ item?.Role }}</p>
+                      <p class="role-description">
+                        {{ item?.Code }}
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <hr />
+
+            <!-- Sign Out -->
+            <ul class="profile-options">
+              <li>
+                <a
+                  href="#"
+                  tabindex="0"
+                  onclick="return false;"
+                  class="nav_link"
+                  (click)="log_out()"
+                >
+                  <i class="bx bx-log-out nav_icon"></i>
+                  <span class="nav_name">Sign Out</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
     </div>

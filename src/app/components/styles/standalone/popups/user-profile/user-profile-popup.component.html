@@ -21,7 +21,6 @@
               [Size]="'xl'"
               [Image]="ImageUrl"
               [FullName]="FullName"
-              [Colour]="Colour"
             ></app-avatar>
           </div>
         </div>
@@ -40,10 +39,10 @@
             </div>
             <div class="p-0">
               <span class="col-form-label p-0">
-                {{ ViewModel.Role?.Role }}
+                {{ ViewModel.Role }}
                 (
                 <small>
-                  <b>{{ ViewModel.Role?.Code }}</b>
+                  <b>{{ ViewModel.Code }}</b>
                 </small>
                 )
               </span>
@@ -107,7 +106,7 @@
             from="body"
             [Items]="UserRoles"
             [BindValue]="'Name'"
-            [(ngModel)]="ViewModel.Role.Role"
+            [(ngModel)]="ViewModel.Role"
             (OnChangeEmitter)="updateRoles($event, 'Roles')"
           ></app-select-single-lookup>
         </div>

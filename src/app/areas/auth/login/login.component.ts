@@ -35,7 +35,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
       AuthenticationHelper.set_user_localstorage(login_result, this.platformId);
 
-      this.router.navigate(["/system/dashboard"]);
+      this.router.navigate(["/system/home"]);
     }
 
     this.cd.detectChanges();

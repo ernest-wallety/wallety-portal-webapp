@@ -63,14 +63,13 @@ export class UserProfilePopupComponent extends AuthenticatedBaseComponent {
     this.ViewModel.Surname = this.LoggedInUser.User.Surname;
     this.ViewModel.Email = this.LoggedInUser.User.Email;
     this.ViewModel.PhoneNumber = this.LoggedInUser.User.PhoneNumber;
-    this.ViewModel.Role = this.Role;
-
-    console.log(this.Role);
+    this.ViewModel.Role = this.Role?.Role;
+    this.ViewModel.Code = this.Role?.Code;
   }
 
   async save() {
     const response = await this.post_sync_call(
-      "/Portal/UserRoleChange",
+      "/Auth/UserRoleChange",
       this.ViewModel,
     );
 

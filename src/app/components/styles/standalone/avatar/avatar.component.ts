@@ -9,10 +9,8 @@ import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
   template: `
     <div
       class="avatar-container avatar-{{ Size }}"
-      [style.background-color]="Colour"
-      [ngbTooltip]="
-        FullName || (ShortCode === '??' ? UnknownTitle : UnknownTitle)
-      "
+      [style.background-color]="BackGroundColour"
+      [style.color]="Colour"
       container="body"
       placement="left"
     >
@@ -20,7 +18,7 @@ import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
         <img [src]="Image" [alt]="FullName" class="avatar-img" />
       </ng-container>
       <ng-template #noImage>
-        <b>{{ ShortCode || "??" }}</b>
+        {{ ShortCode || "??" }}
       </ng-template>
     </div>
   `,
@@ -66,7 +64,8 @@ export class AvatarComponent implements OnInit {
   @Input() FullName = "";
   @Input() Size = "md";
   @Input() UnknownTitle = "Unassigned";
-  @Input() Colour = "red";
+  @Input() Colour = "#fff";
+  @Input() BackGroundColour = "#d60000";
   @Input() AutoColour = false;
   @Input() Image?: string;
 
