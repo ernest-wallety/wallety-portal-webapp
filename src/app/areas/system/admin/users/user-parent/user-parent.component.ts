@@ -3,17 +3,12 @@ import { Component, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseComponent } from "../../../../../components/base/authenticated_base.component";
-import { CustomerServiceAgentListComponent } from "./customer-service-agents/customer-service-agent-list.component";
+import { UserListComponent } from "./users/user-list.component";
 
 @Component({
   selector: "app-user-parent",
   standalone: true,
-  imports: [
-    FormsModule,
-    CommonModule,
-    RouterModule,
-    CustomerServiceAgentListComponent,
-  ],
+  imports: [FormsModule, CommonModule, RouterModule, UserListComponent],
   templateUrl: "./user-parent.component.html",
   styleUrls: ["./user-parent.component.scss"],
 })
@@ -22,7 +17,6 @@ export class UserParentComponent
   implements OnInit
 {
   ngOnInit(): void {
-    console.log("we are here");
     // this.navigateToTab('customer-service-agents');
   }
 

@@ -43,6 +43,18 @@ export class BaseComponent {
     this.ViewModel = Object.assign(new Object());
   }
 
+  // New get method that uses a more Asynchronous way of getting the data
+  // This will also handle the is loading variable that we reuse everywhere and rather in a more central place.
+  public async get_list_sync_call(apiUrl: string, criteria: ListCriteria) {
+    this.IsLoading = true;
+
+    var response = await this.data_service.get_list_sync_call(apiUrl, criteria);
+
+    this.IsLoading = false;
+
+    return response;
+  }
+
   // Get call with no params
   public async get_async_call_no_params(apiUrl: string) {
     this.IsLoading = true;

@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { EventEmitter, Injectable, Output } from "@angular/core";
 import { ApiHelper } from "../../helpers/api_helper";
+import { ListCriteria } from "../../models/_base_list_criteria";
 import { ResponseModel } from "../../models/response_model";
 
 @Injectable({
@@ -18,6 +19,15 @@ export class DataService {
     payload?: object,
   ): Promise<ResponseModel> {
     return this.handle_api_call("POST", action, payload);
+  }
+
+  // Asyncronous get call to which we wait for the call to complete and return a response.
+  public async get_list_sync_call(
+    action: string,
+    criteria: ListCriteria,
+  ): Promise<ResponseModel> {
+    var params = ApiHelper.getListCriteriaHttpParams(criteria);
+    return this.handle_api_call("GET", action, undefined, params);
   }
 
   // Asyncronous get call with no params

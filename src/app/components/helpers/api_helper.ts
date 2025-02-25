@@ -36,16 +36,12 @@ export class ApiHelper {
     return_response: ResponseModel,
   ): ResponseModel {
     if (ExtensionMethods.is_success_status(response.StatusCode)) {
-      return_response.Data = response.Data;
-      return_response.ResponseMessage = response.ResponseMessage;
-      return_response.StatusCode = response.StatusCode;
+      return_response = response;
       return_response.IsError = ExtensionMethods.is_error_status(
         response.StatusCode,
       );
     } else if (ExtensionMethods.is_error_status(response.StatusCode)) {
-      return_response.Data = response.Data;
-      return_response.ResponseMessage = response.ResponseMessage;
-      return_response.StatusCode = response.StatusCode;
+      return_response = response;
       return_response.IsError = ExtensionMethods.is_error_status(
         response.StatusCode,
       );

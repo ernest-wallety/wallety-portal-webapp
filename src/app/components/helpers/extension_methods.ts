@@ -5,7 +5,7 @@ export class ExtensionMethods {
   }
 
   public static is_error_status(statusCode: number) {
-    const errorStatusCodes = [400, 404, 401, 424, 403, 501, 409];
+    const errorStatusCodes = [400, 404, 401, 424, 403, 501, 409, 500];
     return errorStatusCodes.includes(statusCode);
   }
 
