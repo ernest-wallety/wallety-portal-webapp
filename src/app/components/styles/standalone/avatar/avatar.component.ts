@@ -35,7 +35,7 @@ import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
       }
 
       .avatar-sm {
-        --avatar-size: 20px;
+        --avatar-size: 40px;
       }
 
       .avatar-md {

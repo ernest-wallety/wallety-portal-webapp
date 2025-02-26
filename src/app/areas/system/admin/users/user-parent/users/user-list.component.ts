@@ -3,7 +3,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseListComponent } from "../../../../../../components/base/authenticated_base_list.component";
+import { ExtensionMethods } from "../../../../../../components/helpers/extension_methods";
 import { ListCriteria } from "../../../../../../components/models/_base_list_criteria";
+import { AvatarComponent } from "../../../../../../components/styles/standalone/avatar/avatar.component";
 import { SearchInputComponent } from "../../../../../../components/styles/standalone/search-input/search-input.component";
 import { PhoneFormatPipe } from "../../../../../../components/utils/pipes/phoneFormat";
 
@@ -16,6 +18,7 @@ import { PhoneFormatPipe } from "../../../../../../components/utils/pipes/phoneF
     FormsModule,
     PhoneFormatPipe,
     SearchInputComponent,
+    AvatarComponent,
   ],
   templateUrl: "./user-list.component.html",
   styleUrls: ["./user-list.component.scss"],
@@ -44,4 +47,14 @@ export class UserListComponent
   }
 
   public create() {}
+
+  public convert_image(img: string) {
+    return img === ""
+      ? undefined
+      : ExtensionMethods.to_base_64_image(img || "");
+  }
+
+  public display_name(item: any) {
+    return `${item.FirstName} ${item.Surname}`;
+  }
 }
