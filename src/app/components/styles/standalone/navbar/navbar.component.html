@@ -67,45 +67,47 @@
               </div>
             </div>
 
-            <hr />
+            <div *ngIf="NonDefaultRoles && NonDefaultRoles.length > 0">
+              <hr />
 
-            <!-- Expand/Collapse Button for Roles -->
-            <button class="toggle-roles-btn" (click)="toggle_roles($event)">
-              {{ ShowRoles ? "Hide roles" : "Switch Role" }}
-              <i
-                class="bx"
-                [ngClass]="{
-                  'bx-chevron-up': ShowRoles,
-                  'bx-chevron-down': !ShowRoles,
-                }"
-              ></i>
-            </button>
+              <!-- Expand/Collapse Button for Roles -->
+              <button class="toggle-roles-btn" (click)="toggle_roles($event)">
+                {{ ShowRoles ? "Hide roles" : "Switch Role" }}
+                <i
+                  class="bx"
+                  [ngClass]="{
+                    'bx-chevron-up': ShowRoles,
+                    'bx-chevron-down': !ShowRoles,
+                  }"
+                ></i>
+              </button>
 
-            <!-- Roles Section (Initially Collapsed) -->
-            <div
-              class="profile-roles"
-              [@expandCollapse]="ShowRoles ? 'expanded' : 'collapsed'"
-            >
-              <ul class="roles-list">
-                <li
-                  *ngFor="let item of NonDefaultRoles"
-                  (click)="select_role($event, item)"
-                  tabindex="0"
-                  (keyup.enter)="select_role($event, item)"
-                >
-                  <div class="role-item">
-                    <div class="role-avatar">
-                      {{ get_initial(item?.Role ?? "") }}
+              <!-- Roles Section (Initially Collapsed) -->
+              <div
+                class="profile-roles"
+                [@expandCollapse]="ShowRoles ? 'expanded' : 'collapsed'"
+              >
+                <ul class="roles-list">
+                  <li
+                    *ngFor="let item of NonDefaultRoles"
+                    (click)="select_role($event, item)"
+                    tabindex="0"
+                    (keyup.enter)="select_role($event, item)"
+                  >
+                    <div class="role-item">
+                      <div class="role-avatar">
+                        {{ get_initial(item?.Role ?? "") }}
+                      </div>
+                      <div class="role-info">
+                        <p class="role-name">{{ item?.Role }}</p>
+                        <p class="role-description">
+                          {{ item?.Code }}
+                        </p>
+                      </div>
                     </div>
-                    <div class="role-info">
-                      <p class="role-name">{{ item?.Role }}</p>
-                      <p class="role-description">
-                        {{ item?.Code }}
-                      </p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
+                  </li>
+                </ul>
+              </div>
             </div>
 
             <hr />

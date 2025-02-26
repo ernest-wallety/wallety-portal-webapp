@@ -144,7 +144,7 @@ export class NavbarComponent
   }
 
   get NonDefaultRoles() {
-    return this.LoggedInUser.RoleCodes?.filter(
+    return this.LoggedInUser?.RoleCodes?.filter(
       (role: RoleCodeModel) => !role.IsDefault,
     );
   }
