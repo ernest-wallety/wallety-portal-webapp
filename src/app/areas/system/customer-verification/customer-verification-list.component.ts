@@ -6,7 +6,7 @@ import { AuthenticatedBaseListComponent } from "../../../components/base/authent
 import { ListCriteria } from "../../../components/models/_base_list_criteria";
 import { CustomerVerificationPopupComponent } from "../../../components/styles/standalone/popups/customer-verification/customer-verification-popup.component";
 import { SearchInputComponent } from "../../../components/styles/standalone/search-input/search-input.component";
-import { PhoneFormatPipe } from "../../../components/utils/pipes/phoneFormat";
+import { PhoneFormatPipe } from "../../../components/utils/pipes/phone-format.pipe";
 
 @Component({
   selector: "app-customer-verification-list",

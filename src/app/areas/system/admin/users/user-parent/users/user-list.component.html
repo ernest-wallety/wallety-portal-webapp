@@ -1,3 +1,5 @@
+<app-user-edit-popup #userEditPopup (OnSave)="refresh()"></app-user-edit-popup>
+
 <div class="list-height">
   <!-- Search Bar -->
   <nav class="navbar navbar-expand-lg">
@@ -26,13 +28,11 @@
         <th></th>
         <th>Name</th>
         <th class="d-none d-md-table-cell">WhatsApp Number</th>
-        <th>Email</th>
         <th class="d-none d-md-table-cell">Id Number</th>
         <th class="d-none d-md-table-cell">Created Date</th>
         <th></th>
       </tr>
       <tr class="filter-row table-fixed-header">
-        <td></td>
         <td></td>
         <td></td>
         <td></td>
@@ -62,9 +62,10 @@
           <div class="d-flex align-items-center">
             <app-avatar
               [Size]="'sm'"
-              [Image]="convert_image(a.IdentityImage)"
-              [FullName]="display_name(a)"
+              [Image]="a.IdentityImage | convertImage"
+              [FullName]="a | displayName"
             ></app-avatar>
+
             <div class="ms-3">
               <p class="fw-bold mb-1">{{ a.FirstName }} {{ a.Surname }}</p>
               <p class="text-muted mb-0">{{ a.Email }}</p>
@@ -72,7 +73,6 @@
           </div>
         </td>
         <td>{{ a.PhoneNumber | phoneFormat }}</td>
-        <td class="d-none d-md-table-cell">{{ a.Email }}</td>
         <td class="d-none d-md-table-cell">{{ a.IdNumber }}</td>
         <td class="d-none d-md-table-cell">
           {{ a.AccountCreationDate | date: "yyyy, dd MMM" }}
@@ -83,7 +83,7 @@
             href="#"
             onclick="return false;"
             class="table-action-link"
-            (click)="edit(a)"
+            (click)="edit(a.UserId)"
           >
             Edit
           </a>

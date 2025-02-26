@@ -20,4 +20,14 @@ export class Utils {
       };
     });
   }
+
+  // New function to determine the appropriate RoleCode
+  public static get_role_code(roles: any[]): any {
+    if (roles.length === 1) {
+      return roles[0];
+    } else {
+      const defaultRole = roles.find((role) => role.isDefault);
+      return defaultRole || roles[0]; // Return defaultRole if found, else return the first role
+    }
+  }
 }

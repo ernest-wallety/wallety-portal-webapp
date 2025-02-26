@@ -18,7 +18,7 @@ import { AuthenticatedBaseComponent } from "../../../base/authenticated_base.com
 import { AuthenticationHelper } from "../../../helpers/authentication_helper";
 import { LoginResultModel, RoleCodeModel } from "../../../models/login_result";
 import { AvatarComponent } from "../avatar/avatar.component";
-import { UserProfilePopupComponent } from "../popups/user-profile/user-profile-popup.component";
+import { UserProfilePopupComponent } from "../popups/user/user-profile/user-profile-popup.component";
 
 @Component({
   selector: "app-navbar",
@@ -88,16 +88,13 @@ export class NavbarComponent
 
     if (!response.IsError) {
       AuthenticationHelper.clear_user_localstorage(this.platformId);
-
       this.router.navigate(["auth/login"]);
     }
   }
 
   public async select_role(event: Event, role: RoleCodeModel) {
     event.stopPropagation();
-
     this.ViewModel.RoleCode = role?.Code;
-
     await this.save();
   }
 
@@ -118,9 +115,7 @@ export class NavbarComponent
 
     if (!response.IsError) {
       this.OnSave.emit(response.Data);
-
       await this.store_menu();
-
       await this.refresh_user();
     }
   }

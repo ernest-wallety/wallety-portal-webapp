@@ -10,9 +10,9 @@ import {
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { NgbModalOptions, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
-import { AuthenticatedBaseComponent } from "../../../../base/authenticated_base.component";
-import { AvatarComponent } from "../../avatar/avatar.component";
-import { SelectSingleLookupComponent } from "../../select-single-lookup/select-single-lookup.component";
+import { AuthenticatedBaseComponent } from "../../../../../base/authenticated_base.component";
+import { AvatarComponent } from "../../../avatar/avatar.component";
+import { SelectSingleLookupComponent } from "../../../select-single-lookup/select-single-lookup.component";
 
 @Component({
   selector: "app-user-profile-popup",

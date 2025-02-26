@@ -4,3 +4,11 @@ body {
   background: $background-color;
   font-family: $font-family !important;
 }
+
+/* Base error message styling */
+.error-message {
+  font-size: 0.75rem; /* Smaller font size */
+  color: #dc3545; /* Red color for error messages */
+  margin-top: 0.25rem; /* Add some spacing from the input field */
+  display: block; /* Ensure the error message takes up full width */
+}
