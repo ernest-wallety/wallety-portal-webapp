@@ -22,8 +22,8 @@ export const routes: Routes = [
       {
         path: "forgot-password",
         loadComponent: () =>
-          import(`./reset-password/reset-password.component`).then(
-            (mod) => mod.ResetPasswordComponent,
+          import(`./forgot-password/forgot-password.component`).then(
+            (mod) => mod.ForgotPasswordComponent,
           ),
         data: { animation: "ForgotPasswordPage" },
       },
