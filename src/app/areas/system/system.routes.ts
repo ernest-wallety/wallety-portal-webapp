@@ -40,6 +40,15 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: "customers",
+        loadComponent: () =>
+          import(`./customers/customers.component`).then(
+            (mod) => mod.CustomersComponent,
+          ),
+        data: { animation: "CustomersPage" },
+        canActivate: [AuthGuard],
+      },
+      {
         path: "transaction-history",
         loadComponent: () =>
           import(`./transaction-history/transaction-history.component`).then(
