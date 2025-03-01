@@ -35,6 +35,8 @@ export class ApiHelper {
     response: any,
     return_response: ResponseModel,
   ): ResponseModel {
+    console.log(response);
+
     if (ExtensionMethods.is_success_status(response.StatusCode)) {
       return_response = response;
       return_response.IsError = ExtensionMethods.is_error_status(
