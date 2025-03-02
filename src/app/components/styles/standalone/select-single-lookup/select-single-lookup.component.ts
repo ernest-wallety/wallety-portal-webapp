@@ -86,25 +86,33 @@ export class SelectSingleLookupComponent
     }
   }
 
-  async loadItems() {
-    // if (this.Items == null) {
-    //    var response = await this.get_sync_call_no_param('Lookup/' + this.ApiMethod);
-    //    this.Items = response.data.data; // MP: weird stuff here
-    //    if (this.autoSelectFirstItem) {
-    //       this.writeValue(this.Items![0].id);
-    //    }
-    // }
+  private async loadItems() {
+    if (this.Items == null) {
+      var response = await this.get_async_call_no_params(
+        "/Lookup/" + this.ApiMethod,
+      );
+
+      if (!response.IsError) {
+        this.Items = response.Data.Items;
+        if (this.autoSelectFirstItem) {
+          this.writeValue(this.Items![0].Id);
+        }
+      }
+    }
   }
 
-  async loadItemsCustomQuery() {
+  public async loadItemsCustomQuery() {
     if (this.Items == null) {
-      // var response = await this.get_sync_call_param('Lookup/' + this.ApiMethod + this.Params);
-      // this.Items = response.data.data; // MP: weird stuff here
-      // console.log(response, 'response items');
-      // console.log(this.Items, 'lookup items');
-      // if (this.autoSelectFirstItem) {
-      //    this.writeValue(this.Items![0].id);
-      // }
+      var response = await this.get_async_call_no_params(
+        "Lookup/" + this.ApiMethod + this.Params,
+      );
+
+      if (!response.IsError) {
+        this.Items = response.Data.Items;
+        if (this.autoSelectFirstItem) {
+          this.writeValue(this.Items![0].Id);
+        }
+      }
     }
   }
 
