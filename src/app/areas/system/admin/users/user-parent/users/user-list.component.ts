@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseListComponent } from "../../../../../../components/base/authenticated_base_list.component";
 import { ListCriteria } from "../../../../../../components/models/_base_list_criteria";
 import { AvatarComponent } from "../../../../../../components/styles/standalone/avatar/avatar.component";
+import { PagingComponent } from "../../../../../../components/styles/standalone/pagination/paging.component";
 import { UserEditPopupComponent } from "../../../../../../components/styles/standalone/popups/user/user-edit/user-edit-popup.component";
 import { SearchInputComponent } from "../../../../../../components/styles/standalone/search-input/search-input.component";
 import { ConvertImagePipe } from "../../../../../../components/utils/pipes/convert-image.pipe";
@@ -15,15 +16,16 @@ import { PhoneFormatPipe } from "../../../../../../components/utils/pipes/phone-
   selector: "app-user-list",
   standalone: true,
   imports: [
-    CommonModule,
-    RouterModule,
     FormsModule,
+    RouterModule,
+    CommonModule,
     PhoneFormatPipe,
-    SearchInputComponent,
-    AvatarComponent,
-    UserEditPopupComponent,
-    ConvertImagePipe,
     DisplayNamePipe,
+    ConvertImagePipe,
+    PagingComponent,
+    AvatarComponent,
+    SearchInputComponent,
+    UserEditPopupComponent,
   ],
   templateUrl: "./user-list.component.html",
   styleUrls: ["./user-list.component.scss"],
@@ -43,7 +45,10 @@ export class UserListComponent
   }
 
   public async refresh() {
-    const response = await this.get_async_call_no_params("/Portal/GetUsers");
+    const response = await this.get_list_sync_call(
+      "/Portal/GetUsers",
+      this.criteria,
+    );
 
     if (!response.IsError) {
       this.ViewModel = response.Data;

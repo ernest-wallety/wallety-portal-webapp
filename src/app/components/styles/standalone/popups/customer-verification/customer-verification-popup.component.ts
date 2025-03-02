@@ -72,6 +72,7 @@ export class CustomerVerificationPopupComponent extends AuthenticatedBaseCompone
       windowClass: "modal-standard-height",
       size: "lg",
     };
+
     this.modalDialog = this.ngbModalService.open(
       this.PersonalDetailsTemplate,
       option,
@@ -118,16 +119,12 @@ export class CustomerVerificationPopupComponent extends AuthenticatedBaseCompone
   }
 
   public updateStatus(event: any, field: string) {
-    console.log(event, field);
-
     if (event != null) {
       this.payload.registrationStatusId = event.Id;
     }
   }
 
   public updateReason(event: any, field: string) {
-    console.log(event, field);
-
     if (event != null) {
       this.payload.verificationRejectReasonId = event.Id;
     }

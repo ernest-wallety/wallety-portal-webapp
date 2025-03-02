@@ -13,7 +13,8 @@
         <!-- Search Bar -->
         <div class="collapse navbar-collapse d-flex justify-content-end">
           <app-search-input
-            (valueChange)="refresh()"
+            [searchText]="criteria.search"
+            (ValueChange)="criteria.search = $event; refresh()"
             placeholder="Search for something..."
           ></app-search-input>
         </div>
@@ -102,3 +103,5 @@
     </tbody>
   </table>
 </div>
+
+<paging #paging [criteria]="criteria" (PagingEmitter)="refresh()"></paging>
