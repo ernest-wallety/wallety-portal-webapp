@@ -1,6 +1,6 @@
 export class Lookup {
-  id: number | null = null;
-  name: string = "";
+  Id: number | null = null;
+  Name: string = "";
   IdArr: number[] = [];
 }
 

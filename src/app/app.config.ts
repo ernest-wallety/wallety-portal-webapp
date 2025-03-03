@@ -19,6 +19,7 @@ import { ApiInterceptor } from "./components/services/authorisation/api.intercep
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    // provideNgbModal(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),

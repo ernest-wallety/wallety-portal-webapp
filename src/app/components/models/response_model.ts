@@ -18,6 +18,7 @@ export class ResponseModel {
   public ErrorDetail?: string;
   public ErrorType?: string;
   public ErrorInstance?: string;
+  public ErrorRaw?: string;
 }
 
 // API exception error

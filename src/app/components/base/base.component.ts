@@ -132,6 +132,8 @@ export class BaseComponent {
 
       modalRef.componentInstance.ListString = response.ErrorList;
       modalRef.componentInstance.Title = response.ErrorTitle;
+      modalRef.componentInstance.Raw = response.ErrorRaw;
+      modalRef.componentInstance.Type = response.ErrorType;
     } else if (response.ErrorDisplay == EnumValidationDisplay.Toastr) {
       const toastr = this.toastr;
       response.ErrorList.forEach(function (a) {

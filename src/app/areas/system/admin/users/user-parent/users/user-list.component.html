@@ -27,6 +27,7 @@
     <thead>
       <tr>
         <th></th>
+        <th>Status</th>
         <th>Name</th>
         <th class="d-none d-md-table-cell">WhatsApp Number</th>
         <th class="d-none d-md-table-cell">Id Number</th>
@@ -35,6 +36,17 @@
       </tr>
       <tr class="filter-row table-fixed-header">
         <td></td>
+        <td style="width: 250px">
+          <app-select-single-lookup
+            #status
+            name="status"
+            id="status"
+            from="body"
+            [ApiMethod]="'IsActive'"
+            (OnInitEmitter)="initialiseLookup('u.IsAccountActive')"
+            (OnChangeEmitter)="onChangeLookup($event, 'u.IsAccountActive')"
+          ></app-select-single-lookup>
+        </td>
         <td></td>
         <td></td>
         <td style="width: 250px">
@@ -50,11 +62,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let a of ViewModel?.Items">
-        <td class="position-relative">
+        <td></td>
+        <td>
           <span
-            class="badge text-white"
+            class="badge"
             [ngClass]="a.IsAccountActive ? 'bg-prog-4' : 'bg-prog-1'"
-            style="position: relative"
           >
             {{ a.IsAccountActive ? "Active" : "Inactive" }}
           </span>

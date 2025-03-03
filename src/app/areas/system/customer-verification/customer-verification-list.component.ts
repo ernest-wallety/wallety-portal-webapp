@@ -68,7 +68,6 @@ export class CustomerVerificationListComponent
   }
 
   public onChangeLookup(lookup: Lookup, listFieldName: string) {
-    console.log(lookup);
     this.criteria.lookups = LookupHelper.onChangeLookup(lookup, listFieldName);
     // this.refresh();
   }
