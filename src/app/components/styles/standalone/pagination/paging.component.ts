@@ -6,7 +6,7 @@ import { ListCriteria } from "../../../models/_base_list_criteria";
 @Component({
   selector: "app-paging",
   templateUrl: "./paging.component.html",
-  styleUrls: ["./paging.component.css"],
+  styleUrls: ["./paging.component.scss"],
   standalone: true,
   imports: [NgIf, NgFor, FormsModule],
 })
@@ -21,7 +21,9 @@ export class PagingComponent {
   @Input() criteria: ListCriteria = ListCriteria.default();
   @Input() DisableNext: boolean = false;
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    console.log(this.RecordTotal);
+  }
 
   next() {
     if (!this.DisableNext) {

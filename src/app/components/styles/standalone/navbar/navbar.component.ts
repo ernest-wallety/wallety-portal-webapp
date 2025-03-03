@@ -17,8 +17,8 @@ import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseComponent } from "../../../base/authenticated_base.component";
 import { AuthenticationHelper } from "../../../helpers/authentication_helper";
 import { LoginResultModel, RoleCodeModel } from "../../../models/login_result";
+import { UserProfilePopupComponent } from "../app-popups/user/user-profile/user-profile-popup.component";
 import { AvatarComponent } from "../avatar/avatar.component";
-import { UserProfilePopupComponent } from "../popups/user/user-profile/user-profile-popup.component";
 
 @Component({
   selector: "app-navbar",

@@ -1,7 +1,8 @@
 export class Lookup {
-  Id: number | null = null;
+  Id: any | null = null;
   Name: string = "";
   IdArr: number[] = [];
+  AltBoolValue?: boolean;
 }
 
 export class LookupParams {

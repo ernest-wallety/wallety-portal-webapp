@@ -6,7 +6,7 @@ import { AuthenticatedBaseListComponent } from "../../../components/base/authent
 import { LookupHelper } from "../../../components/helpers/lookup_helper";
 import { ListCriteria } from "../../../components/models/_base_list_criteria";
 import { Lookup } from "../../../components/models/lookup";
-import { CustomerVerificationPopupComponent } from "../../../components/styles/standalone/popups/customer-verification/customer-verification-popup.component";
+import { CustomerVerificationPopupComponent } from "../../../components/styles/standalone/app-popups/customer-verification/customer-verification-popup.component";
 import { SearchInputComponent } from "../../../components/styles/standalone/search-input/search-input.component";
 import { SelectSingleLookupComponent } from "../../../components/styles/standalone/select-single-lookup/select-single-lookup.component";
 import { PhoneFormatPipe } from "../../../components/utils/pipes/phone-format.pipe";

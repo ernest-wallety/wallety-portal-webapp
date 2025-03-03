@@ -17,7 +17,7 @@ export class ApiHelper {
     return new HttpParams()
       .set("pageIndex", criteria.pageIndex.toString())
       .set("pageSize", criteria.pageSize.toString())
-      .set("sort", criteria.sort ?? "")
+      .set("sort", criteria.sortField ?? "")
       .set("sortAscending", criteria.sortAscending?.toString() ?? "")
       .set("search", criteria.search ?? "")
       .set("lookups", criteria.lookups ?? "")

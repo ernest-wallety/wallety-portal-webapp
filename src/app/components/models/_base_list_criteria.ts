@@ -2,7 +2,7 @@ export class ListCriteria {
   constructor(
     public pageIndex: number,
     public pageSize: number,
-    public sort: string | null,
+    public sortField: string | null,
     public sortAscending: boolean | null,
     public search: string | null,
     public lookups: string | null,

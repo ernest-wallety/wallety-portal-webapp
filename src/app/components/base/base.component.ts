@@ -17,7 +17,7 @@ import { LoginResultModel } from "../models/login_result";
 import { ResponseModel } from "../models/response_model";
 import { DataService } from "../services/apiconnector/data.service";
 import { TitleService } from "../services/title.service";
-import { ValidationPopupComponent } from "../styles/standalone/popups/validation/validation-popup.component";
+import { ValidationPopupComponent } from "../styles/standalone/app-popups/validation/validation-popup.component";
 
 @Injectable()
 @Directive()
