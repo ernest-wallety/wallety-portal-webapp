@@ -104,4 +104,8 @@
   </table>
 </div>
 
-<paging #paging [criteria]="criteria" (PagingEmitter)="refresh()"></paging>
+<app-paging
+  #paging
+  [criteria]="criteria"
+  (PagingEmitter)="refresh()"
+></app-paging>

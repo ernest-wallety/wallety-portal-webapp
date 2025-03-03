@@ -4,14 +4,14 @@ import { FormsModule } from "@angular/forms";
 import { ListCriteria } from "../../../models/_base_list_criteria";
 
 @Component({
-  selector: "paging",
+  selector: "app-paging",
   templateUrl: "./paging.component.html",
   styleUrls: ["./paging.component.css"],
   standalone: true,
   imports: [NgIf, NgFor, FormsModule],
 })
 export class PagingComponent {
-  //Output to be deprecated.
+  // Output to be deprecated.
   @Output() PagingEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() UpdateCriteriaEvent: EventEmitter<any> = new EventEmitter<any>();
   @Input() ListRef: any;
