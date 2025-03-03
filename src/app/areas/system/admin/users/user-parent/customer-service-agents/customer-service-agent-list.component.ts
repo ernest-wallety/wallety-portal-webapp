@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseListComponent } from "../../../../../../components/base/authenticated_base_list.component";
 import { ListCriteria } from "../../../../../../components/models/_base_list_criteria";
-import { RegisterServiceAgentPopupComponent } from "../../../../../../components/styles/standalone/popups/register-service-agent/register-service-agent-popup.component";
+import { RegisterServiceAgentPopupComponent } from "../../../../../../components/styles/standalone/app-popups/register-service-agent/register-service-agent-popup.component";
 import { SearchInputComponent } from "../../../../../../components/styles/standalone/search-input/search-input.component";
 
 @Component({

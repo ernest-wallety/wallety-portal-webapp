@@ -11,8 +11,9 @@ import { FormsModule } from "@angular/forms";
         class="form-control"
         type="search"
         [placeholder]="placeholder"
-        [(ngModel)]="value"
-        (input)="onSearchChange()"
+        [(ngModel)]="searchText"
+        (ngModelChange)="onSearchChange()"
+        (keydown.enter)="onSearchChange()"
       />
     </div>
   `,
@@ -20,12 +21,11 @@ import { FormsModule } from "@angular/forms";
 })
 export class SearchInputComponent {
   @Input() placeholder: string = "Search...";
+  @Input() searchText: string | null | undefined;
 
-  @Input() value: string = "";
-
-  @Output() valueChange = new EventEmitter<string>();
+  @Output() ValueChange = new EventEmitter<string>();
 
   onSearchChange() {
-    this.valueChange.emit(this.value);
+    this.ValueChange.emit(this.searchText!);
   }
 }

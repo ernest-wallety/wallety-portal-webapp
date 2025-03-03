@@ -13,7 +13,8 @@
         <!-- Search Bar -->
         <div class="collapse navbar-collapse d-flex justify-content-end">
           <app-search-input
-            (valueChange)="refresh()"
+            [searchText]="Criteria.search"
+            (ValueChange)="Criteria.search = $event; refresh()"
             placeholder="Search for something..."
           ></app-search-input>
         </div>
@@ -26,7 +27,20 @@
     <thead>
       <tr>
         <th></th>
+        <th>
+          <app-sort
+            [sortField]="'IsAccountActive'"
+            (OnClick)="sortUserList($event)"
+          >
+            Status
+          </app-sort>
+        </th>
         <th>Name</th>
+        <th>
+          <app-sort [sortField]="'CountryId'" (OnClick)="sortUserList($event)">
+            Country
+          </app-sort>
+        </th>
         <th class="d-none d-md-table-cell">WhatsApp Number</th>
         <th class="d-none d-md-table-cell">Id Number</th>
         <th class="d-none d-md-table-cell">Created Date</th>
@@ -34,8 +48,29 @@
       </tr>
       <tr class="filter-row table-fixed-header">
         <td></td>
+        <td style="width: 250px">
+          <app-select-single-lookup
+            #status
+            name="status"
+            id="status"
+            from="body"
+            [ApiMethod]="'IsActive'"
+            (OnInitEmitter)="initialiseLookup('IsAccountActive')"
+            (OnChangeEmitter)="onChangeLookup($event, 'IsAccountActive')"
+          ></app-select-single-lookup>
+        </td>
         <td></td>
-        <td></td>
+        <td style="width: 250px">
+          <app-select-single-lookup
+            #country
+            name="country"
+            id="country"
+            from="body"
+            [ApiMethod]="'Countries'"
+            (OnInitEmitter)="initialiseLookup('CountryId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'CountryId')"
+          ></app-select-single-lookup>
+        </td>
         <td style="width: 250px">
           <!-- Add your select-single-lookup component here -->
         </td>
@@ -45,15 +80,16 @@
         <td>
           <!-- Add your select-single-lookup component here -->
         </td>
+        <td></td>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let a of ViewModel?.Items">
-        <td class="position-relative">
+        <td></td>
+        <td>
           <span
-            class="badge text-white"
+            class="badge"
             [ngClass]="a.IsAccountActive ? 'bg-prog-4' : 'bg-prog-1'"
-            style="position: relative"
           >
             {{ a.IsAccountActive ? "Active" : "Inactive" }}
           </span>
@@ -72,7 +108,9 @@
             </div>
           </div>
         </td>
-        <td>{{ a.PhoneNumber | phoneFormat }}</td>
+        <td>{{ a.CountryName }}</td>
+        <td>{{ a.PhoneNumber | phoneFormat: a.MobileRegex }}</td>
+
         <td class="d-none d-md-table-cell">{{ a.IdNumber }}</td>
         <td class="d-none d-md-table-cell">
           {{ a.AccountCreationDate | date: "yyyy, dd MMM" }}
@@ -102,3 +140,10 @@
     </tbody>
   </table>
 </div>
+
+<app-paging
+  #paging
+  [criteria]="Criteria"
+  [RecordTotal]="ViewModel?.Count"
+  (PagingEmitter)="refresh()"
+></app-paging>

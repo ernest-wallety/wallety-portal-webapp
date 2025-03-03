@@ -33,10 +33,28 @@
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
+        <td style="width: 250px">
+          <app-select-single-lookup
+            #country
+            name="country"
+            id="country"
+            from="body"
+            [ApiMethod]="'Countries'"
+            (OnInitEmitter)="initialiseLookup('country')"
+            (OnChangeEmitter)="onChangeLookup($event, 'country')"
+          ></app-select-single-lookup>
+        </td>
         <td></td>
         <td style="width: 250px">
-          <!-- Add your select-single-lookup component here -->
+          <app-select-single-lookup
+            #status
+            name="status"
+            id="status"
+            from="body"
+            [ApiMethod]="'RegistrationStatuses'"
+            (OnInitEmitter)="initialiseLookup('status')"
+            (OnChangeEmitter)="onChangeLookup($event, 'status')"
+          ></app-select-single-lookup>
         </td>
         <td style="width: 250px">
           <!-- Add your select-single-lookup component here -->
@@ -56,7 +74,7 @@
         <td>{{ a.PhoneNumber | phoneFormat }}</td>
         <td class="d-none d-md-table-cell">{{ a.Country }}</td>
         <td class="d-none d-md-table-cell">{{ a.AccountCreationDate }}</td>
-        <td class="position-relative">
+        <td>
           <span
             class="badge"
             [ngClass]="{
@@ -64,7 +82,6 @@
               'bg-prog-2': a.RegistrationStatus === 'Pending',
               'bg-prog-1': a.RegistrationStatus === 'Rejected',
             }"
-            style="color: white; position: relative"
           >
             {{ a.RegistrationStatus }}
             <span

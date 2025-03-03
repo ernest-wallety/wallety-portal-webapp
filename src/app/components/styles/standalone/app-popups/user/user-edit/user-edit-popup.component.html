@@ -98,7 +98,7 @@
         <div class="mb-3 col">
           <label for="email" class="col-form-label">Email</label>
           <input
-            [disabled]="emailValid"
+            [disabled]="emailValid && UserId === ''"
             name="email"
             class="form-control form-control-sm"
             [(ngModel)]="ViewModel.Email"

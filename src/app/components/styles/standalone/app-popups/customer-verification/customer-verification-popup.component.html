@@ -283,9 +283,7 @@
         type="button"
         class="btn btn-primary btn-sm"
         (click)="update()"
-        [disabled]="
-          RegistrationStatus !== undefined || RegistrationStatus === ''
-        "
+        [disabled]="!(form.controls['reason'] && form.controls['reason'].value)"
       >
         <i class="bx bxs-edit"></i>
         Update
