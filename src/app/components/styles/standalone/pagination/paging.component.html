@@ -1,0 +1,27 @@
+<div class="row mt-2 mb-0 p-0" *ngIf="criteria !== null">
+  <!--PageSize Options-->
+  <div class="col-height col-1">
+    <select
+      class="form-control form-control-sm"
+      style="width: 75%"
+      [(ngModel)]="criteria.pageSize"
+      name="pageSize"
+      (change)="OnPageSizeChange()"
+    >
+      <option *ngFor="let p of PageOptions" [ngValue]="p">{{ p }}</option>
+    </select>
+  </div>
+
+  <div class="col-height col-11 d-flex justify-content-between">
+    <div class="btn-group"></div>
+    <div class="btn-group">
+      <button class="btn btn-default btn-sm" (click)="previous()">
+        Previous
+      </button>
+      <button class="btn btn-default btn-sm btn-primary">
+        {{ criteria.pageIndex }}
+      </button>
+      <button class="btn btn-default btn-sm" (click)="next()">Next</button>
+    </div>
+  </div>
+</div>

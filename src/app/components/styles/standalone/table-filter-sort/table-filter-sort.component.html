@@ -1,0 +1,9 @@
+<a href="" (click)="onClick($event)">
+  <ng-content></ng-content>
+  <span class="ms-1" *ngIf="sortAscending === true">
+    <i class="bx bx-sort-down WhiteBtn"></i>
+  </span>
+  <span class="ms-1" *ngIf="sortAscending === false">
+    <i class="bx bx-sort-up WhiteBtn"></i>
+  </span>
+</a>

@@ -94,7 +94,7 @@
 // List
 // ==============================
 .list-height {
-  height: calc(100vh - 80px);
+  height: calc(100vh - 150px);
   overflow-y: auto;
   margin-bottom: 0px;
 }
@@ -152,13 +152,16 @@
     text-align: left;
     position: sticky;
     top: 0;
-    z-index: 1;
   }
 
   /* Row Styles */
   tbody tr {
     border-bottom: 1px solid #eee;
     transition: background-color 0.2s;
+
+    span {
+      z-index: -1;
+    }
 
     &:hover {
       background-color: #f8f9fa;

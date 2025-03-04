@@ -17,7 +17,7 @@ export class ApiHelper {
     return new HttpParams()
       .set("pageIndex", criteria.pageIndex.toString())
       .set("pageSize", criteria.pageSize.toString())
-      .set("sort", criteria.sort ?? "")
+      .set("sort", criteria.sortField ?? "")
       .set("sortAscending", criteria.sortAscending?.toString() ?? "")
       .set("search", criteria.search ?? "")
       .set("lookups", criteria.lookups ?? "")
@@ -45,17 +45,20 @@ export class ApiHelper {
       return_response.IsError = ExtensionMethods.is_error_status(
         response.StatusCode,
       );
+      return_response.ErrorList = [response.ResponseMessage];
     } else {
-      return_response.IsError = true;
       return_response.ErrorTitle = response.Title;
       return_response.ErrorDetail = response.Detail;
       return_response.ErrorType = response.Type;
       return_response.ErrorInstance = response.Instance;
       return_response.ResponseMessage = response.Detail;
-    }
+      return_response.StatusCode = response.Status;
 
-    if (return_response.IsError) {
-      throw new Error(`${return_response.ResponseMessage}`);
+      return_response.IsError = response.Extensions.IsError;
+      return_response.ErrorDisplay = response.Extensions.ErrorDisplay;
+      return_response.ShowException = response.Extensions.ShowException;
+      return_response.ErrorList = response.Extensions.ErrorList;
+      return_response.ErrorRaw = response.Extensions.raw;
     }
 
     return return_response;
@@ -80,6 +83,8 @@ export class ApiHelper {
           return_response.ErrorType = exception.Type;
           return_response.ErrorInstance = exception.Instance;
           return_response.ErrorList.push(exception.error.ResponseMessage);
+          return_response.StatusCode = exception.status;
+          return_response.ErrorDisplay = 1;
         }
         // Status 0 when can't communicate with the API, we do a PING to the API just to confirm and send back relevent message.
         else if (exception.status == 0) {
