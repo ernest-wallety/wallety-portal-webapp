@@ -79,7 +79,10 @@ export class UserListComponent
   }
 
   public async onChangeLookup(lookup: Lookup, listFieldName: string) {
-    lookup.Id = lookup.AltBoolValue;
+    lookup.Id = `'${lookup.Id}'`;
+
+    if (listFieldName === "IsAccountActive") lookup.Id = lookup.AltBoolValue;
+
     listFieldName = `u.'${listFieldName}'`;
     this.Criteria.lookups = LookupHelper.onChangeLookup(lookup, listFieldName);
 

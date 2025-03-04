@@ -71,7 +71,7 @@
           {{ a.Name }}
           <strong>{{ a.Surname }}</strong>
         </td>
-        <td>{{ a.PhoneNumber | phoneFormat }}</td>
+        <td>{{ a.PhoneNumber | phoneFormat: undefined }}</td>
         <td class="d-none d-md-table-cell">{{ a.Country }}</td>
         <td class="d-none d-md-table-cell">{{ a.AccountCreationDate }}</td>
         <td>
