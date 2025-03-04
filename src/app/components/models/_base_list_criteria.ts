@@ -11,6 +11,6 @@ export class ListCriteria {
   ) {}
 
   static default(): ListCriteria {
-    return new ListCriteria(1, 50, "1 DESC", true, null, null, null, null);
+    return new ListCriteria(1, 50, "1", true, null, null, null, null);
   }
 }
