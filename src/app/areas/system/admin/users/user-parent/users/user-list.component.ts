@@ -45,6 +45,9 @@ export class UserListComponent
   extends AuthenticatedBaseListComponent
   implements OnInit, AfterViewInit
 {
+  ngAfterViewInit(): void {
+    throw new Error("Method not implemented.");
+  }
   @ViewChild("userEditPopup")
   userEditPopup!: UserEditPopupComponent;
 
@@ -60,15 +63,6 @@ export class UserListComponent
     this.isSmallScreen = window.innerWidth < 576; // Check on init
     this.titleService.setTitle("Users");
     this.refresh();
-  }
-
-  ngAfterViewInit(): void {
-    // Check if ViewModel and its properties are available before accessing
-    if (this.ViewModel && this.ViewModel.Count !== undefined) {
-      console.log(this.ViewModel.Count);
-    } else {
-      console.warn("ViewModel is not yet initialized");
-    }
   }
 
   public async refresh() {
@@ -104,7 +98,7 @@ export class UserListComponent
     await this.refresh();
   }
 
-  public async sortUserList(sortObject: any) {
+  public async sort(sortObject: any) {
     if (sortObject != null) {
       this.Criteria.sortField = sortObject.sortField;
       this.Criteria.sortAscending = sortObject.sortAscending;

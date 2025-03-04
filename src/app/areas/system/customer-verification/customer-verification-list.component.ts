@@ -4,11 +4,12 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseListComponent } from "../../../components/base/authenticated_base_list.component";
 import { LookupHelper } from "../../../components/helpers/lookup_helper";
-import { ListCriteria } from "../../../components/models/_base_list_criteria";
 import { Lookup } from "../../../components/models/lookup";
 import { CustomerVerificationPopupComponent } from "../../../components/styles/standalone/app-popups/customer-verification/customer-verification-popup.component";
+import { PagingComponent } from "../../../components/styles/standalone/pagination/paging.component";
 import { SearchInputComponent } from "../../../components/styles/standalone/search-input/search-input.component";
 import { SelectSingleLookupComponent } from "../../../components/styles/standalone/select-single-lookup/select-single-lookup.component";
+import { TableFilterSortComponent } from "../../../components/styles/standalone/table-filter-sort/table-filter-sort.component";
 import { PhoneFormatPipe } from "../../../components/utils/pipes/phone-format.pipe";
 
 @Component({
@@ -22,6 +23,8 @@ import { PhoneFormatPipe } from "../../../components/utils/pipes/phone-format.pi
     CustomerVerificationPopupComponent,
     SearchInputComponent,
     SelectSingleLookupComponent,
+    TableFilterSortComponent,
+    PagingComponent,
   ],
   templateUrl: "./customer-verification-list.component.html",
   styleUrls: ["./customer-verification-list.component.scss"],
@@ -33,8 +36,6 @@ export class CustomerVerificationListComponent
   @ViewChild("customerVerificationPopup")
   customerVerificationPopup!: CustomerVerificationPopupComponent;
 
-  criteria: ListCriteria = ListCriteria.default();
-
   private reasons?: any;
   private statuses?: any;
 
@@ -44,14 +45,15 @@ export class CustomerVerificationListComponent
   }
 
   async refresh() {
-    const response = await this.get_async_call_no_params(
-      "/Customer/GetUnverifiedAccounts",
+    const response = await this.get_list_sync_call(
+      "/Customer/GetUnverifiedCustomers",
+      this.Criteria,
     );
 
     if (!response.IsError) {
       this.ViewModel = response.Data;
-      this.statuses = this.ViewModel?.RegistrationStatuses;
-      this.reasons = this.ViewModel?.VerificationRejectReasons;
+      // this.statuses = this.ViewModel?.RegistrationStatuses;
+      // this.reasons = this.ViewModel?.VerificationRejectReasons;
     }
   }
 
@@ -59,16 +61,28 @@ export class CustomerVerificationListComponent
     this.customerVerificationPopup.model = item;
     this.customerVerificationPopup.reasons = this.reasons;
     this.customerVerificationPopup.statuses = this.statuses;
-
     this.customerVerificationPopup.showDialog();
   }
 
   initialiseLookup(listFieldName: string) {
+    listFieldName = `u.'${listFieldName}'`;
     LookupHelper.initialiseLookup(listFieldName);
   }
 
-  public onChangeLookup(lookup: Lookup, listFieldName: string) {
-    this.criteria.lookups = LookupHelper.onChangeLookup(lookup, listFieldName);
-    // this.refresh();
+  public async onChangeLookup(lookup: Lookup, listFieldName: string) {
+    lookup.Id = `'${lookup.Id}'`;
+    listFieldName = `u.'${listFieldName}'`;
+    this.Criteria.lookups = LookupHelper.onChangeLookup(lookup, listFieldName);
+
+    await this.refresh();
+  }
+
+  public async sort(sortObject: any) {
+    if (sortObject != null) {
+      this.Criteria.sortField = sortObject.sortField;
+      this.Criteria.sortAscending = sortObject.sortAscending;
+    }
+
+    await this.refresh();
   }
 }
