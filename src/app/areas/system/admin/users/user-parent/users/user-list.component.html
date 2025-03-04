@@ -6,7 +6,11 @@
     <div class="container-fluid">
       <div class="d-flex justify-content-between w-100">
         <!-- Register Button -->
-        <button class="btn btn-primary" (click)="create()">
+        <button
+          class="btn btn-primary btn-action"
+          [ngClass]="{ 'btn-sm': isSmallScreen }"
+          (click)="create()"
+        >
           Create new user
         </button>
 
@@ -27,7 +31,7 @@
     <thead>
       <tr>
         <th></th>
-        <th>
+        <th class="d-none d-md-table-cell">
           <app-sort
             [sortField]="'IsAccountActive'"
             (OnClick)="sortUserList($event)"
@@ -36,19 +40,19 @@
           </app-sort>
         </th>
         <th>Name</th>
-        <th>
+        <th class="d-none d-lg-table-cell">
           <app-sort [sortField]="'CountryId'" (OnClick)="sortUserList($event)">
             Country
           </app-sort>
         </th>
-        <th class="d-none d-md-table-cell">WhatsApp Number</th>
-        <th class="d-none d-md-table-cell">Id Number</th>
-        <th class="d-none d-md-table-cell">Created Date</th>
+        <th class="d-none d-lg-table-cell">WhatsApp Number</th>
+        <th class="d-none d-lg-table-cell">Id Number</th>
+        <th class="d-none d-lg-table-cell">Created Date</th>
         <th></th>
       </tr>
       <tr class="filter-row table-fixed-header">
         <td></td>
-        <td style="width: 250px">
+        <td class="d-none d-md-table-cell">
           <app-select-single-lookup
             #status
             name="status"
@@ -60,7 +64,7 @@
           ></app-select-single-lookup>
         </td>
         <td></td>
-        <td style="width: 250px">
+        <td class="d-none d-lg-table-cell">
           <app-select-single-lookup
             #country
             name="country"
@@ -71,13 +75,13 @@
             (OnChangeEmitter)="onChangeLookup($event, 'CountryId')"
           ></app-select-single-lookup>
         </td>
-        <td style="width: 250px">
+        <td class="d-none d-lg-table-cell">
           <!-- Add your select-single-lookup component here -->
         </td>
-        <td style="width: 250px">
+        <td class="d-none d-lg-table-cell">
           <!-- Add your select-single-lookup component here -->
         </td>
-        <td>
+        <td class="d-none d-lg-table-cell">
           <!-- Add your select-single-lookup component here -->
         </td>
         <td></td>
@@ -86,7 +90,7 @@
     <tbody>
       <tr *ngFor="let a of ViewModel?.Items">
         <td></td>
-        <td>
+        <td class="d-none d-md-table-cell">
           <span
             class="badge"
             [ngClass]="a.IsAccountActive ? 'bg-prog-4' : 'bg-prog-1'"
@@ -108,11 +112,13 @@
             </div>
           </div>
         </td>
-        <td>{{ a.CountryName }}</td>
-        <td>{{ a.PhoneNumber | phoneFormat: a.MobileRegex }}</td>
+        <td class="d-none d-lg-table-cell">{{ a.CountryName }}</td>
+        <td class="d-none d-lg-table-cell">
+          {{ a.PhoneNumber | phoneFormat: a.MobileRegex }}
+        </td>
 
-        <td class="d-none d-md-table-cell">{{ a.IdNumber }}</td>
-        <td class="d-none d-md-table-cell">
+        <td class="d-none d-lg-table-cell">{{ a.IdNumber }}</td>
+        <td class="d-none d-lg-table-cell">
           {{ a.AccountCreationDate | date: "yyyy, dd MMM" }}
         </td>
 

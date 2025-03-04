@@ -97,6 +97,10 @@
   height: calc(100vh - 150px);
   overflow-y: auto;
   margin-bottom: 0px;
+
+  @media screen and (max-width: 990px) {
+    height: calc(100vh - 130px);
+  }
 }
 
 .td-xs {
@@ -152,6 +156,7 @@
     text-align: left;
     position: sticky;
     top: 0;
+    white-space: nowrap;
   }
 
   /* Row Styles */

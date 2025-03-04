@@ -1,5 +1,11 @@
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component, OnInit, ViewChild } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseListComponent } from "../../../../../../components/base/authenticated_base_list.component";
@@ -42,7 +48,16 @@ export class UserListComponent
   @ViewChild("userEditPopup")
   userEditPopup!: UserEditPopupComponent;
 
+  isSmallScreen: boolean = false;
+
+  @HostListener("window:resize", ["$event"])
+  onResize(event: Event) {
+    // Use 'Event' type here
+    this.isSmallScreen = (event.target as Window).innerWidth < 576;
+  }
+
   ngOnInit(): void {
+    this.isSmallScreen = window.innerWidth < 576; // Check on init
     this.titleService.setTitle("Users");
     this.refresh();
   }
