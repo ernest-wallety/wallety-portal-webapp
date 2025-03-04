@@ -150,10 +150,12 @@
                       name="status"
                       id="status"
                       from="body"
-                      [Items]="statuses"
+                      [ApiMethod]="'RegistrationStatuses'"
                       [BindValue]="'Name'"
                       [(ngModel)]="RegistrationStatus"
-                      (OnChangeEmitter)="updateStatus($event, 'Status')"
+                      (OnChangeEmitter)="
+                        onChangeLookup($event, 'RegistrationStatusId')
+                      "
                     ></app-select-single-lookup>
                   </div>
                 </div>
@@ -174,10 +176,12 @@
                       name="reason"
                       id="reason"
                       from="body"
-                      [Items]="reasons"
+                      [ApiMethod]="'VerificationRejectReasons'"
                       [BindValue]="'Name'"
                       [(ngModel)]="RejectionReason"
-                      (OnChangeEmitter)="updateReason($event, 'Reasons')"
+                      (OnChangeEmitter)="
+                        onChangeLookup($event, 'RejectReasonId')
+                      "
                     ></app-select-single-lookup>
                   </div>
                 </div>

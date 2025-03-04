@@ -52,15 +52,11 @@ export class CustomerVerificationListComponent
 
     if (!response.IsError) {
       this.ViewModel = response.Data;
-      // this.statuses = this.ViewModel?.RegistrationStatuses;
-      // this.reasons = this.ViewModel?.VerificationRejectReasons;
     }
   }
 
   details(item: any) {
     this.customerVerificationPopup.model = item;
-    this.customerVerificationPopup.reasons = this.reasons;
-    this.customerVerificationPopup.statuses = this.statuses;
     this.customerVerificationPopup.showDialog();
   }
 
