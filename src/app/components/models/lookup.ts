@@ -3,6 +3,7 @@ export class Lookup {
   Name: string = "";
   IdArr: number[] = [];
   AltBoolValue?: boolean;
+  PrimaryKey?: string;
 }
 
 export class LookupParams {

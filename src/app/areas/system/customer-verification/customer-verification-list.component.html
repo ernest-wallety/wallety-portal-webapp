@@ -64,6 +64,8 @@
             id="status"
             from="body"
             [ApiMethod]="'RegistrationStatuses'"
+            [IsCustomRequest]="true"
+            [Params]="'?isListPage=true'"
             (OnInitEmitter)="initialiseLookup('RegistrationStatusId')"
             (OnChangeEmitter)="onChangeLookup($event, 'RegistrationStatusId')"
           ></app-select-single-lookup>

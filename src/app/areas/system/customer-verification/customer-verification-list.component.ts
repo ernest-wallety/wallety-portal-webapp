@@ -66,7 +66,7 @@ export class CustomerVerificationListComponent
   }
 
   public async onChangeLookup(lookup: Lookup, listFieldName: string) {
-    lookup.Id = `'${lookup.Id}'`;
+    lookup.Id = `'${lookup.PrimaryKey}'`;
     listFieldName = `u.'${listFieldName}'`;
     this.Criteria.lookups = LookupHelper.onChangeLookup(lookup, listFieldName);
 

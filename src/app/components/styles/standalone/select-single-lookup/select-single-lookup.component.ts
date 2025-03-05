@@ -104,7 +104,7 @@ export class SelectSingleLookupComponent
   public async loadItemsCustomQuery() {
     if (this.Items == null) {
       var response = await this.get_async_call_no_params(
-        "Lookup/" + this.ApiMethod + this.Params,
+        "/Lookup/" + this.ApiMethod + this.Params,
       );
 
       if (!response.IsError) {
