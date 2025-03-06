@@ -32,21 +32,22 @@
       <tr>
         <th class="d-none d-md-table-cell"></th>
         <th class="d-none d-md-table-cell">
-          <app-sort [sortField]="'IsAccountActive'" (OnClick)="sort($event)">
+          <app-sort [sortField]="'u.IsAccountActive'" (OnClick)="sort($event)">
             Status
           </app-sort>
         </th>
         <th>Name</th>
         <th class="d-none d-lg-table-cell">
-          <app-sort [sortField]="'CountryId'" (OnClick)="sort($event)">
+          <app-sort [sortField]="'u.CountryId'" (OnClick)="sort($event)">
             Country
           </app-sort>
         </th>
+        <th class="d-none d-lg-table-cell">Role</th>
         <th class="d-none d-lg-table-cell">WhatsApp Number</th>
         <th class="d-none d-lg-table-cell">Id Number</th>
         <th class="d-none d-lg-table-cell">
           <app-sort
-            [sortField]="'AccountCreationDate'"
+            [sortField]="'u.AccountCreationDate'"
             (OnClick)="sort($event)"
           >
             Created Date
@@ -63,8 +64,8 @@
             id="status"
             from="body"
             [ApiMethod]="'IsActive'"
-            (OnInitEmitter)="initialiseLookup('IsAccountActive')"
-            (OnChangeEmitter)="onChangeLookup($event, 'IsAccountActive')"
+            (OnInitEmitter)="initialiseLookup('u.IsAccountActive')"
+            (OnChangeEmitter)="onChangeLookup($event, 'u.IsAccountActive')"
           ></app-select-single-lookup>
         </td>
         <td></td>
@@ -75,8 +76,19 @@
             id="country"
             from="body"
             [ApiMethod]="'Countries'"
-            (OnInitEmitter)="initialiseLookup('CountryId')"
-            (OnChangeEmitter)="onChangeLookup($event, 'CountryId')"
+            (OnInitEmitter)="initialiseLookup('u.CountryId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
+          ></app-select-single-lookup>
+        </td>
+        <td class="d-none d-lg-table-cell">
+          <app-select-single-lookup
+            #role
+            name="role"
+            id="role"
+            from="body"
+            [ApiMethod]="'Roles'"
+            (OnInitEmitter)="initialiseLookup('r.Id')"
+            (OnChangeEmitter)="onChangeLookup($event, 'r.Id')"
           ></app-select-single-lookup>
         </td>
         <td class="d-none d-lg-table-cell">
@@ -85,9 +97,7 @@
         <td class="d-none d-lg-table-cell">
           <!-- Add your select-single-lookup component here -->
         </td>
-        <td class="d-none d-lg-table-cell">
-          <!-- Add your select-single-lookup component here -->
-        </td>
+        <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-md-table-cell"></td>
       </tr>
     </thead>
@@ -117,6 +127,7 @@
           </div>
         </td>
         <td class="d-none d-lg-table-cell">{{ a.CountryName }}</td>
+        <td class="d-none d-lg-table-cell">{{ a.RoleName }}</td>
         <td class="d-none d-lg-table-cell">
           {{ a.PhoneNumber | phoneFormat: a.MobileRegex }}
         </td>

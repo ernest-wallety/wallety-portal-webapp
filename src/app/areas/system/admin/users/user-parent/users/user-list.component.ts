@@ -74,16 +74,13 @@ export class UserListComponent
   }
 
   initialiseLookup(listFieldName: string) {
-    listFieldName = `u.'${listFieldName}'`;
     LookupHelper.initialiseLookup(listFieldName);
   }
 
   public async onChangeLookup(lookup: Lookup, listFieldName: string) {
-    lookup.Id = `'${lookup.Id}'`;
+    if (listFieldName.includes("IsAccountActive"))
+      lookup.Id = lookup.AltBoolValue;
 
-    if (listFieldName === "IsAccountActive") lookup.Id = lookup.AltBoolValue;
-
-    listFieldName = `u.'${listFieldName}'`;
     this.Criteria.lookups = LookupHelper.onChangeLookup(lookup, listFieldName);
 
     await this.refresh();
@@ -91,9 +88,11 @@ export class UserListComponent
 
   public async sort(sortObject: any) {
     if (sortObject != null) {
-      this.Criteria.sortField = sortObject.sortField;
+      this.Criteria.sortField = LookupHelper.transform(sortObject.sortField);
       this.Criteria.sortAscending = sortObject.sortAscending;
     }
+
+    console.log(this.Criteria);
 
     await this.refresh();
   }
