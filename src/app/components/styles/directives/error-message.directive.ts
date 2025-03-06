@@ -12,8 +12,8 @@ import {
   standalone: true, // Makes the directive standalone
 })
 export class ErrorMessageDirective implements OnChanges {
-  @Input() isError: boolean = false;
-  @Input() errorMessage: string = "";
+  @Input() isError = false;
+  @Input() errorMessage = "";
 
   constructor(
     private el: ElementRef,

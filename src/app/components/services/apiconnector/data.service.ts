@@ -26,7 +26,7 @@ export class DataService {
     action: string,
     criteria: ListCriteria,
   ): Promise<ResponseModel> {
-    var params = ApiHelper.getListCriteriaHttpParams(criteria);
+    const params = ApiHelper.getListCriteriaHttpParams(criteria);
     return this.handle_api_call("GET", action, undefined, params);
   }
 
