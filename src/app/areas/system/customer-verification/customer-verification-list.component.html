@@ -25,14 +25,21 @@
         <th>Name</th>
         <th class="d-none d-md-table-cell">WhatsApp Number</th>
         <th class="d-none d-lg-table-cell">
-          <app-sort [sortField]="'CountryId'" (OnClick)="sort($event)">
+          <app-sort [sortField]="'u.CountryId'" (OnClick)="sort($event)">
             Country
           </app-sort>
         </th>
-        <th class="d-none d-lg-table-cell">Registration Date</th>
+        <th class="d-none d-lg-table-cell">
+          <app-sort
+            [sortField]="'u.AccountCreationDate'"
+            (OnClick)="sort($event)"
+          >
+            Registration Date
+          </app-sort>
+        </th>
         <th>
           <app-sort
-            [sortField]="'RegistrationStatusId'"
+            [sortField]="'u.RegistrationStatusId'"
             (OnClick)="sort($event)"
           >
             Status
@@ -52,8 +59,8 @@
             id="country"
             from="body"
             [ApiMethod]="'Countries'"
-            (OnInitEmitter)="initialiseLookup('CountryId')"
-            (OnChangeEmitter)="onChangeLookup($event, 'CountryId')"
+            (OnInitEmitter)="initialiseLookup('u.CountryId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
           ></app-select-single-lookup>
         </td>
         <td class="d-none d-lg-table-cell"></td>
@@ -66,8 +73,8 @@
             [ApiMethod]="'RegistrationStatuses'"
             [IsCustomRequest]="true"
             [Params]="'?isListPage=true'"
-            (OnInitEmitter)="initialiseLookup('RegistrationStatusId')"
-            (OnChangeEmitter)="onChangeLookup($event, 'RegistrationStatusId')"
+            (OnInitEmitter)="initialiseLookup('u.RegistrationStatusId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'u.RegistrationStatusId')"
           ></app-select-single-lookup>
         </td>
         <td class="d-none d-lg-table-cell">
@@ -89,7 +96,7 @@
           {{ a.PhoneNumber | phoneFormat: undefined }}
         </td>
         <td class="d-none d-lg-table-cell">{{ a.Country }}</td>
-        <td class="d-none d-lg-table-cell">{{ a.AccountCreationDate }}</td>
+        <td class="d-none d-lg-table-cell">{{ a.AccountCreationDate | date: "yyyy, dd MMM" }}</td>
         <td>
           <span
             class="badge"

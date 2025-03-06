@@ -87,8 +87,8 @@
             id="role"
             from="body"
             [ApiMethod]="'Roles'"
-            (OnInitEmitter)="initialiseLookup('r.Id')"
-            (OnChangeEmitter)="onChangeLookup($event, 'r.Id')"
+            (OnInitEmitter)="initialiseLookup('ur.RoleId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'ur.RoleId')"
           ></app-select-single-lookup>
         </td>
         <td class="d-none d-lg-table-cell">

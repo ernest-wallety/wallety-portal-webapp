@@ -36,9 +36,6 @@ export class CustomerVerificationListComponent
   @ViewChild("customerVerificationPopup")
   customerVerificationPopup!: CustomerVerificationPopupComponent;
 
-  private reasons?: any;
-  private statuses?: any;
-
   ngOnInit(): void {
     this.titleService.setTitle("Customer Verification");
     this.refresh();
@@ -61,13 +58,12 @@ export class CustomerVerificationListComponent
   }
 
   initialiseLookup(listFieldName: string) {
-    listFieldName = `u.'${listFieldName}'`;
     LookupHelper.initialiseLookup(listFieldName);
   }
 
   public async onChangeLookup(lookup: Lookup, listFieldName: string) {
     lookup.Id = `'${lookup.PrimaryKey}'`;
-    listFieldName = `u.'${listFieldName}'`;
+
     this.Criteria.lookups = LookupHelper.onChangeLookup(lookup, listFieldName);
 
     await this.refresh();
@@ -75,7 +71,7 @@ export class CustomerVerificationListComponent
 
   public async sort(sortObject: any) {
     if (sortObject != null) {
-      this.Criteria.sortField = sortObject.sortField;
+      this.Criteria.sortField = LookupHelper.transform(sortObject.sortField);
       this.Criteria.sortAscending = sortObject.sortAscending;
     }
 

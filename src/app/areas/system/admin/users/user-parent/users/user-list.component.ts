@@ -92,8 +92,6 @@ export class UserListComponent
       this.Criteria.sortAscending = sortObject.sortAscending;
     }
 
-    console.log(this.Criteria);
-
     await this.refresh();
   }
 }
