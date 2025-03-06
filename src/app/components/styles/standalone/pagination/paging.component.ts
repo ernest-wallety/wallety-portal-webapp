@@ -35,7 +35,7 @@ export class PagingComponent {
   }
 
   previous() {
-    if (this.criteria.pageIndex > 0) {
+    if (this.criteria.pageIndex > 1) {
       this.criteria.pageIndex--;
       this.emitPageSubmit();
     }
@@ -52,7 +52,7 @@ export class PagingComponent {
   validateNextPage() {
     // Disallows navigation to next page if there are no records ***Requires RecordTotal
 
-    if (this.RecordTotal > this.criteria.pageSize * this.criteria.pageIndex) {
+    if (this.RecordTotal > (this.criteria.pageSize * this.criteria.pageIndex)) {
       this.criteria.pageIndex++;
       this.emitPageSubmit();
     }
