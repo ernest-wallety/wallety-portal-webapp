@@ -1,49 +1,81 @@
-<div class="l-navbar" id="nav-bar">
-   <nav class="nav">
-      <div>
-         <a class="nav_logo" (click)="toggle_navbar()" href="#" onclick="return false;">
-            <div class="nav_logo-icon">
-               <img src="https://wallety.cash/wp-content/uploads/2020/03/Wallety-Logo.png" alt="Wallety Logo" />
-            </div>
-         </a>
-
-         <div class="nav_list">
-            <!-- <a href="#" onclick="return false;" class="nav_link"
-               [ngClass]="{'active-menu-item': is_active_route('/system/dashboard')}" [routerLink]="'/system/dashboard'"
-               routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-               <i class='bx bx-grid-alt nav_icon'></i>
-               <span class="nav_name">Dashboard</span>
-            </a>
-            <a href="#" onclick="return false;" class="nav_link"
-               [ngClass]="{'active-menu-item': is_active_route('/system/merchants')}" [routerLink]="'/system/merchants'"
-               routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-               <i class='bx bx-store-alt nav_icon'></i>
-               <span class="nav_name">Merchants</span>
-            </a>
-
-            <a href="#" onclick="return false;" class="nav_link"
-               [ngClass]="{'active-menu-item': is_active_route('/system/customer-verification')}"
-               [routerLink]="'/system/admin/customer-verification'" routerLinkActive="active"
-               [routerLinkActiveOptions]="{exact: true}">
-               <i class='bx bx-user nav_icon'></i>
-               <span class="nav_name">Admin</span>
-            </a> -->
-
-            <ul class="nav nav-pills flex-column mb-auto">
-               <li *ngFor="let item of MenuItems">
-                  <a href="#" onclick="return false;" class="nav_link" [routerLink]="item?.MenuRoute"
-                     (click)="set_sidebar_children_class(item)">
-                     <i class="{{ item.MenuIcon }} nav_icon"></i>
-                     <span class="nav_name">{{ item.MenuName }}</span>
-                  </a>
-               </li>
-            </ul>
-         </div>
-      </div>
-
-      <a href="#" onclick="return false;" class="nav_link" (click)="log_out()">
-         <i class="bx bx-log-out nav_icon"></i>
-         <span class="nav_name">Sign Out</span>
+<div class="l-navbar" id="nav-bar" [class.show]="isExpanded">
+  <nav class="nav">
+    <div>
+      <a
+        class="nav_logo"
+        (click)="toggle_navbar()"
+        href="#"
+        onclick="return false;"
+      >
+        <div class="nav_logo-icon">
+          <img
+            [src]="
+              isExpanded
+                ? 'https://wallety.cash/wp-content/uploads/2020/03/Wallety-Logo.png'
+                : 'https://wallety.cash/wp-content/uploads/2024/04/Wallety_Favicon-removebg-preview-1.png'
+            "
+            [class.collapsed]="!isExpanded"
+            alt="Wallety Logo"
+          />
+        </div>
       </a>
-   </nav>
+
+      <div class="nav_list">
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li *ngFor="let item of MenuItems">
+            <a
+              href="#"
+              onclick="return false;"
+              class="nav_link"
+              [routerLink]="item?.ModuleRoute"
+              [ngClass]="{ active: activeModule === item.ModuleSidebarClass }"
+              (click)="set_sidebar_children_class(item)"
+            >
+              <i class="{{ item.ModuleIcon }} nav_icon"></i>
+              <span class="nav_name">{{ item.ModuleName }}</span>
+
+              <!-- Show chevron only if the item has sub-items -->
+              <i
+                *ngIf="item.ModuleItems && item.ModuleItems.length > 0"
+                class="bx bx-chevron-down"
+                [ngClass]="{
+                  'rotate-icon':
+                    item.ModuleSidebarClass === expandedModuleActive,
+                }"
+              ></i>
+            </a>
+
+            <!-- Sub-menu for ModuleItems -->
+            <ul
+              *ngIf="
+                item.ModuleSidebarClass === expandedModuleActive &&
+                item.ModuleItems?.length > 0
+              "
+              class="nav flex-column ms-3"
+            >
+              <li *ngFor="let subItem of item.ModuleItems">
+                <a
+                  href="#"
+                  onclick="return false;"
+                  class="nav_link"
+                  [routerLink]="subItem.ModuleItemRoute"
+                  [ngClass]="{
+                    active: is_active_route(subItem.ModuleItemRoute),
+                  }"
+                >
+                  <i class="{{ subItem.ModuleItemIcon }} nav_icon"></i>
+                  <span class="nav_name">{{ subItem.ModuleItemName }}</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- <a href="#" onclick="return false;" class="nav_link" (click)="log_out()">
+      <i class="bx bx-log-out nav_icon"></i>
+      <span class="nav_name">Sign Out</span>
+    </a> -->
+  </nav>
 </div>

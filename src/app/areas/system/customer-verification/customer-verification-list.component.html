@@ -1,0 +1,149 @@
+<app-customer-verification-popup
+  #customerVerificationPopup
+  (OnSave)="refresh()"
+></app-customer-verification-popup>
+
+<div class="list-height">
+  <!-- Search Bar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-end w-100">
+        <app-search-input
+          [searchText]="Criteria.search"
+          (ValueChange)="Criteria.search = $event; refresh()"
+          placeholder="Search for something..."
+        ></app-search-input>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Table -->
+  <table class="iq-list-table">
+    <thead>
+      <tr>
+        <th class="d-none d-md-table-cell"></th>
+        <th>Name</th>
+        <th class="d-none d-md-table-cell">WhatsApp Number</th>
+        <th class="d-none d-lg-table-cell">
+          <app-sort [sortField]="'u.CountryId'" (OnClick)="sort($event)">
+            Country
+          </app-sort>
+        </th>
+        <th class="d-none d-lg-table-cell">
+          <app-sort
+            [sortField]="'u.AccountCreationDate'"
+            (OnClick)="sort($event)"
+          >
+            Registration Date
+          </app-sort>
+        </th>
+        <th>
+          <app-sort
+            [sortField]="'u.RegistrationStatusId'"
+            (OnClick)="sort($event)"
+          >
+            Status
+          </app-sort>
+        </th>
+        <th class="d-none d-lg-table-cell">Updated By</th>
+        <th class="d-none d-md-table-cell"></th>
+      </tr>
+      <tr class="filter-row table-fixed-header">
+        <td class="d-none d-md-table-cell"></td>
+        <td></td>
+        <td class="d-none d-lg-table-cell"></td>
+        <td class="d-none d-lg-table-cell">
+          <app-select-single-lookup
+            #country
+            name="country"
+            id="country"
+            from="body"
+            [ApiMethod]="'Countries'"
+            (OnInitEmitter)="initialiseLookup('u.CountryId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
+          ></app-select-single-lookup>
+        </td>
+        <td class="d-none d-lg-table-cell"></td>
+        <td>
+          <app-select-single-lookup
+            #status
+            name="status"
+            id="status"
+            from="body"
+            [ApiMethod]="'RegistrationStatuses'"
+            [IsCustomRequest]="true"
+            [Params]="'?isListPage=true'"
+            (OnInitEmitter)="initialiseLookup('u.RegistrationStatusId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'u.RegistrationStatusId')"
+          ></app-select-single-lookup>
+        </td>
+        <td class="d-none d-lg-table-cell">
+          <!-- Add your select-single-lookup component here -->
+        </td>
+        <td class="d-none d-md-table-cell">
+          <!-- Add your select-single-lookup component here -->
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of ViewModel?.Items">
+        <td class="d-none d-md-table-cell"></td>
+        <td>
+          {{ a.Name }}
+          <strong>{{ a.Surname }}</strong>
+        </td>
+        <td class="d-none d-md-table-cell">
+          {{ a.PhoneNumber | phoneFormat: undefined }}
+        </td>
+        <td class="d-none d-lg-table-cell">{{ a.Country }}</td>
+        <td class="d-none d-lg-table-cell">{{ a.AccountCreationDate | date: "yyyy, dd MMM" }}</td>
+        <td>
+          <span
+            class="badge"
+            [ngClass]="{
+              'bg-prog-4': a.RegistrationStatus === 'Approved',
+              'bg-prog-2': a.RegistrationStatus === 'Pending',
+              'bg-prog-1': a.RegistrationStatus === 'Rejected',
+            }"
+          >
+            {{ a.RegistrationStatus }}
+            <span
+              *ngIf="a.History && a.History.length > 0"
+              class="status-notification-badge"
+            >
+              {{ a.History.length }}
+            </span>
+          </span>
+        </td>
+        <td class="d-none d-lg-table-cell">{{ a.CustomerServiceAgent }}</td>
+        <td>
+          <a
+            href="#"
+            onclick="return false;"
+            class="table-action-link d-none d-md-table-cell"
+            (click)="details(a)"
+          >
+            Verify
+          </a>
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="ViewModel?.Count === 0 && IsLoading === false">
+      <tr>
+        <td colspan="10" class="text-center border-bottom-0">
+          <h4 class="mt-5 mb-5">
+            <i class="fa fa-exclamation-triangle me-2"></i>
+            No results found
+          </h4>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-paging
+  #paging
+  [criteria]="Criteria"
+  [RecordTotal]="ViewModel?.Count"
+  (PagingEmitter)="refresh()"
+></app-paging>

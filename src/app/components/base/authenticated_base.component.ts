@@ -1,16 +1,42 @@
-import { Directive, Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BaseComponent } from './base.component';
+import {
+  ChangeDetectorRef,
+  Directive,
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+} from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { BaseComponent } from "./base.component";
 // import { PagingService } from "../services/paging_service";
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ToastrService } from 'ngx-toastr';
-import { DataService } from '../apiconnector/data.service';
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ToastrService } from "ngx-toastr";
+import { ExtensionMethods } from "../helpers/extension_methods";
+import { MenuHelper } from "../helpers/menu_helper";
+import { MenuListModel } from "../models/menu_model";
+import { DataService } from "../services/apiconnector/data.service";
+import { TitleService } from "../services/title.service";
+import { Utils } from "../utils";
 // import { LookupHelper } from '../helpers/lookup_helper';
 
 @Injectable()
 @Directive()
 // Component used for authenticated pages. There is a list version of this as well for list pages which inherits from this.
 export class AuthenticatedBaseComponent extends BaseComponent {
+  public PageTitle = "";
+
+  // User related
+  public ImageUrl?: string;
+  public Email = this.LoggedInUser.User.Email;
+  public FullName = `${this.LoggedInUser.User.Name} ${this.LoggedInUser.User.Surname}`;
+  public Role = this.LoggedInUser.RoleCodes?.find(
+    (role) => role.IsDefault === true,
+  );
+  public UserRoles = Utils.lookup_converter(
+    this.LoggedInUser.RoleCodes!,
+    "Code",
+    "Role",
+  );
+
   // Inject providers imported in app.module
   constructor(
     public override data_service: DataService,
@@ -18,9 +44,10 @@ export class AuthenticatedBaseComponent extends BaseComponent {
     public override route: ActivatedRoute,
     public override toastr: ToastrService,
     public override ngbModalService: NgbModal,
+    public override cd: ChangeDetectorRef,
+    public override titleService: TitleService,
     @Inject(PLATFORM_ID) public override platformId: object,
     // public override lookup_helper: LookupHelper,
-
 
     // public paging_service: PagingService
   ) {
@@ -31,9 +58,32 @@ export class AuthenticatedBaseComponent extends BaseComponent {
       route,
       toastr,
       ngbModalService,
-      platformId
+      cd,
+      titleService,
+      platformId,
       // lookup_helper
     );
-  }
-}
 
+    const image = this.LoggedInUser.User?.IdentityImage;
+
+    this.ImageUrl =
+      image === ""
+        ? undefined
+        : ExtensionMethods.to_base_64_image(
+            this.LoggedInUser.User?.IdentityImage || "",
+          );
+  }
+
+  public store_menu = async (): Promise<void> => {
+    const response = await this.get_async_call_no_params(
+      "/Portal/MenuStructure",
+    );
+
+    if (!response.IsError) {
+      const menu_result: MenuListModel = response.Data;
+      MenuHelper.set_menu_localstorage(menu_result, this.platformId);
+    }
+
+    this.cd.detectChanges();
+  };
+}

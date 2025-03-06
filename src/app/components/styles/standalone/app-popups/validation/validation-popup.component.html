@@ -1,0 +1,63 @@
+<div class="modal-header">
+  <h4 class="modal-title float-start">
+    <i class="fas fa-exclamation-circle text-danger"></i>
+    {{ Title || "Validation Error" }}
+  </h4>
+  <button
+    type="button"
+    class="btn-close float-end"
+    aria-label="Close"
+    (click)="closeModal()"
+  ></button>
+</div>
+
+<div class="modal-body">
+  <div *ngIf="ListString && ListString.length">
+    <ul class="list-unstyled text-danger">
+      <li
+        *ngFor="let error of ListString"
+        class="alert alert-danger error-item"
+      >
+        <i class="fas fa-times-circle error-icon"></i>
+        <span class="error-text">{{ error }}</span>
+      </li>
+    </ul>
+
+    <!-- Minimalistic "More" Toggle Link -->
+    <a
+      href="#"
+      class="toggle-more text-danger small"
+      data-bs-toggle="collapse"
+      data-bs-target="#rawErrorCollapse"
+      (click)="toggleCollapse()"
+    >
+      <span *ngIf="!isExpanded">Show More</span>
+      <span *ngIf="isExpanded">Show Less</span>
+      <i
+        class="bx arrow-icon"
+        [ngClass]="{
+          'bx-chevron-up': isExpanded,
+          'bx-chevron-down': !isExpanded,
+        }"
+      ></i>
+    </a>
+
+    <!-- Collapsible Raw Error Details -->
+    <div id="rawErrorCollapse" class="collapse mt-2">
+      <div *ngIf="isAdmin">
+        <li class="alert alert-danger error-item">
+          <i class="fas fa-exclamation-triangle error-icon"></i>
+          <span class="error-text">{{ Type }}</span>
+        </li>
+        <li class="alert alert-danger error-item">
+          <i class="fas fa-exclamation-triangle error-icon"></i>
+          <span class="error-text">{{ Raw }}</span>
+        </li>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!ListString || !ListString.length" class="text-muted text-center">
+    No validation errors to display.
+  </div>
+</div>

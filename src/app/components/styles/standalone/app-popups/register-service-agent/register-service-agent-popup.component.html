@@ -1,0 +1,92 @@
+<ng-template #serviceAgentTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title float-start">
+      <i class="bx bx-user"></i>
+      Register Service Agent
+    </h4>
+    <button
+      type="button"
+      class="btn-close float-end"
+      aria-label="Close"
+      (click)="modalDialog.dismiss()"
+    ></button>
+  </div>
+
+  <form #form="ngForm" autocomplete="off">
+    <div class="modal-body rs-modal-content">
+      <div class="row">
+        <div class="mb-3 col">
+          <label for="name" class="col-form-label">Name</label>
+          <input
+            name="name"
+            class="form-control form-control-sm"
+            [(ngModel)]="ViewModel.Name"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col">
+          <label for="surname" class="col-form-label">Surname</label>
+          <input
+            name="surname"
+            class="form-control form-control-sm"
+            [(ngModel)]="ViewModel.Surname"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col">
+          <label for="email" class="col-form-label">Email</label>
+          <input
+            name="email"
+            class="form-control form-control-sm"
+            [(ngModel)]="ViewModel.Email"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col">
+          <label for="whatsappNumber" class="col-form-label">
+            Phone Number
+          </label>
+          <input
+            name="whatsappNumber"
+            class="form-control form-control-sm"
+            [(ngModel)]="ViewModel.WhatsappNumber"
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="modal-footer bg-light-gray">
+    <button
+      *ngIf="IsLoading"
+      type="button"
+      class="btn btn-outline-success me-2"
+      [disabled]="true"
+    >
+      <i class="fa fa-spinner fa-spin"></i>
+      Busy ...
+    </button>
+
+    <button
+      *ngIf="!IsLoading"
+      [disabled]="
+        !ViewModel.Name ||
+        !ViewModel.Surname ||
+        !ViewModel.Email ||
+        !ViewModel.WhatsappNumber
+      "
+      type="button"
+      class="btn btn-primary btn-sm"
+      (click)="register()"
+    >
+      <i class="bx bxs-edit"></i>
+      Register
+    </button>
+  </div>
+</ng-template>

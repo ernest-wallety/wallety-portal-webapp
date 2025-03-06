@@ -28,15 +28,22 @@
 
 /* Logo Container */
 .logo-container {
-  display: block;
-  margin-bottom: 2rem;
-  text-align: center;
+  // display: block;
+  // margin-bottom: 2rem;
+  // text-align: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 200px; /* Adjust size */
+  height: 100px;
 
   img {
-    width: 100%;
-    max-width: 20rem;
+    //   width: 100%;
+    //   max-width: 20rem;
+    //   height: auto;
+    //   margin: 0 auto;
+    width: auto;
+    max-width: 100%;
     height: auto;
-    margin: 0 auto;
   }
 }
 

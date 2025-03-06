@@ -1,43 +1,40 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { Utils } from '../../../components/utils';
-// import { LoginResultModel } from '../../../components/models/login_result';
-// import { AuthenticationHelper } from '../../../components/helpers/authentication_helper';
+import { CommonModule } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
+import { FormsModule, NgForm } from "@angular/forms";
+import { RouterModule } from "@angular/router";
+import { BaseComponent } from "../../../components/base/base.component";
+import { Utils } from "../../../components/utils";
 
 @Component({
-   selector: 'app-forgot-password',
-   templateUrl: './forgot-password.component.html',
-   styleUrls: ['./forgot-password.component.scss'],
-   standalone: true,
-   imports: [
-      FormsModule,
-      CommonModule,
-      RouterModule
-   ]
+  selector: "app-forgot-password",
+  templateUrl: "./forgot-password.component.html",
+  styleUrls: ["./forgot-password.component.scss"],
+  standalone: true,
+  imports: [FormsModule, CommonModule, RouterModule],
 })
-export class ForgotPasswordComponent {
-   public ViewModel: { Email: string } = { Email: '' };
+export class ForgotPasswordComponent extends BaseComponent implements OnInit {
+  public email_sent = false;
+  public year: number = Utils.get_current_year();
 
-   public invalid_email?: boolean;
-   public response?: object;
-   public email_sent?: boolean;
-   public year: number = Utils.get_current_year();
+  ngOnInit(): void {
+    this.ViewModel = { Email: "" };
+  }
 
-   public search = (form: NgForm) => {
-      if (this.response != null && this.invalid_email == false) {
-         this.post_forgot_password(form.value)
-      } else {
-         this.get_user_by_email(form.value.email);
-      }
-   }
+  public reset = async (form: NgForm) => {
+    const email = form.value.email_address.trim();
 
-   private get_user_by_email = (email: string) => {
+    const response = await this.post_sync_call_non_object(
+      "/Auth/OneTimePassword",
+      `"${email}"`,
+    );
 
-   }
+    if (!response.IsError) {
+      this.email_sent = true;
+      this.router.navigate(["/auth/login"]);
+    } else {
+      this.email_sent = false;
+    }
 
-   private post_forgot_password = (model: any) => {
-
-   }
+    this.cd.detectChanges();
+  };
 }

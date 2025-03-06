@@ -5,6 +5,7 @@
   color: $background-color; // White
   background-color: $primary-color; // Red
   border-color: $primary-color; // Red
+  white-space: nowrap;
 }
 
 .btn-action:hover {

@@ -1,52 +1,101 @@
-<form class="page-background container" #loginForm="ngForm" (ngSubmit)="login()">
-   <div class="card container__card">
-      <div class="card-body text-center">
-         <div class="row mb-4">
-            <div class="col-12">
-               <span class="logo-container">
-                  <img src="https://wallety.cash/wp-content/uploads/2020/03/Wallety-Logo.png" alt="Wallety Logo" />
-               </span>
-            </div>
-         </div>
-
-         <div class="form-floating form-control--floating mb-3">
-            <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com"
-               [(ngModel)]="ViewModel.Email" name="email_address" />
-            <label for="floatingEmail">Email address</label>
-         </div>
-
-         <div class="form__grid">
-
-            <div class="form-floating form-control--floating mb-3">
-               <input [type]="show_password ? 'text' : 'password'" class="form-control" id="floatingPassword"
-                  placeholder="Password" [(ngModel)]="ViewModel.Password" name="password" (keyup.enter)="login();" />
-               <label for="floatingPassword">Password</label>
-            </div>
-
-            <div class="form-check mb-3">
-               <input class="form-check-input" type="checkbox" id="showPasswordCheckbox" name="showPassword"
-                  [(ngModel)]="show_password">
-               <label class="form-check-label" for="showPasswordCheckbox">
-                  Show Password
-               </label>
-            </div>
-
-            <div class="d-grid">
-               <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">
-                  Login
-               </button>
-            </div>
-
-            <a class="btn-forgot-password" [routerLink]="'/auth/forgot-password'">Forgot Password?</a>
-         </div>
+<form
+  class="page-background container"
+  #loginForm="ngForm"
+  (ngSubmit)="login()"
+>
+  <div class="card container__card">
+    <div class="card-body text-center">
+      <div class="row mb-4">
+        <div class="col-12">
+          <span class="logo-container">
+            <!-- <img
+              src="https://wallety.cash/wp-content/uploads/2020/03/Wallety-Logo.png"
+              alt="Wallety Logo"
+            /> -->
+            <img
+              src="https://wallety.cash/wp-content/uploads/2024/04/Wallety_Favicon-removebg-preview-1.png"
+              alt="Wallety Logo"
+            />
+          </span>
+        </div>
       </div>
-   </div>
+
+      <div class="form-floating form-control--floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="floatingEmail"
+          placeholder="name@example.com"
+          [(ngModel)]="ViewModel.Email"
+          name="email_address"
+        />
+        <label for="floatingEmail">Email address</label>
+      </div>
+
+      <div class="form__grid">
+        <div class="form-floating form-control--floating mb-3">
+          <input
+            [type]="show_password ? 'text' : 'password'"
+            class="form-control"
+            id="floatingPassword"
+            placeholder="Password"
+            [(ngModel)]="ViewModel.Password"
+            name="password"
+            (keyup.enter)="login()"
+          />
+          <label for="floatingPassword">Password</label>
+        </div>
+
+        <div class="form-check mb-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="showPasswordCheckbox"
+            name="showPassword"
+            [(ngModel)]="show_password"
+          />
+          <label class="form-check-label" for="showPasswordCheckbox">
+            Show Password
+          </label>
+        </div>
+
+        <div class="d-grid">
+          <button
+            [hidden]="IsLoading"
+            type="submit"
+            class="btn btn-primary btn-login text-uppercase fw-bold"
+          >
+            Login
+          </button>
+
+          <button
+            [hidden]="!IsLoading"
+            [disabled]="true"
+            type="submit"
+            class="btn btn-primary btn-login text-uppercase fw-bold"
+          >
+            <i class="fa fa-spinner fa-spin"></i>
+            Busy ...
+          </button>
+        </div>
+
+        <a
+          [hidden]="IsLoading"
+          class="btn-forgot-password"
+          [routerLink]="'/auth/forgot-password'"
+        >
+          Forgot Password?
+        </a>
+      </div>
+    </div>
+  </div>
 </form>
 
-
 <div class="footer-container">
-   <p>
-      <small>Copyright © {{ year }}
-         <a href="https://wallety.cash/" target="_blank">Wallety</a></small>
-   </p>
+  <p>
+    <small>
+      Copyright © {{ year }}
+      <a href="https://wallety.cash/" target="_blank">Wallety</a>
+    </small>
+  </p>
 </div>

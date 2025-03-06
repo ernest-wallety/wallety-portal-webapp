@@ -1,15 +1,4 @@
-@import "../../../../../assets//scss//base";
-
-// SCSS Variables
-$header-height: 3rem;
-$nav-width: 68px;
-
-$first-color: #f7f6fb;
-$first-color-light: #4a4a4a;
-
-$body-font: "Nunito", sans-serif;
-$normal-font-size: 1rem;
-$z-fixed: 100;
+@import "../../../../../assets/scss/base";
 
 // Global styles
 
@@ -42,6 +31,50 @@ $z-fixed: 100;
   @include flex-column-center;
   overflow: hidden;
 
+  .rotate-icon {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  // Rotate the chevron icon when expanded
+  .nav_link {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 10px 15px;
+    color: #6c757d; // Default text color
+    transition:
+      color 0.3s ease,
+      background 0.3s ease;
+
+    &:hover {
+      background: #f5f5f5; // Light gray background on hover
+      color: #007bff; // Blue text color
+    }
+
+    &.active {
+      background: #e6f0ff; // Light blue for active menu item
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    .bx-chevron-down {
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+
+  .rotate-icon {
+    transform: rotate(180deg);
+  }
+
+  .nav_name {
+    margin-left: 10px;
+    text-align: left;
+    flex-grow: 1;
+  }
+
   & .nav_logo,
   & .nav_link {
     display: grid;
@@ -52,15 +85,21 @@ $z-fixed: 100;
   }
 
   .nav_logo {
-    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    height: 9vh;
 
     .nav_logo-icon {
-      font-size: 1.25rem;
       color: $primary-color;
 
       img {
         width: 100%;
         max-width: 9.1rem;
+        transition: all 0.3s ease;
+
+        &.collapsed {
+          max-width: 2rem;
+        }
       }
     }
 
@@ -114,11 +153,6 @@ $z-fixed: 100;
 
 // Responsive Styles
 @media screen and (min-width: 768px) {
-  body {
-    margin: calc(#{$header-height} + 1rem) 0 0 0;
-    padding-left: calc(#{$nav-width} + 2rem);
-  }
-
   .header {
     height: calc(#{$header-height} + 1rem);
     padding: 0 2rem 0 calc(#{$nav-width} + 2rem);
@@ -135,7 +169,7 @@ $z-fixed: 100;
 
   .l-navbar {
     left: 0;
-    padding: 1rem 1rem 0 0;
+    padding: 0;
   }
 
   .show {

@@ -32,7 +32,7 @@ ENV BRANCH_NAME=$BRANCH_NAME
 # Set the build environment based on the branch name
 RUN if [ "$BRANCH_NAME" = "main" ] || [ "$BRANCH_NAME" = "master" ] || [ "$BRANCH_NAME" = "production" ]; then \
       npm run build:production; \
-    elif [ "$BRANCH_NAME" = "development" ]; then \
+    elif [ "$BRANCH_NAME" = "development" ] || [ "$BRANCH_NAME" = "staging" ]; then \
       npm run build:development; \
     else \
       npm run build:local; \

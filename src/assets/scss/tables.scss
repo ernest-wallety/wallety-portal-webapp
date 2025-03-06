@@ -94,9 +94,13 @@
 // List
 // ==============================
 .list-height {
-  height: calc(100vh - 80px);
+  height: calc(100vh - 150px);
   overflow-y: auto;
   margin-bottom: 0px;
+
+  @media screen and (max-width: 990px) {
+    height: calc(100vh - 130px);
+  }
 }
 
 .td-xs {
@@ -135,23 +139,34 @@
   border-spacing: 0;
   margin-top: 16px;
 
+  th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px;
+    text-align: left;
+  }
+
   /* Header Styles */
   thead th {
-    background: white;
+    background: e9ecef;
     color: #666;
     font-weight: 500;
     padding: 12px 16px;
     text-align: left;
-    border-bottom: 1px solid #eee;
     position: sticky;
     top: 0;
-    z-index: 1;
+    white-space: nowrap;
   }
 
   /* Row Styles */
   tbody tr {
     border-bottom: 1px solid #eee;
     transition: background-color 0.2s;
+
+    span {
+      z-index: -1;
+    }
 
     &:hover {
       background-color: #f8f9fa;

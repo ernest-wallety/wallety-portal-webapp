@@ -1,0 +1,186 @@
+<ng-template #userEditTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title float-start">
+      <i class="bx bx-user"></i>
+      User Edit
+    </h4>
+    <button
+      type="button"
+      class="btn-close float-end"
+      aria-label="Close"
+      (click)="modalDialog.dismiss()"
+    ></button>
+  </div>
+
+  <div class="modal-body rs-modal-content position-relative">
+    <!-- Skeleton Loading -->
+    <div *ngIf="IsLoading">
+      <div class="skeleton-avatar"></div>
+      <div class="skeleton-text"></div>
+      <div class="skeleton-text short"></div>
+      <hr />
+      <div class="skeleton-input"></div>
+      <div class="skeleton-input"></div>
+      <div class="skeleton-input"></div>
+    </div>
+
+    <!-- Actual Content (Hidden During Loading) -->
+    <form *ngIf="!IsLoading" #form="ngForm" autocomplete="off">
+      <div class="row g-0 pt-4 pb-1">
+        <div class="col-1 me-5">
+          <div class="mb-3 col-lg-12">
+            <app-avatar
+              [Size]="'xl'"
+              [Image]="ViewModel.IdentityImage | convertImage"
+              [FullName]="ViewModel | displayName"
+            ></app-avatar>
+          </div>
+        </div>
+
+        <div class="col-3 pb-0">
+          <div class="mb-3 col-lg-12 pt-3 ps-0">
+            <div class="p-0">
+              <span class="col-form-label p-0 bold">
+                <strong>
+                  {{ ViewModel.FirstName }}&nbsp;{{ ViewModel.Surname }}
+                </strong>
+              </span>
+            </div>
+            <div class="p-0">
+              <span class="col-form-label p-0">{{ ViewModel.Email }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col">
+          <label for="name" class="col-form-label">Name</label>
+          <input
+            name="name"
+            class="form-control form-control-sm"
+            [(ngModel)]="ViewModel.FirstName"
+            required
+          />
+          <div
+            *ngIf="
+              form.controls['name']?.touched && !form.controls['name']?.value
+            "
+            class="text-danger"
+          >
+            Name is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col">
+          <label for="surname" class="col-form-label">Surname</label>
+          <input
+            name="surname"
+            class="form-control form-control-sm"
+            [(ngModel)]="ViewModel.Surname"
+            required
+          />
+          <div
+            *ngIf="
+              form.controls['surname']?.touched &&
+              !form.controls['surname']?.value
+            "
+            class="text-danger"
+          >
+            Surname is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col">
+          <label for="email" class="col-form-label">Email</label>
+          <input
+            [disabled]="emailValid && UserId === ''"
+            name="email"
+            class="form-control form-control-sm"
+            [(ngModel)]="ViewModel.Email"
+            (ngModelChange)="onEmailChange($event)"
+            required
+          />
+          <div
+            *ngIf="
+              form.controls['email']?.touched &&
+              !(ViewModel.Email | emailValidator)
+            "
+            class="text-danger"
+          >
+            Please enter a valid email.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col">
+          <label for="phoneNumber" class="col-form-label">Phone Number</label>
+          <input
+            name="phoneNumber"
+            class="form-control form-control-sm"
+            [(ngModel)]="ViewModel.PhoneNumber"
+            required
+          />
+          <div
+            *ngIf="
+              form.controls['phoneNumber']?.touched &&
+              !form.controls['phoneNumber']?.value
+            "
+            class="text-danger"
+          >
+            Phone Number is required.
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer bg-light-gray">
+    <button
+      *ngIf="IsLoading"
+      type="button"
+      class="btn btn-outline-success me-2"
+      [disabled]="true"
+    >
+      <i class="fa fa-spinner fa-spin"></i>
+      Busy ...
+    </button>
+
+    <button
+      *ngIf="!IsLoading && UserId !== ''"
+      [disabled]="
+        !ViewModel.FirstName ||
+        !ViewModel.Surname ||
+        !ViewModel.Email ||
+        !ViewModel.PhoneNumber
+      "
+      type="button"
+      class="btn btn-primary btn-sm"
+      (click)="update()"
+    >
+      <i class="bx bxs-edit"></i>
+      Update
+    </button>
+
+    <button
+      *ngIf="!IsLoading && UserId === ''"
+      [disabled]="
+        !ViewModel.FirstName ||
+        !ViewModel.Surname ||
+        !ViewModel.Email ||
+        !ViewModel.PhoneNumber
+      "
+      type="button"
+      class="btn btn-primary btn-sm"
+      (click)="create()"
+    >
+      <i class="bx bxs-edit"></i>
+      Create
+    </button>
+  </div>
+</ng-template>
