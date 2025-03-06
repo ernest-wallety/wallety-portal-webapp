@@ -22,5 +22,8 @@ describe("SystemComponent", () => {
     fixture = TestBed.createComponent(SystemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    it("should create", () => {
+      expect(component).toBeTruthy();
+    });
   });
 });

@@ -42,7 +42,7 @@ export class UserListComponent
   @ViewChild("userEditPopup")
   userEditPopup!: UserEditPopupComponent;
 
-  isSmallScreen: boolean = false;
+  isSmallScreen = false;
 
   @HostListener("window:resize", ["$event"])
   onResize(event: Event) {

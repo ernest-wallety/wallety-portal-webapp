@@ -17,6 +17,8 @@ export class TableFilterSortComponent {
   @Output() OnClick: EventEmitter<any> = new EventEmitter<any>();
 
   onClick($event: any) {
+    console.log($event);
+
     this.sortAscending = !this.sortAscending;
 
     this.OnClick.emit({

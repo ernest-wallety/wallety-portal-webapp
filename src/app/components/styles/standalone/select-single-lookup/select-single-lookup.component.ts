@@ -36,29 +36,29 @@ export class SelectSingleLookupComponent
   implements ControlValueAccessor, OnInit, AfterViewInit
 {
   model: any = { Id: 0 };
-  @Input() BindLabel: string = "Name";
-  @Input() BindValue: string = "Id";
-  @Input() ApiMethod: string = "";
-  @Input() Name: string = "";
+  @Input() BindLabel = "Name";
+  @Input() BindValue = "Id";
+  @Input() ApiMethod = "";
+  @Input() Name = "";
 
-  @Input() clearable: boolean = true;
+  @Input() clearable = true;
 
-  @Input() disabled: boolean = false;
-  @Input() groupBy: string = "";
-  @Input() filterId: string | null = null;
-  @Input() appendTo: string = "";
+  @Input() disabled = false;
+  @Input() groupBy = "";
+  @Input() filterId = null;
+  @Input() appendTo = "";
 
-  @Input() width: string = "auto";
+  @Input() width = "auto";
 
-  @Input() openOnInit: boolean = false;
+  @Input() openOnInit = false;
 
   @Input() Items!: any;
 
   @Input() autoSelectFirstItem = false;
 
-  @Input() IsCustomRequest: boolean = false;
+  @Input() IsCustomRequest = false;
 
-  @Input() Params: string = "?id=0";
+  @Input() Params = "?id=0";
 
   val: any;
 
@@ -88,7 +88,7 @@ export class SelectSingleLookupComponent
 
   private async loadItems() {
     if (this.Items == null) {
-      var response = await this.get_async_call_no_params(
+      const response = await this.get_async_call_no_params(
         "/Lookup/" + this.ApiMethod,
       );
 
@@ -103,7 +103,7 @@ export class SelectSingleLookupComponent
 
   public async loadItemsCustomQuery() {
     if (this.Items == null) {
-      var response = await this.get_async_call_no_params(
+      const response = await this.get_async_call_no_params(
         "/Lookup/" + this.ApiMethod + this.Params,
       );
 
@@ -116,9 +116,13 @@ export class SelectSingleLookupComponent
     }
   }
 
-  onChange: any = (_: any) => {};
+  onChange: any = () => {
+    // Default implementation
+  };
 
-  onTouched: any = () => {};
+  onTouched: any = () => {
+    // Implement your logic here or remove if not needed
+  };
 
   get value() {
     return this.val;
@@ -161,7 +165,7 @@ export class SelectSingleLookupComponent
   customSearchFn(term: string, item: any) {
     if (term != null) {
       term = term.toLowerCase();
-      let found: boolean = false;
+      let found = false;
 
       if (item.GroupBy != null) {
         found = item.GroupBy.toLowerCase().indexOf(term) > -1;

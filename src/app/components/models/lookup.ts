@@ -1,6 +1,6 @@
 export class Lookup {
   Id: any | null = null;
-  Name: string = "";
+  Name?: string = "";
   IdArr: number[] = [];
   AltBoolValue?: boolean;
   PrimaryKey?: string;
