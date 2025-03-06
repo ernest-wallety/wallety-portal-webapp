@@ -1,11 +1,5 @@
 import { CommonModule } from "@angular/common";
-import {
-  AfterViewInit,
-  Component,
-  HostListener,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
+import { Component, HostListener, OnInit, ViewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseListComponent } from "../../../../../../components/base/authenticated_base_list.component";
@@ -43,11 +37,8 @@ import { PhoneFormatPipe } from "../../../../../../components/utils/pipes/phone-
 })
 export class UserListComponent
   extends AuthenticatedBaseListComponent
-  implements OnInit, AfterViewInit
+  implements OnInit
 {
-  ngAfterViewInit(): void {
-    throw new Error("Method not implemented.");
-  }
   @ViewChild("userEditPopup")
   userEditPopup!: UserEditPopupComponent;
 
