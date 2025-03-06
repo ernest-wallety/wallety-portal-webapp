@@ -48,7 +48,10 @@ export class BaseComponent {
   public async get_list_sync_call(apiUrl: string, criteria: ListCriteria) {
     this.IsLoading = true;
 
-    var response = await this.data_service.get_list_sync_call(apiUrl, criteria);
+    const response = await this.data_service.get_list_sync_call(
+      apiUrl,
+      criteria,
+    );
 
     this.IsLoading = false;
 

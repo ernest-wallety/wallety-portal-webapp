@@ -20,7 +20,7 @@ import { FormsModule } from "@angular/forms";
   imports: [FormsModule],
 })
 export class SearchInputComponent {
-  @Input() placeholder: string = "Search...";
+  @Input() placeholder = "Search...";
   @Input() searchText: string | null | undefined;
 
   @Output() ValueChange = new EventEmitter<string>();

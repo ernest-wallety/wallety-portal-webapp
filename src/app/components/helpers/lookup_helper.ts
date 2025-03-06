@@ -4,7 +4,7 @@ import { Lookup } from "../models/lookup";
 @Injectable()
 export class LookupHelper {
   // Saves the state of the lookups list - without ever being overwrriten, except when initialised.
-  public static lookups: Array<Lookup> = new Array<Lookup>();
+  public static lookups: Lookup[] = [];
 
   // Pushes all the lookup dropdowns from an angular component to an array object (of type Lookup). Identifier = Field name on Primary Table (Main List Table)
   public static initialiseLookup(listFieldName: string) {
@@ -18,7 +18,7 @@ export class LookupHelper {
   public static onChangeLookup(lookup: Lookup, listFieldName: string): string {
     // Find item index in the component's lookup list with corresponding field name.
 
-    let index = this.lookups.findIndex(
+    const index = this.lookups.findIndex(
       (item) => item.Name === this.transform(listFieldName),
     );
 

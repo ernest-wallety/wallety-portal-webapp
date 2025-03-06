@@ -22,5 +22,6 @@ describe("AdminComponent", () => {
     fixture = TestBed.createComponent(UserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    expect(component).toBeTruthy();
   });
 });

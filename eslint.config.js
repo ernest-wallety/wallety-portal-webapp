@@ -6,6 +6,7 @@ const angular = require("angular-eslint");
 module.exports = tseslint.config(
   {
     files: ["**/*.ts"],
+    ignores: ["node_modules/", "dist/", ".angular/"], // Ignore node_modules and dist
     extends: [
       eslint.configs.recommended,
       ...tseslint.configs.recommended,
@@ -31,7 +32,8 @@ module.exports = tseslint.config(
         },
       ],
       "@typescript-eslint/no-explicit-any": "off", // Disable the no-explicit-any rule
-      "@typescript-eslint/quotes": ["error", "double"], // Enforce double quotes
+      // "@typescript-eslint/quotes": ["error", "double"], // Enforce double quotes
+      "@typescript-eslint/quotes": "off",
     },
   },
   {
