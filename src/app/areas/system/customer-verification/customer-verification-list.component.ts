@@ -62,9 +62,12 @@ export class CustomerVerificationListComponent
   }
 
   public async onChangeLookup(lookup: Lookup, listFieldName: string) {
-    lookup.Id = `'${lookup.PrimaryKey}'`;
+    if (listFieldName.includes("RegistrationStatusId"))
+      lookup.Id = lookup.PrimaryKey;
 
     this.Criteria.lookups = LookupHelper.onChangeLookup(lookup, listFieldName);
+
+    console.log(this.Criteria.lookups);
 
     await this.refresh();
   }
