@@ -44,7 +44,7 @@
         </th>
         <th class="d-none d-lg-table-cell">Role</th>
         <th class="d-none d-lg-table-cell">WhatsApp Number</th>
-        <th class="d-none d-lg-table-cell">Id Number</th>
+        <!-- <th class="d-none d-lg-table-cell">Id Number</th> -->
         <th class="d-none d-lg-table-cell">
           <app-sort
             [sortField]="'u.AccountCreationDate'"
@@ -94,9 +94,8 @@
         <td class="d-none d-lg-table-cell">
           <!-- Add your select-single-lookup component here -->
         </td>
-        <td class="d-none d-lg-table-cell">
-          <!-- Add your select-single-lookup component here -->
-        </td>
+        <!-- <td class="d-none d-lg-table-cell">
+          </td> -->
         <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-md-table-cell"></td>
       </tr>
@@ -132,7 +131,7 @@
           {{ a.PhoneNumber | phoneFormat: a.MobileRegex }}
         </td>
 
-        <td class="d-none d-lg-table-cell">{{ a.IdNumber }}</td>
+        <!-- <td class="d-none d-lg-table-cell">{{ a.IdNumber }}</td> -->
         <td class="d-none d-lg-table-cell">
           {{ a.AccountCreationDate | date: "yyyy, dd MMM" }}
         </td>

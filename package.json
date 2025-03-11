@@ -91,6 +91,10 @@
     "src/**/*.html": [
       "ng lint --fix",
       "git add"
+    ],
+    "src/**/*.scss": [
+      "ng lint --fix",
+      "git add"
     ]
   }
 }
