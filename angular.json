@@ -148,6 +148,23 @@
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ],
             "builderMode": "browser"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "tsconfig.spec.json",
+              "sourceMap": false,
+              "codeCoverage": true
+            },
+            "staging": {
+              "tsConfig": "tsconfig.spec.json",
+              "sourceMap": false,
+              "codeCoverage": true
+            },
+            "development": {
+              "tsConfig": "tsconfig.spec.json",
+              "sourceMap": false,
+              "codeCoverage": true
+            }
           }
         },
         "lint": {
