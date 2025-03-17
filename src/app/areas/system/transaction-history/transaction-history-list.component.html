@@ -20,23 +20,20 @@
         <th class="d-none d-md-table-cell">Reference</th>
         <th>Name</th>
         <th class="d-none d-lg-table-cell">
-          <app-sort [sortField]="'u.CountryId'" (OnClick)="sort($event)">
+          <app-sort
+            [sortField]="'tr.ProductDisplayName'"
+            (OnClick)="sort($event)"
+          >
             Product
           </app-sort>
         </th>
         <th>
-          <app-sort
-            [sortField]="'u.RegistrationStatusId'"
-            (OnClick)="sort($event)"
-          >
+          <app-sort [sortField]="'tr.Amount'" (OnClick)="sort($event)">
             Amount
           </app-sort>
         </th>
         <th class="d-none d-lg-table-cell">
-          <app-sort
-            [sortField]="'u.AccountCreationDate'"
-            (OnClick)="sort($event)"
-          >
+          <app-sort [sortField]="'tr.TransactionDate'" (OnClick)="sort($event)">
             Date
           </app-sort>
         </th>
@@ -49,33 +46,19 @@
         <td class="d-none d-lg-table-cell">
           <app-select-multi-lookup
             #country
-            name="country"
-            id="country"
+            name="product"
+            id="product"
             from="body"
-            [ApiMethod]="'Countries'"
+            [ApiMethod]="'Products'"
             [appendTo]="'Body'"
             [width]="'90%'"
-            (OnInitEmitter)="initialiseLookup('u.CountryId')"
-            (OnChangeEmitter)="onChangeMultiLookup($event, 'u.CountryId')"
+            (OnInitEmitter)="initialiseLookup('tr.ProductId')"
+            (OnChangeEmitter)="onChangeMultiLookup($event, 'u.ProductId')"
           ></app-select-multi-lookup>
         </td>
         <td class="d-none d-lg-table-cell"></td>
-        <td>
-          <!-- <app-select-single-lookup
-             #status
-             name="status"
-             id="status"
-             from="body"
-             [ApiMethod]="'RegistrationStatuses'"
-             [IsCustomRequest]="true"
-             [Params]="'?isListPage=true'"
-             (OnInitEmitter)="initialiseLookup('u.RegistrationStatusId')"
-             (OnChangeEmitter)="onChangeLookup($event, 'u.RegistrationStatusId')"
-           ></app-select-single-lookup> -->
-        </td>
-        <td class="d-none d-md-table-cell">
-          <!-- Add your select-single-lookup component here -->
-        </td>
+        <td></td>
+        <td class="d-none d-md-table-cell"></td>
       </tr>
     </thead>
     <tbody>
