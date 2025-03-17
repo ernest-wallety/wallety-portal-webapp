@@ -1,8 +1,3 @@
-<app-customer-verification-popup
-  #customerVerificationPopup
-  (OnSave)="refresh()"
-></app-customer-verification-popup>
-
 <div class="list-height">
   <!-- Search Bar -->
   <nav class="navbar navbar-expand-lg">
@@ -22,19 +17,11 @@
     <thead>
       <tr>
         <th class="d-none d-md-table-cell"></th>
+        <th class="d-none d-md-table-cell">Reference</th>
         <th>Name</th>
-        <th class="d-none d-md-table-cell">WhatsApp Number</th>
         <th class="d-none d-lg-table-cell">
           <app-sort [sortField]="'u.CountryId'" (OnClick)="sort($event)">
-            Country
-          </app-sort>
-        </th>
-        <th class="d-none d-lg-table-cell">
-          <app-sort
-            [sortField]="'u.AccountCreationDate'"
-            (OnClick)="sort($event)"
-          >
-            Registration Date
+            Product
           </app-sort>
         </th>
         <th>
@@ -42,10 +29,17 @@
             [sortField]="'u.RegistrationStatusId'"
             (OnClick)="sort($event)"
           >
-            Status
+            Amount
           </app-sort>
         </th>
-        <th class="d-none d-lg-table-cell">Updated By</th>
+        <th class="d-none d-lg-table-cell">
+          <app-sort
+            [sortField]="'u.AccountCreationDate'"
+            (OnClick)="sort($event)"
+          >
+            Date
+          </app-sort>
+        </th>
         <th class="d-none d-md-table-cell"></th>
       </tr>
       <tr class="filter-row table-fixed-header">
@@ -53,16 +47,6 @@
         <td></td>
         <td class="d-none d-lg-table-cell"></td>
         <td class="d-none d-lg-table-cell">
-          <!--  <app-select-single-lookup
-            #country
-            name="country"
-            id="country"
-            from="body"
-            [ApiMethod]="'Countries'"
-            (OnInitEmitter)="initialiseLookup('u.CountryId')"
-            (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
-          ></app-select-single-lookup> -->
-
           <app-select-multi-lookup
             #country
             name="country"
@@ -77,20 +61,17 @@
         </td>
         <td class="d-none d-lg-table-cell"></td>
         <td>
-          <app-select-single-lookup
-            #status
-            name="status"
-            id="status"
-            from="body"
-            [ApiMethod]="'RegistrationStatuses'"
-            [IsCustomRequest]="true"
-            [Params]="'?isListPage=true'"
-            (OnInitEmitter)="initialiseLookup('u.RegistrationStatusId')"
-            (OnChangeEmitter)="onChangeLookup($event, 'u.RegistrationStatusId')"
-          ></app-select-single-lookup>
-        </td>
-        <td class="d-none d-lg-table-cell">
-          <!-- Add your select-single-lookup component here -->
+          <!-- <app-select-single-lookup
+             #status
+             name="status"
+             id="status"
+             from="body"
+             [ApiMethod]="'RegistrationStatuses'"
+             [IsCustomRequest]="true"
+             [Params]="'?isListPage=true'"
+             (OnInitEmitter)="initialiseLookup('u.RegistrationStatusId')"
+             (OnChangeEmitter)="onChangeLookup($event, 'u.RegistrationStatusId')"
+           ></app-select-single-lookup> -->
         </td>
         <td class="d-none d-md-table-cell">
           <!-- Add your select-single-lookup component here -->
@@ -100,36 +81,29 @@
     <tbody>
       <tr *ngFor="let a of ViewModel?.Items">
         <td class="d-none d-md-table-cell"></td>
-        <td>
-          {{ a.Name }}
-          <strong>{{ a.Surname }}</strong>
-        </td>
         <td class="d-none d-md-table-cell">
-          {{ a.PhoneNumber | phoneFormat: undefined }}
-        </td>
-        <td class="d-none d-lg-table-cell">{{ a.Country }}</td>
-        <td class="d-none d-lg-table-cell">
-          {{ a.AccountCreationDate | date: "yyyy, dd MMM" }}
+          {{ a.TransactionReference }}
         </td>
         <td>
-          <span
-            class="badge"
-            [ngClass]="{
-              'bg-prog-4': a.RegistrationStatus === 'Approved',
-              'bg-prog-2': a.RegistrationStatus === 'Pending',
-              'bg-prog-1': a.RegistrationStatus === 'Rejected',
-            }"
-          >
-            {{ a.RegistrationStatus }}
-            <span
-              *ngIf="a.History && a.History.length > 0"
-              class="status-notification-badge"
-            >
-              {{ a.History.length }}
-            </span>
-          </span>
+          <div class="d-flex align-items-center">
+            <app-avatar
+              [Size]="'sm'"
+              [Image]="a.IdentityImage | convertImage"
+              [FullName]="a | displayName"
+            ></app-avatar>
+            <div class="ms-3">
+              <p class="fw-bold mb-1">{{ a.FirstName }} {{ a.Surname }}</p>
+              <p class="text-muted mb-0">{{ a.Email || a.PhoneNumber }}</p>
+            </div>
+          </div>
         </td>
-        <td class="d-none d-lg-table-cell">{{ a.CustomerServiceAgent }}</td>
+        <td class="d-none d-lg-table-cell">{{ a.ProductDisplayName }}</td>
+        <td class="d-none d-lg-table-cell">
+          {{ a.Amount | customCurrency }}
+        </td>
+        <td class="d-none d-lg-table-cell">
+          {{ a.TransactionDate | date: "yyyy, dd MMM" }}
+        </td>
         <td>
           <a
             href="#"
@@ -137,7 +111,7 @@
             class="table-action-link d-none d-md-table-cell"
             (click)="details(a)"
           >
-            Verify
+            View
           </a>
         </td>
       </tr>
