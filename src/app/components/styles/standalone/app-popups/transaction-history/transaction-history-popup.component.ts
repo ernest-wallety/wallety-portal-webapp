@@ -1,4 +1,5 @@
 import { CommonModule } from "@angular/common";
+import { HttpParams } from "@angular/common/http";
 import {
   Component,
   EventEmitter,
@@ -11,13 +12,14 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { NgbModalOptions, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { AuthenticatedBaseComponent } from "../../../../base/authenticated_base.component";
+import { CustomCurrencyPipe } from "../../../../../components/utils/pipes/currency.pipe";
 
 @Component({
   selector: "app-transaction-history-popup",
   templateUrl: "./transaction-history-popup.component.html",
   styleUrls: ["./transaction-history-popup.component.scss"],
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, CustomCurrencyPipe],
 })
 export class TransactionHistoryPopupComponent extends AuthenticatedBaseComponent {
   TransactionReference?: string;
@@ -40,16 +42,35 @@ export class TransactionHistoryPopupComponent extends AuthenticatedBaseComponent
     }
   }
 
-  showDialog() {
+  showDialog(reference: string) {
+    this.TransactionReference = reference;
+
     const option: NgbModalOptions = {
       windowClass: "modal-standard-height",
-      size: "lg",
+      size: "xl",
     };
 
     this.modalDialog = this.ngbModalService.open(
       this.TransactionsTemplate,
       option,
     );
+
+    this.ViewModel = Object.assign(new Object());
+
+    if (reference !== "") this.refresh(reference);
+  }
+
+  public async refresh(reference: string) {
+    const response = await this.get_async_call(
+      "/TransactionHistory/GetByReference",
+      new HttpParams().set("reference", reference),
+    );
+
+    console.log(response);
+
+    if (!response.IsError) {
+      this.ViewModel = response.Data;
+    }
   }
 
   public cancelClick() {

@@ -1,1 +1,107 @@
-<ng-template #transactionsTemplate></ng-template>
+<ng-template #transactionsTemplate>
+  <div class="modal-header" *ngIf="!IsLoading">
+    <h5 class="modal-title">
+      Reference -
+      <span [style.color]="'teal'">{{ TransactionReference }}</span>
+    </h5>
+
+    <button
+      (click)="cancelClick()"
+      type="button"
+      class="btn-close"
+      style="box-shadow: none !important"
+      data-bs-dismiss="modal"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  <div class="modal-body" *ngIf="!IsLoading">
+    <ul class="nav nav-tabs mt-1" id="transaction-details" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link active"
+          data-bs-toggle="tab"
+          data-bs-target="#transaction-details"
+          role="tab"
+          aria-controls="home"
+        >
+          Transaction Details
+        </button>
+      </li>
+
+      <!--       <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          data-bs-toggle="tab"
+          data-bs-target="#data-bundle"
+          role="tab"
+          aria-controls="home"
+          aria-selected="true">
+          Data Bundle
+        </button>
+      </li>
+
+      <li class="nav-item" role="presentation">
+        <button
+          class="nav-link"
+          data-bs-toggle="tab"
+          data-bs-target="#voice-bundle"
+          role="tab"
+          aria-controls="home"
+          aria-selected="true">
+          Voice Bundle
+        </button>
+      </li> -->
+    </ul>
+
+    <div class="tab-content tabs p-0 mt-2">
+      <div
+        class="tab-pane show active"
+        id="transaction-details"
+        role="tabpanel"
+      >
+        <div class="view-content">
+          <div class="generic-table-height">
+            <table class="iq-list-table">
+              <thead class="sticky-top">
+                <tr>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Message</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let a of ViewModel">
+                  <td>
+                    {{ a.TransactionTypeName }}
+                  </td>
+                  <td>
+                    {{ a.Amount | customCurrency }}
+                  </td>
+                  <td class="ar">
+                    {{ a.TransactionMessage }}
+                  </td>
+                  <td class="ar">
+                    {{ a.TransactionDate | date: "yyyy, dd MMM  HH:MM:SS" }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-sm btn-secondary"
+      (click)="cancelClick()"
+    >
+      <i class="fa fa-times"></i>
+      Close
+    </button>
+  </div>
+</ng-template>

@@ -1,3 +1,7 @@
+<app-transaction-history-popup
+  #transactionHistoryPopup
+></app-transaction-history-popup>
+
 <div class="list-height">
   <!-- Search Bar -->
   <nav class="navbar navbar-expand-lg">
@@ -18,7 +22,7 @@
       <tr>
         <th class="d-none d-md-table-cell"></th>
         <th class="d-none d-md-table-cell">Reference</th>
-        <th>Name</th>
+        <th>Customer Name</th>
         <th class="d-none d-lg-table-cell">Transaction Type</th>
         <th>
           <app-sort [sortField]="'tr.Amount'" (OnClick)="sort($event)">
