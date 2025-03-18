@@ -48,6 +48,8 @@ export class TransactionHistoryPopupComponent extends AuthenticatedBaseComponent
     const option: NgbModalOptions = {
       windowClass: "modal-standard-height",
       size: "xl",
+      centered: true,
+      animation: true,
     };
 
     this.modalDialog = this.ngbModalService.open(
