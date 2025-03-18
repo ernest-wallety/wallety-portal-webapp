@@ -19,19 +19,13 @@
         <th class="d-none d-md-table-cell"></th>
         <th class="d-none d-md-table-cell">Reference</th>
         <th>Name</th>
-        <th class="d-none d-lg-table-cell">
-          <app-sort
-            [sortField]="'tr.ProductDisplayName'"
-            (OnClick)="sort($event)"
-          >
-            Product
-          </app-sort>
-        </th>
+        <th class="d-none d-lg-table-cell">Transaction Type</th>
         <th>
           <app-sort [sortField]="'tr.Amount'" (OnClick)="sort($event)">
             Amount
           </app-sort>
         </th>
+        <th class="d-none d-lg-table-cell">Beneficiary / Payer</th>
         <th class="d-none d-lg-table-cell">
           <app-sort [sortField]="'tr.TransactionDate'" (OnClick)="sort($event)">
             Date
@@ -41,10 +35,10 @@
       </tr>
       <tr class="filter-row table-fixed-header">
         <td class="d-none d-md-table-cell"></td>
+        <td class="d-none d-md-table-cell"></td>
         <td></td>
-        <td class="d-none d-lg-table-cell"></td>
         <td class="d-none d-lg-table-cell">
-          <app-select-multi-lookup
+          <!-- <app-select-multi-lookup
             #country
             name="product"
             id="product"
@@ -54,10 +48,11 @@
             [width]="'90%'"
             (OnInitEmitter)="initialiseLookup('tr.ProductId')"
             (OnChangeEmitter)="onChangeMultiLookup($event, 'u.ProductId')"
-          ></app-select-multi-lookup>
+          ></app-select-multi-lookup> -->
         </td>
-        <td class="d-none d-lg-table-cell"></td>
         <td></td>
+        <td class="d-none d-lg-table-cell"></td>
+        <td class="d-none d-lg-table-cell"></td>
         <td class="d-none d-md-table-cell"></td>
       </tr>
     </thead>
@@ -80,13 +75,20 @@
             </div>
           </div>
         </td>
-        <td class="d-none d-lg-table-cell">{{ a.ProductDisplayName }}</td>
         <td class="d-none d-lg-table-cell">
+          {{ a.TransactionTypeAndProduct }}
+        </td>
+        <td>
           {{ a.Amount | customCurrency }}
         </td>
+        <td class="d-none d-md-table-cell">
+          {{ a.TransactionBeneficiaryPayer }}
+        </td>
+
         <td class="d-none d-lg-table-cell">
           {{ a.TransactionDate | date: "yyyy, dd MMM" }}
         </td>
+
         <td>
           <a
             href="#"
