@@ -53,7 +53,7 @@
         <td></td>
         <td class="d-none d-lg-table-cell"></td>
         <td class="d-none d-lg-table-cell">
-          <app-select-single-lookup
+          <!--  <app-select-single-lookup
             #country
             name="country"
             id="country"
@@ -61,7 +61,19 @@
             [ApiMethod]="'Countries'"
             (OnInitEmitter)="initialiseLookup('u.CountryId')"
             (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
-          ></app-select-single-lookup>
+          ></app-select-single-lookup> -->
+
+          <app-select-multi-lookup
+            #country
+            name="country"
+            id="country"
+            from="body"
+            [ApiMethod]="'Countries'"
+            [appendTo]="'Body'"
+            [width]="'90%'"
+            (OnInitEmitter)="initialiseLookup('u.CountryId')"
+            (OnChangeEmitter)="onChangeMultiLookup($event, 'u.CountryId')"
+          ></app-select-multi-lookup>
         </td>
         <td class="d-none d-lg-table-cell"></td>
         <td>
@@ -96,7 +108,9 @@
           {{ a.PhoneNumber | phoneFormat: undefined }}
         </td>
         <td class="d-none d-lg-table-cell">{{ a.Country }}</td>
-        <td class="d-none d-lg-table-cell">{{ a.AccountCreationDate | date: "yyyy, dd MMM" }}</td>
+        <td class="d-none d-lg-table-cell">
+          {{ a.AccountCreationDate | date: "yyyy, dd MMM" }}
+        </td>
         <td>
           <span
             class="badge"

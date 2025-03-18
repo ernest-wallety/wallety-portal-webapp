@@ -15,68 +15,59 @@ import {
   NG_VALUE_ACCESSOR,
 } from "@angular/forms";
 import { NgSelectComponent, NgSelectModule } from "@ng-select/ng-select";
+import { Observable } from "rxjs";
 import { BaseComponent } from "../../../base/base.component";
 
 @Component({
-  selector: "app-select-single-lookup",
-  templateUrl: "./select-single-lookup.component.html",
-  styleUrls: ["./select-single-lookup.component.scss"],
+  selector: "app-select-multi-lookup",
+  templateUrl: "./select-multi-lookup.component.html",
+  styleUrls: ["./select-multi-lookup.component.css"],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectSingleLookupComponent),
+      useExisting: forwardRef(() => SelectMultiLookupComponent),
       multi: true,
     },
   ],
   standalone: true,
   imports: [CommonModule, FormsModule, NgSelectModule],
 })
-export class SelectSingleLookupComponent
+export class SelectMultiLookupComponent
   extends BaseComponent
   implements ControlValueAccessor, OnInit, AfterViewInit
 {
   model: any = { Id: 0 };
-  @Input() BindLabel = "Name";
-  @Input() BindValue = "Id";
+  @Input() BindLabel = "name";
+  @Input() BindValue = "id";
   @Input() ApiMethod = "";
   @Input() Name = "";
+  @Input() addTag = false;
 
   @Input() clearable = true;
 
   @Input() disabled = false;
-  @Input() groupBy = "";
-  @Input() filterId = null;
-  @Input() appendTo = "";
+  @Input() groupBy?: string;
+  @Input() filterId?: string;
+  @Input() appendTo?: string;
 
   @Input() width = "auto";
 
   @Input() openOnInit = false;
 
+  @Input() showCountsOnly = false;
+
   @Input() Items!: any;
 
-  @Input() autoSelectFirstItem = false;
-
-  @Input() IsCustomRequest = false;
-
-  @Input() Params = "?id=0";
-
-  val: any;
+  val!: Observable<any[]> | null;
 
   @ViewChild(NgSelectComponent) ngSelect!: NgSelectComponent;
 
-  @Output() OnInitEmitter: EventEmitter<any> = new EventEmitter<any>();
   @Output() OnChangeEmitter: EventEmitter<any> = new EventEmitter<any>(); // Renamed
   @Output() OnBlurEmitter: EventEmitter<any> = new EventEmitter<any>(); // Renamed
 
   ngOnInit() {
-    this.OnInitEmitter.emit();
-
-    if (this.Items == null && this.ApiMethod != "") {
-      if (!this.IsCustomRequest) {
-        this.loadItems();
-      } else {
-        this.loadItemsCustomQuery();
-      }
+    if (this.Items == null) {
+      this.loadItems();
     }
   }
 
@@ -86,7 +77,7 @@ export class SelectSingleLookupComponent
     }
   }
 
-  private async loadItems() {
+  async loadItems() {
     if (this.Items == null) {
       const response = await this.get_async_call_no_params(
         "/Lookup/" + this.ApiMethod,
@@ -94,24 +85,6 @@ export class SelectSingleLookupComponent
 
       if (!response.IsError) {
         this.Items = response.Data.Items;
-        if (this.autoSelectFirstItem) {
-          this.writeValue(this.Items![0].Id);
-        }
-      }
-    }
-  }
-
-  private async loadItemsCustomQuery() {
-    if (this.Items == null) {
-      const response = await this.get_async_call_no_params(
-        "/Lookup/" + this.ApiMethod + this.Params,
-      );
-
-      if (!response.IsError) {
-        this.Items = response.Data.Items;
-        if (this.autoSelectFirstItem) {
-          this.writeValue(this.Items![0].Id);
-        }
       }
     }
   }
@@ -152,7 +125,6 @@ export class SelectSingleLookupComponent
 
   onValueChange($event: any) {
     this.onChange(this.val);
-
     if (this.OnChangeEmitter != null) {
       this.OnChangeEmitter.emit($event);
     }
@@ -167,17 +139,19 @@ export class SelectSingleLookupComponent
       term = term.toLowerCase();
       let found = false;
 
-      if (item.GroupBy != null) {
-        found = item.GroupBy.toLowerCase().indexOf(term) > -1;
+      if (item.groupBy != null) {
+        found = item.groupBy.toLowerCase().indexOf(term) > -1;
       }
 
       if (!found) {
-        if (item.Name != null) {
-          found = item.Name.toLowerCase().indexOf(term) > -1;
+        if (item.name != null) {
+          found = item.name.toLowerCase().indexOf(term) > -1;
         }
       }
+
       return found;
     }
+
     return false;
   }
 }

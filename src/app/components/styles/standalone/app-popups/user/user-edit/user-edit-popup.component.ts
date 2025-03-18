@@ -67,6 +67,8 @@ export class UserEditPopupComponent extends AuthenticatedBaseComponent {
     const option: NgbModalOptions = {
       windowClass: "modal-standard-height",
       size: "lg",
+      centered: true,
+      animation: true,
     };
 
     this.modalDialog = this.ngbModalService.open(this.userEditTemplate, option);

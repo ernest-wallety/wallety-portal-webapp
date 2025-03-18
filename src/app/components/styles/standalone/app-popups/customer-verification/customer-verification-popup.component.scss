@@ -139,7 +139,8 @@
   min-height: 80vh; /* Increased modal height */
 }
 
-#verification-history {
+#verification-history,
+#personal-details {
   max-height: 70vh; /* Restrict height to fit within viewport */
   overflow-y: auto; /* Enable vertical scrolling */
   padding: 1rem;

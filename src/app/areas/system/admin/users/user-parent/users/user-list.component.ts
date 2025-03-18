@@ -81,7 +81,10 @@ export class UserListComponent
     if (listFieldName.includes("IsAccountActive"))
       lookup.Id = lookup.AltBoolValue;
 
-    this.Criteria.lookups = LookupHelper.onChangeLookup(lookup, listFieldName);
+    this.Criteria.lookups =
+      lookup != undefined
+        ? LookupHelper.onChangeLookup(lookup, listFieldName)
+        : "";
 
     await this.refresh();
   }

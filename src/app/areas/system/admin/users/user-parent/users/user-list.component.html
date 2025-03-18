@@ -53,6 +53,7 @@
             Created Date
           </app-sort>
         </th>
+        <th class="d-none d-md-table-cell">Last Login Date</th>
         <th class="d-none d-md-table-cell"></th>
       </tr>
       <tr class="filter-row table-fixed-header">
@@ -98,6 +99,7 @@
           </td> -->
         <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-md-table-cell"></td>
+        <td class="d-none d-md-table-cell"></td>
       </tr>
     </thead>
     <tbody>
@@ -134,6 +136,10 @@
         <!-- <td class="d-none d-lg-table-cell">{{ a.IdNumber }}</td> -->
         <td class="d-none d-lg-table-cell">
           {{ a.AccountCreationDate | date: "yyyy, dd MMM" }}
+        </td>
+
+        <td class="d-none d-md-table-cell">
+          {{ a.LastActiveTime | date: "yyyy, dd MMM - HH:MM:SS" }}
         </td>
 
         <td class="d-none d-md-table-cell">

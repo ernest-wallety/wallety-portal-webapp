@@ -1,4 +1,5 @@
 import { CommonModule } from "@angular/common";
+import { HttpParams } from "@angular/common/http";
 import {
   Component,
   EventEmitter,
@@ -11,16 +12,20 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { NgbModalOptions, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { AuthenticatedBaseComponent } from "../../../../base/authenticated_base.component";
+import { CustomCurrencyPipe } from "../../../../../components/utils/pipes/currency.pipe";
 
 @Component({
-  selector: "app-register-service-agent-popup",
-  templateUrl: "./register-service-agent-popup.component.html",
-  styleUrls: ["./register-service-agent-popup.component.scss"],
+  selector: "app-transaction-history-popup",
+  templateUrl: "./transaction-history-popup.component.html",
+  styleUrls: ["./transaction-history-popup.component.scss"],
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, CustomCurrencyPipe],
 })
-export class RegisterServiceAgentPopupComponent extends AuthenticatedBaseComponent {
-  @ViewChild("serviceAgentTemplate") serviceAgentTemplate!: TemplateRef<any>;
+export class TransactionHistoryPopupComponent extends AuthenticatedBaseComponent {
+  TransactionReference?: string;
+
+  @ViewChild("transactionsTemplate")
+  TransactionsTemplate!: TemplateRef<any>;
 
   public modalDialog!: NgbModalRef;
 
@@ -37,32 +42,40 @@ export class RegisterServiceAgentPopupComponent extends AuthenticatedBaseCompone
     }
   }
 
-  showDialog() {
+  showDialog(reference: string) {
+    this.TransactionReference = reference;
+
     const option: NgbModalOptions = {
       windowClass: "modal-standard-height",
-      size: "lg",
+      size: "xl",
       centered: true,
       animation: true,
     };
+
     this.modalDialog = this.ngbModalService.open(
-      this.serviceAgentTemplate,
+      this.TransactionsTemplate,
       option,
     );
+
+    this.ViewModel = Object.assign(new Object());
+
+    if (reference !== "") this.refresh(reference);
   }
 
-  async register() {
-    console.log(this.ViewModel);
-
-    const response = await this.post_sync_call(
-      "/CustomerServiceAgent/Register",
-      this.ViewModel,
+  public async refresh(reference: string) {
+    const response = await this.get_async_call(
+      "/TransactionHistory/GetByReference",
+      new HttpParams().set("reference", reference),
     );
 
     console.log(response);
 
     if (!response.IsError) {
-      this.OnSave.emit(response.Data);
-      this.modalDialog.close();
+      this.ViewModel = response.Data;
     }
+  }
+
+  public cancelClick() {
+    this.modalDialog.close();
   }
 }

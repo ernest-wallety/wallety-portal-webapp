@@ -1,51 +1,51 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseListComponent } from "../../../components/base/authenticated_base_list.component";
 import { LookupHelper } from "../../../components/helpers/lookup_helper";
 import { Lookup } from "../../../components/models/lookup";
-import { CustomerVerificationPopupComponent } from "../../../components/styles/standalone/app-popups/customer-verification/customer-verification-popup.component";
+import { AvatarComponent } from "../../../components/styles/standalone/avatar/avatar.component";
 import { PagingComponent } from "../../../components/styles/standalone/pagination/paging.component";
 import { SearchInputComponent } from "../../../components/styles/standalone/search-input/search-input.component";
-import { SelectMultiLookupComponent } from "../../../components/styles/standalone/select-multi-lookup/select-multi-lookup.component";
-import { SelectSingleLookupComponent } from "../../../components/styles/standalone/select-single-lookup/select-single-lookup.component";
+// import { SelectMultiLookupComponent } from "../../../components/styles/standalone/select-multi-lookup/select-multi-lookup.component";
 import { TableFilterSortComponent } from "../../../components/styles/standalone/table-filter-sort/table-filter-sort.component";
-import { PhoneFormatPipe } from "../../../components/utils/pipes/phone-format.pipe";
+import { ConvertImagePipe } from "../../../components/utils/pipes/convert-image.pipe";
+import { CustomCurrencyPipe } from "../../../components/utils/pipes/currency.pipe";
+import { DisplayNamePipe } from "../../../components/utils/pipes/display-name.pipe";
+import { TransactionHistoryPopupComponent } from "../../../components/styles/standalone/app-popups/transaction-history/transaction-history-popup.component";
 
 @Component({
-  selector: "app-customer-verification-list",
+  selector: "app-transaction-history",
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule,
-    FormsModule,
-    PhoneFormatPipe,
-    CustomerVerificationPopupComponent,
     SearchInputComponent,
-    SelectSingleLookupComponent,
     TableFilterSortComponent,
     PagingComponent,
-    SelectMultiLookupComponent,
+    AvatarComponent,
+    ConvertImagePipe,
+    DisplayNamePipe,
+    CustomCurrencyPipe,
+    // SelectMultiLookupComponent,
+    TransactionHistoryPopupComponent,
   ],
-  templateUrl: "./customer-verification-list.component.html",
-  styleUrls: ["./customer-verification-list.component.scss"],
+  templateUrl: "./transaction-history-list.component.html",
+  styleUrls: ["./transaction-history-list.component.scss"],
 })
-export class CustomerVerificationListComponent
+export class TransactionHistoryComponent
   extends AuthenticatedBaseListComponent
   implements OnInit
 {
-  @ViewChild("customerVerificationPopup")
-  customerVerificationPopup!: CustomerVerificationPopupComponent;
+  @ViewChild("transactionHistoryPopup")
+  transactionHistoryPopup!: TransactionHistoryPopupComponent;
 
   ngOnInit(): void {
-    this.titleService.setTitle("Customer Verification");
+    this.titleService.setTitle("Transactions");
     this.refresh();
   }
 
   public async refresh() {
     const response = await this.get_list_sync_call(
-      "/Customer/GetUnverifiedCustomers",
+      "/TransactionHistory/List",
       this.Criteria,
     );
 
@@ -54,9 +54,13 @@ export class CustomerVerificationListComponent
     }
   }
 
-  details(item: any) {
-    this.customerVerificationPopup.model = item;
-    this.customerVerificationPopup.showDialog();
+  public async sort(sortObject: any) {
+    if (sortObject != null) {
+      this.Criteria.sortField = LookupHelper.transform(sortObject.sortField);
+      this.Criteria.sortAscending = sortObject.sortAscending;
+    }
+
+    await this.refresh();
   }
 
   initialiseLookup(listFieldName: string) {
@@ -64,9 +68,6 @@ export class CustomerVerificationListComponent
   }
 
   public async onChangeLookup(lookup: Lookup, listFieldName: string) {
-    if (listFieldName.includes("RegistrationStatusId"))
-      lookup.Id = lookup.PrimaryKey;
-
     this.Criteria.lookups =
       lookup != undefined
         ? LookupHelper.onChangeLookup(lookup, listFieldName)
@@ -87,12 +88,7 @@ export class CustomerVerificationListComponent
     await this.refresh();
   }
 
-  public async sort(sortObject: any) {
-    if (sortObject != null) {
-      this.Criteria.sortField = LookupHelper.transform(sortObject.sortField);
-      this.Criteria.sortAscending = sortObject.sortAscending;
-    }
-
-    await this.refresh();
+  public details(item: any) {
+    this.transactionHistoryPopup.showDialog(item.TransactionReference);
   }
 }

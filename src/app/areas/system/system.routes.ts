@@ -51,9 +51,9 @@ export const routes: Routes = [
       {
         path: "transaction-history",
         loadComponent: () =>
-          import(`./transaction-history/transaction-history.component`).then(
-            (mod) => mod.TransactionHistoryComponent,
-          ),
+          import(
+            `./transaction-history/transaction-history-list.component`
+          ).then((mod) => mod.TransactionHistoryComponent),
         data: { animation: "TransactionHistoryPage" },
         canActivate: [AuthGuard],
       },
