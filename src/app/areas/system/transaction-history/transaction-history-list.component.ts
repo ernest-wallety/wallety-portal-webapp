@@ -40,6 +40,7 @@ export class TransactionHistoryComponent
 
   ngOnInit(): void {
     this.titleService.setTitle("Transactions");
+    this.Criteria.sortAscending = false;
     this.refresh();
   }
 
@@ -89,6 +90,6 @@ export class TransactionHistoryComponent
   }
 
   public details(item: any) {
-    this.transactionHistoryPopup.showDialog(item.TransactionReference);
+    this.transactionHistoryPopup.showDialog(item);
   }
 }

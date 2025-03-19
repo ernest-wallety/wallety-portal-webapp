@@ -23,6 +23,7 @@ import { CustomCurrencyPipe } from "../../../../../components/utils/pipes/curren
 })
 export class TransactionHistoryPopupComponent extends AuthenticatedBaseComponent {
   TransactionReference?: string;
+  IsBeneficiary?: boolean;
 
   @ViewChild("transactionsTemplate")
   TransactionsTemplate!: TemplateRef<any>;
@@ -42,8 +43,9 @@ export class TransactionHistoryPopupComponent extends AuthenticatedBaseComponent
     }
   }
 
-  showDialog(reference: string) {
-    this.TransactionReference = reference;
+  showDialog(item: any) {
+    this.TransactionReference = item.TransactionReference;
+    this.IsBeneficiary = item.BeneficiaryId != null ? true : false;
 
     const option: NgbModalOptions = {
       windowClass: "modal-standard-height",
@@ -59,7 +61,8 @@ export class TransactionHistoryPopupComponent extends AuthenticatedBaseComponent
 
     this.ViewModel = Object.assign(new Object());
 
-    if (reference !== "") this.refresh(reference);
+    if (item.TransactionReference != "" || item.TransactionReference != null)
+      this.refresh(item.TransactionReference);
   }
 
   public async refresh(reference: string) {
