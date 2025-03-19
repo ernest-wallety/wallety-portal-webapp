@@ -68,6 +68,11 @@
                   <th>Type</th>
                   <th>Amount</th>
                   <th>Message</th>
+                  <th>Process Status</th>
+                  <th *ngIf="!IsBeneficiary">Product</th>
+                  <th>Payment Option</th>
+                  <th *ngIf="IsBeneficiary">Beneficiary</th>
+                  <th *ngIf="!IsBeneficiary">Payer</th>
                   <th>Date</th>
                 </tr>
               </thead>
@@ -79,10 +84,25 @@
                   <td>
                     {{ a.Amount | customCurrency }}
                   </td>
-                  <td class="ar">
+                  <td>
                     {{ a.TransactionMessage }}
                   </td>
-                  <td class="ar">
+                  <td>
+                    {{ a.TransactionStatus }}
+                  </td>
+                  <td *ngIf="!IsBeneficiary">
+                    {{ a.ProductDisplayName }}
+                  </td>
+                  <td>
+                    {{ a.PaymentOptionName }}
+                  </td>
+                  <td *ngIf="IsBeneficiary">
+                    {{ a.BeneficiaryWhatsappNumber }}
+                  </td>
+                  <td *ngIf="!IsBeneficiary">
+                    {{ a.PayerWhatsappNumber || a.PhoneNumber }}
+                  </td>
+                  <td>
                     {{ a.TransactionDate | date: "yyyy, dd MMM  HH:MM:SS" }}
                   </td>
                 </tr>
