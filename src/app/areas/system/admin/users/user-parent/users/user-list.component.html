@@ -43,7 +43,7 @@
           </app-sort>
         </th>
         <th class="d-none d-lg-table-cell">Role</th>
-        <th class="d-none d-lg-table-cell">WhatsApp Number</th>
+        <!-- <th class="d-none d-lg-table-cell">WhatsApp Number</th> -->
         <!-- <th class="d-none d-lg-table-cell">Id Number</th> -->
         <th class="d-none d-lg-table-cell">
           <app-sort
@@ -92,11 +92,8 @@
             (OnChangeEmitter)="onChangeLookup($event, 'ur.RoleId')"
           ></app-select-single-lookup>
         </td>
-        <td class="d-none d-lg-table-cell">
-          <!-- Add your select-single-lookup component here -->
-        </td>
-        <!-- <td class="d-none d-lg-table-cell">
-          </td> -->
+        <!-- <td class="d-none d-lg-table-cell"></td> -->
+        <!-- <td class="d-none d-lg-table-cell"></td> -->
         <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-md-table-cell"></td>
@@ -124,14 +121,18 @@
             <div class="ms-3">
               <p class="fw-bold mb-1">{{ a.FirstName }} {{ a.Surname }}</p>
               <p class="text-muted mb-0">{{ a.Email }}</p>
+              <p class="text-muted mb-0">
+                {{ a.PhoneNumber | phoneFormat: a.MobileRegex }}
+              </p>
             </div>
           </div>
         </td>
         <td class="d-none d-lg-table-cell">{{ a.CountryName }}</td>
         <td class="d-none d-lg-table-cell">{{ a.RoleName }}</td>
-        <td class="d-none d-lg-table-cell">
+
+        <!-- <td class="d-none d-lg-table-cell">
           {{ a.PhoneNumber | phoneFormat: a.MobileRegex }}
-        </td>
+        </td> -->
 
         <!-- <td class="d-none d-lg-table-cell">{{ a.IdNumber }}</td> -->
         <td class="d-none d-lg-table-cell">
