@@ -2,6 +2,12 @@
   #transactionHistoryPopup
 ></app-transaction-history-popup>
 
+<app-filter-slider
+  #filterSlider
+  (OnChangeEmitter)="onFilterSliderCriteriaChange($event)"
+  [showSimColumns]="false"
+></app-filter-slider>
+
 <div class="list-height">
   <!-- Search Bar -->
   <nav class="navbar navbar-expand-lg">
@@ -12,6 +18,15 @@
           (ValueChange)="Criteria.search = $event; refresh()"
           placeholder="Search for something..."
         ></app-search-input>
+
+        <button
+          type="button"
+          class="btn btn-sm btn-primary my-sm-0"
+          (click)="toggleShowFilters()"
+        >
+          <i class="bx bx-filter-alt"></i>
+          Filter
+        </button>
       </div>
     </div>
   </nav>

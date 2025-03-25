@@ -9,6 +9,7 @@ import { SearchInputComponent } from "../../../components/styles/standalone/sear
 // import { SelectMultiLookupComponent } from "../../../components/styles/standalone/select-multi-lookup/select-multi-lookup.component";
 import { TransactionHistoryPopupComponent } from "../../../components/styles/standalone/app-popups/transaction-history/transaction-history-popup.component";
 import { DateRangePickerComponent } from "../../../components/styles/standalone/date-range-picker/date-range-picker.component";
+import { FilterSliderComponent } from "../../../components/styles/standalone/filter-slider/filter-slider.component";
 import { TableFilterSortComponent } from "../../../components/styles/standalone/table-filter-sort/table-filter-sort.component";
 import { ConvertImagePipe } from "../../../components/utils/pipes/convert-image.pipe";
 import { CustomCurrencyPipe } from "../../../components/utils/pipes/currency.pipe";
@@ -29,6 +30,7 @@ import { DisplayNamePipe } from "../../../components/utils/pipes/display-name.pi
     // SelectMultiLookupComponent,
     TransactionHistoryPopupComponent,
     DateRangePickerComponent,
+    FilterSliderComponent,
   ],
   templateUrl: "./transaction-history-list.component.html",
   styleUrls: ["./transaction-history-list.component.scss"],
@@ -39,6 +41,8 @@ export class TransactionHistoryComponent
 {
   @ViewChild("transactionHistoryPopup")
   transactionHistoryPopup!: TransactionHistoryPopupComponent;
+
+  @ViewChild("filterSlider") filterSlider!: FilterSliderComponent;
 
   ngOnInit(): void {
     this.titleService.setTitle("Transactions");
@@ -106,6 +110,21 @@ export class TransactionHistoryComponent
 
   onClearDateRange(listFieldName: any) {
     LookupHelper.onClearDateRange(listFieldName);
+  }
+
+  public async onFilterSliderCriteriaChange($event: any) {
+    this.Criteria.lookups = $event != undefined ? $event.lookups : "";
+    await this.refresh();
+  }
+
+  toggleShowFilters() {
+    if (this.filterSlider.hideSidebar == true) {
+      this.filterSlider.showSlider();
+    } else {
+      this.filterSlider.toggleShowSlider();
+    }
+
+    return false;
   }
 
   public details(item: any) {
