@@ -30,6 +30,7 @@ export class DateRangePickerComponent
   @Input() ShowClear = false;
 
   @Input() Placeholder = "Choose Date";
+  @Input() width = "auto";
 
   //Output
   @Output() OnInitEmitter: EventEmitter<any> = new EventEmitter<any>();

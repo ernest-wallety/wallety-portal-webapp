@@ -23,6 +23,11 @@
         <th class="d-none d-md-table-cell"></th>
         <th class="d-none d-md-table-cell">Reference</th>
         <th>Customer Name</th>
+        <th class="d-none d-lg-table-cell">
+          <app-sort [sortField]="'tr.TransactionDate'" (OnClick)="sort($event)">
+            Date
+          </app-sort>
+        </th>
         <th class="d-none d-lg-table-cell">Transaction Type</th>
         <th>
           <app-sort [sortField]="'tr.Amount'" (OnClick)="sort($event)">
@@ -30,17 +35,26 @@
           </app-sort>
         </th>
         <th class="d-none d-lg-table-cell">Beneficiary / Payer</th>
-        <th class="d-none d-lg-table-cell">
-          <app-sort [sortField]="'tr.TransactionDate'" (OnClick)="sort($event)">
-            Date
-          </app-sort>
-        </th>
         <th class="d-none d-md-table-cell"></th>
       </tr>
       <tr class="filter-row table-fixed-header">
         <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-md-table-cell"></td>
         <td></td>
+        <td class="d-none d-lg-table-cell">
+          <app-date-range-picker
+            #fromtoDatePicker
+            [ShowSearch]="true"
+            [ShowClear]="true"
+            ngbTooltip="Transaction Date Filter"
+            (OnInitEmitter)="initialiseDateRange('x.TransactionDate')"
+            (OnSearchEmitter)="onChangeDateRange($event, 'x.TransactionDate')"
+            (OnClearEmitter)="onClearDateRange('x.TransactionDate')"
+            [Opens]="'right'"
+            [width]="'300%'"
+          ></app-date-range-picker>
+        </td>
+
         <td class="d-none d-lg-table-cell">
           <!-- <app-select-multi-lookup
             #country
@@ -56,19 +70,6 @@
         </td>
         <td></td>
         <td class="d-none d-lg-table-cell"></td>
-        <td class="d-none d-lg-table-cell">
-          <app-date-range-picker
-            #fromtoDatePicker
-            placement="top"
-            [ShowSearch]="true"
-            [ShowClear]="true"
-            ngbTooltip="Created Date Filter"
-            (OnInitEmitter)="initialiseDateRange('x.TransactionDate')"
-            (OnSearchEmitter)="onChangeDateRange($event, 'x.TransactionDate')"
-            (OnClearEmitter)="onClearDateRange('x.TransactionDate')"
-            [Opens]="'right'"
-          ></app-date-range-picker>
-        </td>
         <td class="d-none d-md-table-cell"></td>
       </tr>
     </thead>
@@ -92,6 +93,10 @@
           </div>
         </td>
         <td class="d-none d-lg-table-cell">
+          {{ a.TransactionDate | date: "yyyy, dd MMM" }}
+        </td>
+
+        <td class="d-none d-lg-table-cell">
           {{ a.TransactionTypeAndProduct }}
         </td>
         <td>
@@ -99,10 +104,6 @@
         </td>
         <td class="d-none d-md-table-cell">
           {{ a.TransactionBeneficiaryPayer }}
-        </td>
-
-        <td class="d-none d-lg-table-cell">
-          {{ a.TransactionDate | date: "yyyy, dd MMM" }}
         </td>
 
         <td class="d-none d-md-table-cell">
