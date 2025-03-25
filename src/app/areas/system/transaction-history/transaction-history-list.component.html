@@ -56,7 +56,19 @@
         </td>
         <td></td>
         <td class="d-none d-lg-table-cell"></td>
-        <td class="d-none d-lg-table-cell"></td>
+        <td class="d-none d-lg-table-cell">
+          <app-date-range-picker
+            #fromtoDatePicker
+            placement="top"
+            [ShowSearch]="true"
+            [ShowClear]="true"
+            ngbTooltip="Created Date Filter"
+            (OnInitEmitter)="initialiseDateRange('x.TransactionDate')"
+            (OnSearchEmitter)="onChangeDateRange($event, 'x.TransactionDate')"
+            (OnClearEmitter)="onClearDateRange('x.TransactionDate')"
+            [Opens]="'right'"
+          ></app-date-range-picker>
+        </td>
         <td class="d-none d-md-table-cell"></td>
       </tr>
     </thead>
@@ -93,7 +105,7 @@
           {{ a.TransactionDate | date: "yyyy, dd MMM" }}
         </td>
 
-        <td>
+        <td class="d-none d-md-table-cell">
           <a
             href="#"
             onclick="return false;"
