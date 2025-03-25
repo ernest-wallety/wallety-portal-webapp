@@ -130,4 +130,8 @@ export class TransactionHistoryComponent
   public details(item: any) {
     this.transactionHistoryPopup.showDialog(item);
   }
+
+  public async export() {
+    console.log("export");
+  }
 }
