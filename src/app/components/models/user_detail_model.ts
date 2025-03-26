@@ -17,4 +17,7 @@ export class UserDetailsModel {
   PanicCode = "";
 
   DisplayNumber?: string;
+
+  OneTimePasswordGuid?: string;
+  ProfileImage?: string;
 }

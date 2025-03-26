@@ -42,7 +42,7 @@ export const routes: Routes = [
       {
         path: "customers",
         loadComponent: () =>
-          import(`./customers/customers.component`).then(
+          import(`./customers/customers-list.component`).then(
             (mod) => mod.CustomersComponent,
           ),
         data: { animation: "CustomersPage" },

@@ -64,13 +64,13 @@ export class AuthenticatedBaseComponent extends BaseComponent {
       // lookup_helper
     );
 
-    const image = this.LoggedInUser.User?.IdentityImage;
+    const image = this.LoggedInUser.User?.ProfileImage;
 
     this.ImageUrl =
       image === ""
         ? undefined
         : ExtensionMethods.to_base_64_image(
-            this.LoggedInUser.User?.IdentityImage || "",
+            this.LoggedInUser.User?.ProfileImage || "",
           );
   }
 
