@@ -15,10 +15,10 @@ $light-orange: #ffe0d3;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   grid-gap: 24px;
-  margin-top: 36px;
+  max-width: 50%;
 
   li {
-    padding: 24px;
+    padding: 1rem;
     background: $light;
     border-radius: 20px;
     display: flex;

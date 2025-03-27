@@ -1,24 +1,17 @@
 <div class="list-height">
   <ul class="box-info">
     <li>
-      <i class="bx bxs-calendar-check"></i>
-      <span class="text">
-        <h3>1020</h3>
-        <p>New Order</p>
-      </span>
-    </li>
-    <li>
       <i class="bx bxs-group"></i>
       <span class="text">
-        <h3>2834</h3>
-        <p>Visitors</p>
+        <h3>{{ ViewModel?.TotalCustomers }}</h3>
+        <p>Total Customers</p>
       </span>
     </li>
     <li>
       <i class="bx bxs-dollar-circle"></i>
       <span class="text">
-        <h3>N$2543.00</h3>
-        <p>Total Sales</p>
+        <h3>{{ ViewModel?.TotalBalance | customCurrency }}</h3>
+        <p>Total Balance</p>
       </span>
     </li>
   </ul>
@@ -91,7 +84,7 @@
             Date
           </app-sort>
         </th>
-        <th class="d-none d-md-table-cell"></th>
+        <!-- <th class="d-none d-md-table-cell"></th> -->
       </tr>
       <tr class="filter-row table-fixed-header">
         <td class="d-none d-md-table-cell"></td>
@@ -99,7 +92,7 @@
         <td class="d-none d-lg-table-cell"></td>
         <td></td>
         <td class="d-none d-md-table-cell"></td>
-        <td class="d-none d-md-table-cell"></td>
+        <!-- <td class="d-none d-md-table-cell"></td> -->
       </tr>
     </thead>
     <tbody>
@@ -128,7 +121,7 @@
           {{ a.AccountCreationDate | date: "yyyy, dd MMM" }}
         </td>
 
-        <td class="d-none d-md-table-cell">
+        <!-- <td class="d-none d-md-table-cell">
           <a
             href="#"
             onclick="return false;"
@@ -137,7 +130,7 @@
           >
             Edit
           </a>
-        </td>
+        </td> -->
       </tr>
     </tbody>
     <tbody *ngIf="ViewModel?.Count === 0 && IsLoading === false">
