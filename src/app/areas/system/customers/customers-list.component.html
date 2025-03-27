@@ -25,6 +25,11 @@
             Country
           </app-sort>
         </th>
+        <th>
+          <app-sort [sortField]="'w.UsableBalance'" (OnClick)="sort($event)">
+            Balance
+          </app-sort>
+        </th>
         <th class="d-none d-lg-table-cell">
           <app-sort
             [sortField]="'u.AccountCreationDate'"
@@ -49,6 +54,7 @@
             (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
           ></app-select-single-lookup>
         </td>
+        <td></td>
         <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-md-table-cell"></td>
       </tr>
@@ -60,7 +66,7 @@
           <div class="d-flex align-items-center">
             <app-avatar
               [Size]="'sm'"
-              [Image]="a.IdentityImage | convertImage"
+              [Image]="a.ProfileImage | convertImage"
               [FullName]="a | displayName"
             ></app-avatar>
 
@@ -74,7 +80,7 @@
           </div>
         </td>
         <td class="d-none d-lg-table-cell">{{ a.CountryName }}</td>
-
+        <td>{{ a.UsableBalance | customCurrency }}</td>
         <td class="d-none d-lg-table-cell">
           {{ a.AccountCreationDate | date: "yyyy, dd MMM" }}
         </td>

@@ -13,6 +13,7 @@ import { TableFilterSortComponent } from "../../../components/styles/standalone/
 import { ConvertImagePipe } from "../../../components/utils/pipes/convert-image.pipe";
 import { DisplayNamePipe } from "../../../components/utils/pipes/display-name.pipe";
 import { PhoneFormatPipe } from "../../../components/utils/pipes/phone-format.pipe";
+import { CustomCurrencyPipe } from "../../../components/utils/pipes/currency.pipe";
 
 @Component({
   selector: "app-customers",
@@ -29,6 +30,7 @@ import { PhoneFormatPipe } from "../../../components/utils/pipes/phone-format.pi
     SearchInputComponent,
     SelectSingleLookupComponent,
     TableFilterSortComponent,
+    CustomCurrencyPipe,
   ],
   templateUrl: "./customers-list.component.html",
   styleUrls: ["./customers-list.component.scss"],
