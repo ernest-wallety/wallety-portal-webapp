@@ -2,6 +2,35 @@
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <div class="d-flex justify-content-between w-100">
+        <!-- Filters -->
+        <div class="list-page-filters">
+          <app-select-single-lookup
+            #country
+            name="country"
+            id="country"
+            from="body"
+            [Icon]="'bx bx-flag'"
+            [ApiMethod]="'Countries'"
+            [Placeholder]="'Countries'"
+            (OnInitEmitter)="initialiseLookup('u.CountryId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
+          ></app-select-single-lookup>
+
+          <app-date-range-picker
+            #fromtoDatePicker
+            [ShowSearch]="true"
+            [ShowClear]="true"
+            ngbTooltip="Transaction Date Filter"
+            (OnInitEmitter)="initialiseDateRange('u.AccountCreationDate')"
+            (OnSearchEmitter)="
+              onChangeDateRange($event, 'u.AccountCreationDate')
+            "
+            (OnClearEmitter)="onClearDateRange('u.AccountCreationDate')"
+            [Opens]="'right'"
+            [width]="'300%'"
+          ></app-date-range-picker>
+        </div>
+
         <!-- Search Bar -->
         <div class="collapse navbar-collapse d-flex justify-content-end">
           <app-search-input
@@ -35,7 +64,7 @@
             [sortField]="'u.AccountCreationDate'"
             (OnClick)="sort($event)"
           >
-            Created Date
+            Date
           </app-sort>
         </th>
         <th class="d-none d-md-table-cell"></th>
@@ -43,17 +72,7 @@
       <tr class="filter-row table-fixed-header">
         <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-md-table-cell"></td>
-        <td class="d-none d-lg-table-cell">
-          <app-select-single-lookup
-            #country
-            name="country"
-            id="country"
-            from="body"
-            [ApiMethod]="'Countries'"
-            (OnInitEmitter)="initialiseLookup('u.CountryId')"
-            (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
-          ></app-select-single-lookup>
-        </td>
+        <td class="d-none d-lg-table-cell"></td>
         <td></td>
         <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-md-table-cell"></td>

@@ -1,15 +1,30 @@
-<ng-select
-  [items]="Items"
-  [bindLabel]="BindLabel"
-  [bindValue]="BindValue"
-  [groupBy]="groupBy"
-  (blur)="onBlur($event)"
-  [(ngModel)]="val"
-  [disabled]="disabled"
-  [clearable]="clearable"
-  (change)="onValueChange($event)"
-  [appendTo]="appendTo"
-  [style.width.px]="width"
-  [searchFn]="customSearchFn"
-  (focus)="onTouched($event)"
-></ng-select>
+<div class="custom-filter-dropdown">
+  <i *ngIf="Icon" class="filter-icon {{ Icon }}"></i>
+  <ng-select
+    class="custom-dropdown"
+    [items]="Items"
+    [bindLabel]="BindLabel"
+    [bindValue]="BindValue"
+    [groupBy]="groupBy"
+    (blur)="onBlur($event)"
+    [(ngModel)]="val"
+    [disabled]="disabled"
+    [clearable]="clearable"
+    (change)="onValueChange($event)"
+    [appendTo]="appendTo"
+    [style.width.px]="width"
+    [searchFn]="customSearchFn"
+    (focus)="onTouched($event)"
+    [placeholder]="Placeholder"
+  >
+    <ng-template ng-label-tmp let-item="item">
+      {{ item[BindLabel] }}
+    </ng-template>
+    <ng-template ng-option-tmp let-item="item">
+      {{ item[BindLabel] }}
+    </ng-template>
+    <ng-template ng-arrow-tmp>
+      <i class="dropdown-icon fa fa-chevron-down"></i>
+    </ng-template>
+  </ng-select>
+</div>

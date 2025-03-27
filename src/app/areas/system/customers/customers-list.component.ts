@@ -14,6 +14,7 @@ import { ConvertImagePipe } from "../../../components/utils/pipes/convert-image.
 import { DisplayNamePipe } from "../../../components/utils/pipes/display-name.pipe";
 import { PhoneFormatPipe } from "../../../components/utils/pipes/phone-format.pipe";
 import { CustomCurrencyPipe } from "../../../components/utils/pipes/currency.pipe";
+import { DateRangePickerComponent } from "../../../components/styles/standalone/date-range-picker/date-range-picker.component";
 
 @Component({
   selector: "app-customers",
@@ -31,6 +32,7 @@ import { CustomCurrencyPipe } from "../../../components/utils/pipes/currency.pip
     SelectSingleLookupComponent,
     TableFilterSortComponent,
     CustomCurrencyPipe,
+    DateRangePickerComponent,
   ],
   templateUrl: "./customers-list.component.html",
   styleUrls: ["./customers-list.component.scss"],
@@ -80,5 +82,22 @@ export class CustomersComponent
     }
 
     await this.refresh();
+  }
+
+  initialiseDateRange(listFieldName: any) {
+    LookupHelper.initialiseDateRange(listFieldName);
+  }
+
+  public async onChangeDateRange(range: any, listFieldName: any) {
+    this.Criteria.ranges =
+      range != undefined
+        ? LookupHelper.onChangeDateRange(range, listFieldName)
+        : "";
+
+    await this.refresh();
+  }
+
+  onClearDateRange(listFieldName: any) {
+    LookupHelper.onClearDateRange(listFieldName);
   }
 }

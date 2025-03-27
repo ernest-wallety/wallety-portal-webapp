@@ -4,10 +4,63 @@
 ></app-customer-verification-popup>
 
 <div class="list-height">
-  <!-- Search Bar -->
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <div class="d-flex justify-content-end w-100">
+      <!-- Filters -->
+      <div class="list-page-filters">
+        <app-select-single-lookup
+          #country
+          name="country"
+          id="country"
+          from="body"
+          [Icon]="'bx bx-flag'"
+          [ApiMethod]="'Countries'"
+          [Placeholder]="'Countries'"
+          (OnInitEmitter)="initialiseLookup('u.CountryId')"
+          (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
+        ></app-select-single-lookup>
+
+        <app-select-single-lookup
+          #status
+          name="status"
+          id="status"
+          from="body"
+          [Icon]="'bx bx-toggle-right'"
+          [Placeholder]="'Status'"
+          [ApiMethod]="'RegistrationStatuses'"
+          [IsCustomRequest]="true"
+          [Params]="'?isListPage=true'"
+          (OnInitEmitter)="initialiseLookup('u.RegistrationStatusId')"
+          (OnChangeEmitter)="onChangeLookup($event, 'u.RegistrationStatusId')"
+        ></app-select-single-lookup>
+
+        <app-date-range-picker
+          #fromtoDatePicker
+          [ShowSearch]="true"
+          [ShowClear]="true"
+          ngbTooltip="Transaction Date Filter"
+          (OnInitEmitter)="initialiseDateRange('u.AccountCreationDate')"
+          (OnSearchEmitter)="onChangeDateRange($event, 'u.AccountCreationDate')"
+          (OnClearEmitter)="onClearDateRange('u.AccountCreationDate')"
+          [Opens]="'right'"
+          [width]="'300%'"
+        ></app-date-range-picker>
+
+        <!-- <app-select-multi-lookup
+            #country
+            name="country"
+            id="country"
+            from="body"
+            [ApiMethod]="'Countries'"
+            [appendTo]="'Body'"
+            [width]="'90%'"
+            (OnInitEmitter)="initialiseLookup('u.CountryId')"
+            (OnChangeEmitter)="onChangeMultiLookup($event, 'u.CountryId')"
+          ></app-select-multi-lookup> -->
+      </div>
+
+      <!-- Search Bar -->
+      <div class="collapse navbar-collapse d-flex justify-content-end">
         <app-search-input
           [searchText]="Criteria.search"
           (ValueChange)="Criteria.search = $event; refresh()"
@@ -52,43 +105,9 @@
         <td class="d-none d-md-table-cell"></td>
         <td></td>
         <td class="d-none d-lg-table-cell"></td>
-        <td class="d-none d-lg-table-cell">
-          <!--  <app-select-single-lookup
-            #country
-            name="country"
-            id="country"
-            from="body"
-            [ApiMethod]="'Countries'"
-            (OnInitEmitter)="initialiseLookup('u.CountryId')"
-            (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
-          ></app-select-single-lookup> -->
-
-          <app-select-multi-lookup
-            #country
-            name="country"
-            id="country"
-            from="body"
-            [ApiMethod]="'Countries'"
-            [appendTo]="'Body'"
-            [width]="'90%'"
-            (OnInitEmitter)="initialiseLookup('u.CountryId')"
-            (OnChangeEmitter)="onChangeMultiLookup($event, 'u.CountryId')"
-          ></app-select-multi-lookup>
-        </td>
         <td class="d-none d-lg-table-cell"></td>
-        <td>
-          <app-select-single-lookup
-            #status
-            name="status"
-            id="status"
-            from="body"
-            [ApiMethod]="'RegistrationStatuses'"
-            [IsCustomRequest]="true"
-            [Params]="'?isListPage=true'"
-            (OnInitEmitter)="initialiseLookup('u.RegistrationStatusId')"
-            (OnChangeEmitter)="onChangeLookup($event, 'u.RegistrationStatusId')"
-          ></app-select-single-lookup>
-        </td>
+        <td class="d-none d-lg-table-cell"></td>
+        <td></td>
         <td class="d-none d-lg-table-cell">
           <!-- Add your select-single-lookup component here -->
         </td>

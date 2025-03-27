@@ -12,6 +12,7 @@ import { SelectMultiLookupComponent } from "../../../components/styles/standalon
 import { SelectSingleLookupComponent } from "../../../components/styles/standalone/select-single-lookup/select-single-lookup.component";
 import { TableFilterSortComponent } from "../../../components/styles/standalone/table-filter-sort/table-filter-sort.component";
 import { PhoneFormatPipe } from "../../../components/utils/pipes/phone-format.pipe";
+import { DateRangePickerComponent } from "../../../components/styles/standalone/date-range-picker/date-range-picker.component";
 
 @Component({
   selector: "app-customer-verification-list",
@@ -27,6 +28,7 @@ import { PhoneFormatPipe } from "../../../components/utils/pipes/phone-format.pi
     TableFilterSortComponent,
     PagingComponent,
     SelectMultiLookupComponent,
+    DateRangePickerComponent,
   ],
   templateUrl: "./customer-verification-list.component.html",
   styleUrls: ["./customer-verification-list.component.scss"],
@@ -94,5 +96,22 @@ export class CustomerVerificationListComponent
     }
 
     await this.refresh();
+  }
+
+  initialiseDateRange(listFieldName: any) {
+    LookupHelper.initialiseDateRange(listFieldName);
+  }
+
+  public async onChangeDateRange(range: any, listFieldName: any) {
+    this.Criteria.ranges =
+      range != undefined
+        ? LookupHelper.onChangeDateRange(range, listFieldName)
+        : "";
+
+    await this.refresh();
+  }
+
+  onClearDateRange(listFieldName: any) {
+    LookupHelper.onClearDateRange(listFieldName);
   }
 }

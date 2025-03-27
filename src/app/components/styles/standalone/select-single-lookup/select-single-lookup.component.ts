@@ -59,6 +59,8 @@ export class SelectSingleLookupComponent
   @Input() IsCustomRequest = false;
 
   @Input() Params = "?id=0";
+  @Input() Placeholder = "Select";
+  @Input() Icon = "";
 
   val: any;
 

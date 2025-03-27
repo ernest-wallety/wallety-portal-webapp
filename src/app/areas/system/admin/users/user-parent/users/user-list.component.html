@@ -14,6 +14,45 @@
           Create new user
         </button>
 
+        <!-- Filters -->
+        <div class="list-page-filters">
+          <app-select-single-lookup
+            #status
+            name="status"
+            id="status"
+            from="body"
+            [Icon]="'bx bx-toggle-right'"
+            [ApiMethod]="'IsActive'"
+            [Placeholder]="'Status'"
+            (OnInitEmitter)="initialiseLookup('u.IsAccountActive')"
+            (OnChangeEmitter)="onChangeLookup($event, 'u.IsAccountActive')"
+          ></app-select-single-lookup>
+
+          <app-select-single-lookup
+            #country
+            name="country"
+            id="country"
+            from="body"
+            [Icon]="'bx bx-flag'"
+            [ApiMethod]="'Countries'"
+            [Placeholder]="'Countries'"
+            (OnInitEmitter)="initialiseLookup('u.CountryId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
+          ></app-select-single-lookup>
+
+          <app-select-single-lookup
+            #role
+            name="role"
+            id="role"
+            from="body"
+            [Icon]="'bx bx-group'"
+            [ApiMethod]="'Roles'"
+            [Placeholder]="'Role'"
+            (OnInitEmitter)="initialiseLookup('ur.RoleId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'ur.RoleId')"
+          ></app-select-single-lookup>
+        </div>
+
         <!-- Search Bar -->
         <div class="collapse navbar-collapse d-flex justify-content-end">
           <app-search-input
@@ -58,40 +97,10 @@
       </tr>
       <tr class="filter-row table-fixed-header">
         <td class="d-none d-md-table-cell"></td>
-        <td class="d-none d-md-table-cell">
-          <app-select-single-lookup
-            #status
-            name="status"
-            id="status"
-            from="body"
-            [ApiMethod]="'IsActive'"
-            (OnInitEmitter)="initialiseLookup('u.IsAccountActive')"
-            (OnChangeEmitter)="onChangeLookup($event, 'u.IsAccountActive')"
-          ></app-select-single-lookup>
-        </td>
+        <td class="d-none d-md-table-cell"></td>
         <td></td>
-        <td class="d-none d-lg-table-cell">
-          <app-select-single-lookup
-            #country
-            name="country"
-            id="country"
-            from="body"
-            [ApiMethod]="'Countries'"
-            (OnInitEmitter)="initialiseLookup('u.CountryId')"
-            (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
-          ></app-select-single-lookup>
-        </td>
-        <td class="d-none d-lg-table-cell">
-          <app-select-single-lookup
-            #role
-            name="role"
-            id="role"
-            from="body"
-            [ApiMethod]="'Roles'"
-            (OnInitEmitter)="initialiseLookup('ur.RoleId')"
-            (OnChangeEmitter)="onChangeLookup($event, 'ur.RoleId')"
-          ></app-select-single-lookup>
-        </td>
+        <td class="d-none d-lg-table-cell"></td>
+        <td class="d-none d-lg-table-cell"></td>
         <!-- <td class="d-none d-lg-table-cell"></td> -->
         <!-- <td class="d-none d-lg-table-cell"></td> -->
         <td class="d-none d-md-table-cell"></td>
