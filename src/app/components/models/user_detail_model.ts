@@ -1,5 +1,6 @@
 export class UserDetailsModel {
   Name = "";
+  FirstName = "";
   Surname = "";
   Email?: string;
   IdNumber?: string;

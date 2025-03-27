@@ -27,7 +27,7 @@ export class AuthenticatedBaseComponent extends BaseComponent {
   // User related
   public ImageUrl?: string;
   public Email = this.LoggedInUser.User.Email;
-  public FullName = `${this.LoggedInUser.User.Name} ${this.LoggedInUser.User.Surname}`;
+  public FullName = `${this.LoggedInUser.User.Name || this.LoggedInUser.User.FirstName} ${this.LoggedInUser.User.Surname}`;
   public Role = this.LoggedInUser.RoleCodes?.find(
     (role) => role.IsDefault === true,
   );
