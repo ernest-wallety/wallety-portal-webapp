@@ -1,4 +1,28 @@
 <div class="list-height">
+  <ul class="box-info">
+    <li>
+      <i class="bx bxs-calendar-check"></i>
+      <span class="text">
+        <h3>1020</h3>
+        <p>New Order</p>
+      </span>
+    </li>
+    <li>
+      <i class="bx bxs-group"></i>
+      <span class="text">
+        <h3>2834</h3>
+        <p>Visitors</p>
+      </span>
+    </li>
+    <li>
+      <i class="bx bxs-dollar-circle"></i>
+      <span class="text">
+        <h3>N$2543.00</h3>
+        <p>Total Sales</p>
+      </span>
+    </li>
+  </ul>
+
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <div class="d-flex justify-content-between w-100">
@@ -79,7 +103,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let a of ViewModel?.Items">
+      <tr *ngFor="let a of ViewModel?.Customers.Items">
         <td class="d-none d-md-table-cell"></td>
         <td>
           <div class="d-flex align-items-center">
