@@ -13,6 +13,7 @@ import { FilterSliderComponent } from "../../../components/styles/standalone/fil
 import { TableFilterSortComponent } from "../../../components/styles/standalone/table-filter-sort/table-filter-sort.component";
 import { ConvertImagePipe } from "../../../components/utils/pipes/convert-image.pipe";
 import { CustomCurrencyPipe } from "../../../components/utils/pipes/currency.pipe";
+import { SelectSingleLookupComponent } from "../../../components/styles/standalone/select-single-lookup/select-single-lookup.component";
 import { DisplayNamePipe } from "../../../components/utils/pipes/display-name.pipe";
 
 @Component({
@@ -30,6 +31,7 @@ import { DisplayNamePipe } from "../../../components/utils/pipes/display-name.pi
     // SelectMultiLookupComponent,
     TransactionHistoryPopupComponent,
     DateRangePickerComponent,
+    SelectSingleLookupComponent,
     FilterSliderComponent,
   ],
   templateUrl: "./transaction-history-list.component.html",
