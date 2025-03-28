@@ -39,9 +39,6 @@
       box-shadow:
         0 4px 6px -1px rgba(0, 0, 0, 0.1),
         0 2px 4px -1px rgba(0, 0, 0, 0.06);
-      width: 200px !important;
-      min-width: 200px !important;
-      max-width: 200px !important;
 
       .ng-dropdown-panel-items {
         width: 100%;
@@ -77,8 +74,6 @@
   }
 
   .ng-dropdown-panel {
-    width: 300px !important;
-    min-width: 300px !important;
-    max-width: 300px !important;
+    width: 12vw !important;
   }
 }

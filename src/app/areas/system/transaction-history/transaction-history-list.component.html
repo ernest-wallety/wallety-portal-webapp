@@ -11,72 +11,73 @@
 <div class="list-height">
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <!-- Filters -->
-      <div class="list-page-filters">
-        <app-select-single-lookup
-          #product
-          name="product"
-          id="product"
-          from="body"
-          [Icon]="'bx bx-cart-alt'"
-          [Placeholder]="'Product'"
-          [ApiMethod]="'Products'"
-          [appendTo]="'Body'"
-          [width]="'90%'"
-          (OnInitEmitter)="initialiseLookup('x.ProductId')"
-          (OnChangeEmitter)="onChangeLookup($event, 'x.ProductId')"
-        ></app-select-single-lookup>
+      <div class="d-flex justify-content-between w-100">
+        <!-- Filters -->
+        <div class="list-page-filters">
+          <app-select-single-lookup
+            #product
+            name="product"
+            id="product"
+            from="body"
+            [Icon]="'bx bx-cart-alt'"
+            [Placeholder]="'Product'"
+            [ApiMethod]="'Products'"
+            [appendTo]="'Body'"
+            [width]="'90%'"
+            (OnInitEmitter)="initialiseLookup('x.ProductId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'x.ProductId')"
+          ></app-select-single-lookup>
 
-        <app-select-single-lookup
-          #transaction
-          name="transaction"
-          id="transaction"
-          from="body"
-          [Icon]="'bx bx-transfer-alt'"
-          [Placeholder]="'Type'"
-          [ApiMethod]="'TransactionTypes'"
-          [appendTo]="'Body'"
-          [width]="'90%'"
-          (OnInitEmitter)="initialiseLookup('x.TransactionTypeId')"
-          (OnChangeEmitter)="onChangeLookup($event, 'x.TransactionTypeId')"
-        ></app-select-single-lookup>
+          <app-select-single-lookup
+            #transaction
+            name="transaction"
+            id="transaction"
+            from="body"
+            [Icon]="'bx bx-transfer-alt'"
+            [Placeholder]="'Type'"
+            [ApiMethod]="'TransactionTypes'"
+            [appendTo]="'Body'"
+            [width]="'90%'"
+            (OnInitEmitter)="initialiseLookup('x.TransactionTypeId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'x.TransactionTypeId')"
+          ></app-select-single-lookup>
 
-        <app-select-single-lookup
-          #payment
-          name="payment"
-          id="payment"
-          from="body"
-          [Icon]="'bx bx-purchase-tag'"
-          [Placeholder]="'Payment'"
-          [ApiMethod]="'PaymentOptions'"
-          [appendTo]="'Body'"
-          [width]="'90%'"
-          (OnInitEmitter)="initialiseLookup('x.PaymentOptionId')"
-          (OnChangeEmitter)="onChangeLookup($event, 'x.PaymentOptionId')"
-        ></app-select-single-lookup>
+          <app-select-single-lookup
+            #payment
+            name="payment"
+            id="payment"
+            from="body"
+            [Icon]="'bx bx-purchase-tag'"
+            [Placeholder]="'Payment'"
+            [ApiMethod]="'PaymentOptions'"
+            [appendTo]="'Body'"
+            [width]="'90%'"
+            (OnInitEmitter)="initialiseLookup('x.PaymentOptionId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'x.PaymentOptionId')"
+          ></app-select-single-lookup>
 
-        <app-date-range-picker
-          #fromtoDatePicker
-          [ShowSearch]="true"
-          [ShowClear]="true"
-          ngbTooltip="Transaction Date Filter"
-          (OnInitEmitter)="initialiseDateRange('x.TransactionDate')"
-          (OnSearchEmitter)="onChangeDateRange($event, 'x.TransactionDate')"
-          (OnClearEmitter)="onClearDateRange('x.TransactionDate')"
-          [Opens]="'right'"
-          [width]="'300%'"
-        ></app-date-range-picker>
-      </div>
+          <app-date-range-picker
+            #fromtoDatePicker
+            [ShowSearch]="true"
+            [ShowClear]="true"
+            ngbTooltip="Transaction Date Filter"
+            (OnInitEmitter)="initialiseDateRange('x.TransactionDate')"
+            (OnSearchEmitter)="onChangeDateRange($event, 'x.TransactionDate')"
+            (OnClearEmitter)="onClearDateRange('x.TransactionDate')"
+            [Opens]="'right'"
+            [width]="'300%'"
+          ></app-date-range-picker>
+        </div>
 
-      <!-- Search Bar -->
-      <div class="collapse navbar-collapse d-flex justify-content-end">
-        <app-search-input
-          [searchText]="Criteria.search"
-          (ValueChange)="Criteria.search = $event; refresh()"
-          placeholder="Search for something..."
-        ></app-search-input>
+        <!-- Search Bar -->
+        <div class="collapse navbar-collapse d-flex justify-content-end">
+          <app-search-input
+            [searchText]="Criteria.search"
+            (ValueChange)="Criteria.search = $event; refresh()"
+            placeholder="Search for something..."
+          ></app-search-input>
 
-        <!-- <button
+          <!-- <button
           type="button"
           class="btn btn-sm btn-primary mx-3"
           (click)="toggleShowFilters()"
@@ -93,6 +94,7 @@
           <i class="bx bx-cloud-download"></i>
           Export
         </button> -->
+        </div>
       </div>
     </div>
   </nav>
