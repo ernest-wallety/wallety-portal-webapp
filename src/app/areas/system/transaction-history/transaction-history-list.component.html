@@ -34,7 +34,7 @@
             id="transaction"
             from="body"
             [Icon]="'bx bx-transfer-alt'"
-            [Placeholder]="'Type'"
+            [Placeholder]="'Transaction Type'"
             [ApiMethod]="'TransactionTypes'"
             [appendTo]="'Body'"
             [width]="'90%'"
@@ -48,7 +48,7 @@
             id="payment"
             from="body"
             [Icon]="'bx bx-purchase-tag'"
-            [Placeholder]="'Payment'"
+            [Placeholder]="'Payment Method'"
             [ApiMethod]="'PaymentOptions'"
             [appendTo]="'Body'"
             [width]="'90%'"
@@ -58,6 +58,8 @@
 
           <app-date-range-picker
             #fromtoDatePicker
+            name="#fromtoDatePicker"
+            id="#fromtoDatePicker"
             [ShowSearch]="true"
             [ShowClear]="true"
             ngbTooltip="Transaction Date Filter"
@@ -65,7 +67,7 @@
             (OnSearchEmitter)="onChangeDateRange($event, 'x.TransactionDate')"
             (OnClearEmitter)="onClearDateRange('x.TransactionDate')"
             [Opens]="'right'"
-            [width]="'300%'"
+            [width]="'120%'"
           ></app-date-range-picker>
         </div>
 

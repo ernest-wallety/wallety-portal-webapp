@@ -132,4 +132,19 @@ export class UserEditPopupComponent extends AuthenticatedBaseComponent {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailPattern.test(email);
   }
+
+  public get_initial(role: string | undefined): string {
+    return role ? role.charAt(0).toUpperCase() : "?";
+  }
+
+  shouldShowIcon(item: any): boolean {
+    const roles = this.ViewModel.Roles;
+    if (!roles || roles.length === 0) return false;
+
+    if (roles.length === 1) {
+      return true; // Show the icon if there's only one role
+    }
+
+    return item.IsDefault; // Show the icon only for the default role if there are multiple roles
+  }
 }

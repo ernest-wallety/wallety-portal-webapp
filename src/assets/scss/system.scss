@@ -16,6 +16,7 @@ body {
 // ================================================
 // SLIDER
 // =================================================
+
 .slider-header {
   bottom: 0;
   height: 50px;
@@ -78,4 +79,64 @@ body {
   100% {
     -webkit-transform: translateX(-100%);
   }
+}
+
+// ================================================
+// USER ROLES
+// =================================================
+.profile-roles {
+  overflow: hidden;
+  transition:
+    height 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
+}
+
+.roles-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.role-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #f1f3f4;
+  }
+}
+
+.role-avatar {
+  width: 35px;
+  height: 35px;
+  background-color: #dadce0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #5f6368;
+  margin-right: 10px;
+}
+
+.role-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.role-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #202124;
+  margin: 0;
+}
+
+.role-description {
+  font-size: 12px;
+  color: #5f6368;
+  margin: 0;
 }

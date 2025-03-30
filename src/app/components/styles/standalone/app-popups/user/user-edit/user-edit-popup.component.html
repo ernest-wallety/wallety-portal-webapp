@@ -137,6 +137,39 @@
           </div>
         </div>
       </div>
+
+      <div class="row">
+        <div class="mb-3 col">
+          <label for="roles" class="col-form-label">Roles</label>
+          <div class="profile-roles">
+            <ul class="roles-list">
+              <li *ngFor="let item of ViewModel.Roles">
+                <div class="role-item">
+                  <i
+                    class="fa fa-circle px-3"
+                    [ngClass]="{
+                      'text-success': shouldShowIcon(item),
+                      'text-muted': !shouldShowIcon(item),
+                    }"
+                    [attr.title]="shouldShowIcon(item) ? 'Active' : 'Inactive'"
+                    data-bs-toggle="tooltip"
+                  ></i>
+
+                  <div class="role-avatar">
+                    {{ get_initial(item?.RoleName ?? "") }}
+                  </div>
+                  <div class="role-info">
+                    <p class="role-name">{{ item?.RoleName }}</p>
+                    <p class="role-description">
+                      {{ item?.Code }}
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 

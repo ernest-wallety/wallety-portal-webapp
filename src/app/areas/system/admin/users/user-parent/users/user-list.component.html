@@ -34,7 +34,7 @@
             id="country"
             from="body"
             [Icon]="'bx bx-flag'"
-            [ApiMethod]="'Countries'"
+            [ApiMethod]="'Country'"
             [Placeholder]="'Countries'"
             (OnInitEmitter)="initialiseLookup('u.CountryId')"
             (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
@@ -154,6 +154,7 @@
 
         <td class="d-none d-md-table-cell">
           <a
+            *ngIf="a.RoleName !== 'Customer'"
             href="#"
             onclick="return false;"
             class="table-action-link"

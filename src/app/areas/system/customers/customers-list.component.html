@@ -8,7 +8,7 @@
       </span>
     </li>
     <li>
-      <i class="bx bxs-dollar-circle"></i>
+      <i class="bx bx-money"></i>
       <span class="text">
         <h3>{{ ViewModel?.TotalBalance | customCurrency }}</h3>
         <p>Total Balance</p>
@@ -27,7 +27,7 @@
             id="country"
             from="body"
             [Icon]="'bx bx-flag'"
-            [ApiMethod]="'Countries'"
+            [ApiMethod]="'Country'"
             [Placeholder]="'Countries'"
             (OnInitEmitter)="initialiseLookup('u.CountryId')"
             (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
