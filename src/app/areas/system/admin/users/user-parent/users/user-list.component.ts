@@ -13,7 +13,6 @@ import { SelectSingleLookupComponent } from "../../../../../../components/styles
 import { TableFilterSortComponent } from "../../../../../../components/styles/standalone/table-filter-sort/table-filter-sort.component";
 import { ConvertImagePipe } from "../../../../../../components/utils/pipes/convert-image.pipe";
 import { DisplayNamePipe } from "../../../../../../components/utils/pipes/display-name.pipe";
-import { PhoneFormatPipe } from "../../../../../../components/utils/pipes/phone-format.pipe";
 
 @Component({
   selector: "app-user-list",
@@ -22,7 +21,6 @@ import { PhoneFormatPipe } from "../../../../../../components/utils/pipes/phone-
     FormsModule,
     RouterModule,
     CommonModule,
-    PhoneFormatPipe,
     DisplayNamePipe,
     ConvertImagePipe,
     PagingComponent,
@@ -70,7 +68,7 @@ export class UserListComponent
   }
 
   public create() {
-    this.userEditPopup.showDialog("");
+    this.userEditPopup.showDialog(undefined);
   }
 
   initialiseLookup(listFieldName: string) {

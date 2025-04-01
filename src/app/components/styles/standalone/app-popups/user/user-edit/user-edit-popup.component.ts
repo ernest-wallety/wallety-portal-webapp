@@ -18,6 +18,7 @@ import { ConvertImagePipe } from "../../../../../utils/pipes/convert-image.pipe"
 import { DisplayNamePipe } from "../../../../../utils/pipes/display-name.pipe";
 import { EmailValidatorPipe } from "../../../../../utils/pipes/email-validator.pipe";
 import { AvatarComponent } from "../../../avatar/avatar.component";
+import { SelectSingleLookupComponent } from "../../../../../../components/styles/standalone/select-single-lookup/select-single-lookup.component";
 
 @Component({
   selector: "app-user-edit-popup",
@@ -32,6 +33,7 @@ import { AvatarComponent } from "../../../avatar/avatar.component";
     ConvertImagePipe,
     DisplayNamePipe,
     EmailValidatorPipe,
+    SelectSingleLookupComponent,
   ],
 })
 export class UserEditPopupComponent extends AuthenticatedBaseComponent {
@@ -61,7 +63,7 @@ export class UserEditPopupComponent extends AuthenticatedBaseComponent {
     }
   }
 
-  showDialog(id: string) {
+  showDialog(id?: string) {
     this.UserId = id;
 
     const option: NgbModalOptions = {
@@ -75,7 +77,9 @@ export class UserEditPopupComponent extends AuthenticatedBaseComponent {
 
     this.ViewModel = Object.assign(new Object());
 
-    if (id !== "") this.refresh(id);
+    console.log(this.UserId);
+
+    if (id !== undefined) this.refresh(id!);
 
     this.emailCheck$.subscribe((isValid) => {
       this.emailValid = isValid;

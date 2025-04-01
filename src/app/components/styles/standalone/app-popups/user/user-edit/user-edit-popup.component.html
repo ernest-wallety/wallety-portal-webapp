@@ -138,7 +138,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div *ngIf="UserId !== undefined" class="row">
         <div class="mb-3 col">
           <label for="roles" class="col-form-label">Roles</label>
           <div class="profile-roles">
@@ -167,6 +167,22 @@
                 </div>
               </li>
             </ul>
+          </div>
+
+          <div *ngIf="UserId === undefined" class="row">
+            <div class="mb-3 col">
+              <label for="roles" class="col-form-label">Roles</label>
+              <app-select-single-lookup
+                #role
+                name="role"
+                id="role"
+                from="body"
+                [Icon]="'bx bx-group'"
+                [ApiMethod]="'Roles'"
+                [Placeholder]="'Role'"
+                [(ngModel)]="ViewModel.Role"
+              ></app-select-single-lookup>
+            </div>
           </div>
         </div>
       </div>
