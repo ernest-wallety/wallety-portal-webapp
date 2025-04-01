@@ -17,6 +17,7 @@ import { DataService } from "../services/apiconnector/data.service";
 import { TitleService } from "../services/title.service";
 import { Utils } from "../utils";
 // import { LookupHelper } from '../helpers/lookup_helper';
+import { AuthenticationHelper } from "../helpers/authentication_helper";
 
 @Injectable()
 @Directive()
@@ -72,6 +73,10 @@ export class AuthenticatedBaseComponent extends BaseComponent {
         : ExtensionMethods.to_base_64_image(
             this.LoggedInUser.User?.ProfileImage || "",
           );
+
+    if (!this.has_menu_access) {
+      this.router.navigateByUrl("/system/access-denied");
+    }
   }
 
   public store_menu = async (): Promise<void> => {
@@ -86,4 +91,41 @@ export class AuthenticatedBaseComponent extends BaseComponent {
 
     this.cd.detectChanges();
   };
+
+  get is_logged_in(): boolean {
+    return AuthenticationHelper.is_logged_in(this.platformId);
+  }
+
+  get is_admin(): boolean {
+    return AuthenticationHelper.is_admin(this.platformId);
+  }
+
+  get is_service_agent(): boolean {
+    return AuthenticationHelper.is_service_agent(this.platformId);
+  }
+
+  get is_customer(): boolean {
+    return AuthenticationHelper.is_customer(this.platformId);
+  }
+
+  get has_menu_access(): boolean {
+    // Checks if the user has access to a certain path by checking if the 'path' argument matches any of the RouterLink values in MenuAccess
+    const items = MenuHelper.get_menu_detail(this.platformId);
+    const path = this.router.url;
+
+    const hasAccess =
+      Array.isArray(items) &&
+      items.some((x: any) => {
+        const module = path.includes(x.ModuleRoute);
+
+        const moduleItems =
+          x.ModuleItems !== null
+            ? x.ModuleItems.some((y: any) => path.includes(y.ModuleItemRoute))
+            : false;
+
+        return module || moduleItems;
+      });
+
+    return hasAccess;
+  }
 }

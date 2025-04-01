@@ -63,7 +63,7 @@ export class NavbarComponent
     // Simulate some notifications (replace with actual notification service)
     this.UnreadNotifications = 3;
 
-    this.ViewModel.Name = this.LoggedInUser.User.Name;
+    this.ViewModel.Name = this.LoggedInUser.User.FirstName;
     this.ViewModel.Surname = this.LoggedInUser.User.Surname;
     this.ViewModel.Email = this.LoggedInUser.User.Email;
     this.ViewModel.PhoneNumber = this.LoggedInUser.User.PhoneNumber;
