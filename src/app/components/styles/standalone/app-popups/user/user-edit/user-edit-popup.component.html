@@ -200,7 +200,7 @@
     </button>
 
     <button
-      *ngIf="!IsLoading && UserId !== ''"
+      *ngIf="!IsLoading && UserId !== undefined"
       [disabled]="
         !ViewModel.FirstName ||
         !ViewModel.Surname ||
@@ -216,7 +216,7 @@
     </button>
 
     <button
-      *ngIf="!IsLoading && UserId === ''"
+      *ngIf="!IsLoading && UserId === undefined"
       [disabled]="
         !ViewModel.FirstName ||
         !ViewModel.Surname ||

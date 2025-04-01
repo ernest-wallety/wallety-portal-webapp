@@ -77,8 +77,6 @@ export class UserEditPopupComponent extends AuthenticatedBaseComponent {
 
     this.ViewModel = Object.assign(new Object());
 
-    console.log(this.UserId);
-
     if (id !== undefined) this.refresh(id!);
 
     this.emailCheck$.subscribe((isValid) => {
