@@ -66,6 +66,7 @@
       <tr>
         <th class="d-none d-md-table-cell"></th>
         <th>Name</th>
+        <th>Activity</th>
         <th class="d-none d-lg-table-cell">
           <app-sort [sortField]="'u.CountryId'" (OnClick)="sort($event)">
             Country
@@ -87,7 +88,8 @@
         <!-- <th class="d-none d-md-table-cell"></th> -->
       </tr>
       <tr class="filter-row table-fixed-header">
-        <td class="d-none d-md-table-cell"></td>
+        <td></td>
+        <td></td>
         <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-lg-table-cell"></td>
         <td></td>
@@ -115,6 +117,17 @@
             </div>
           </div>
         </td>
+        <td>
+          <span
+            class="badge"
+            [ngClass]="a.LastActivityColour"
+            placement="top"
+            [ngbTooltip]="a.LastActivityDescription"
+          >
+            {{ a.LastActivityStatus }}
+          </span>
+        </td>
+
         <td class="d-none d-lg-table-cell">{{ a.CountryName }}</td>
         <td>{{ a.UsableBalance | customCurrency }}</td>
         <td class="d-none d-lg-table-cell">

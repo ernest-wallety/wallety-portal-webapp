@@ -14,6 +14,7 @@ import { ConvertImagePipe } from "../../../components/utils/pipes/convert-image.
 import { DisplayNamePipe } from "../../../components/utils/pipes/display-name.pipe";
 import { CustomCurrencyPipe } from "../../../components/utils/pipes/currency.pipe";
 import { DateRangePickerComponent } from "../../../components/styles/standalone/date-range-picker/date-range-picker.component";
+import { NgbTooltipModule } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: "app-customers",
@@ -31,6 +32,7 @@ import { DateRangePickerComponent } from "../../../components/styles/standalone/
     TableFilterSortComponent,
     CustomCurrencyPipe,
     DateRangePickerComponent,
+    NgbTooltipModule,
   ],
   templateUrl: "./customers-list.component.html",
   styleUrls: ["./customers-list.component.scss"],
