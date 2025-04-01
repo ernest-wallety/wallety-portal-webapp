@@ -112,12 +112,12 @@
       <tr *ngFor="let a of ViewModel?.Items">
         <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-md-table-cell">
-          <span
+          <p
             class="badge"
             [ngClass]="a.IsAccountActive ? 'bg-prog-4' : 'bg-prog-1'"
           >
             {{ a.IsAccountActive ? "Active" : "Inactive" }}
-          </span>
+          </p>
         </td>
         <td>
           <div class="d-flex align-items-center">

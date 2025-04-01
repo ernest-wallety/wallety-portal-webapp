@@ -131,7 +131,7 @@
           {{ a.AccountCreationDate | date: "yyyy, dd MMM" }}
         </td>
         <td>
-          <span
+          <p
             class="badge"
             [ngClass]="{
               'bg-prog-4': a.RegistrationStatus === 'Approved',
@@ -146,7 +146,7 @@
             >
               {{ a.History.length }}
             </span>
-          </span>
+          </p>
         </td>
         <td class="d-none d-lg-table-cell">{{ a.CustomerServiceAgent }}</td>
         <td>

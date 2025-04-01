@@ -43,6 +43,9 @@ export class CustomersComponent
 {
   ngOnInit(): void {
     this.titleService.setTitle("Customers");
+    this.Criteria.sortField = LookupHelper.transform("t.TransactionDate");
+    this.Criteria.sortAscending = false;
+
     this.refresh();
   }
 
