@@ -12,7 +12,6 @@ import { SelectSingleLookupComponent } from "../../../components/styles/standalo
 import { TableFilterSortComponent } from "../../../components/styles/standalone/table-filter-sort/table-filter-sort.component";
 import { ConvertImagePipe } from "../../../components/utils/pipes/convert-image.pipe";
 import { DisplayNamePipe } from "../../../components/utils/pipes/display-name.pipe";
-import { PhoneFormatPipe } from "../../../components/utils/pipes/phone-format.pipe";
 import { CustomCurrencyPipe } from "../../../components/utils/pipes/currency.pipe";
 import { DateRangePickerComponent } from "../../../components/styles/standalone/date-range-picker/date-range-picker.component";
 
@@ -23,7 +22,6 @@ import { DateRangePickerComponent } from "../../../components/styles/standalone/
     FormsModule,
     RouterModule,
     CommonModule,
-    PhoneFormatPipe,
     DisplayNamePipe,
     ConvertImagePipe,
     PagingComponent,

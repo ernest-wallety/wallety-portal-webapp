@@ -8,10 +8,8 @@ import { Lookup } from "../../../components/models/lookup";
 import { CustomerVerificationPopupComponent } from "../../../components/styles/standalone/app-popups/customer-verification/customer-verification-popup.component";
 import { PagingComponent } from "../../../components/styles/standalone/pagination/paging.component";
 import { SearchInputComponent } from "../../../components/styles/standalone/search-input/search-input.component";
-import { SelectMultiLookupComponent } from "../../../components/styles/standalone/select-multi-lookup/select-multi-lookup.component";
 import { SelectSingleLookupComponent } from "../../../components/styles/standalone/select-single-lookup/select-single-lookup.component";
 import { TableFilterSortComponent } from "../../../components/styles/standalone/table-filter-sort/table-filter-sort.component";
-import { PhoneFormatPipe } from "../../../components/utils/pipes/phone-format.pipe";
 import { DateRangePickerComponent } from "../../../components/styles/standalone/date-range-picker/date-range-picker.component";
 
 @Component({
@@ -21,13 +19,11 @@ import { DateRangePickerComponent } from "../../../components/styles/standalone/
     CommonModule,
     RouterModule,
     FormsModule,
-    PhoneFormatPipe,
     CustomerVerificationPopupComponent,
     SearchInputComponent,
     SelectSingleLookupComponent,
     TableFilterSortComponent,
     PagingComponent,
-    SelectMultiLookupComponent,
     DateRangePickerComponent,
   ],
   templateUrl: "./customer-verification-list.component.html",
