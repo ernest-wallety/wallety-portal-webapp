@@ -21,6 +21,7 @@ export const routes: Routes = [
         data: { animation: "HomePage" },
         canActivate: [AuthGuard],
       },
+
       {
         path: "merchants",
         loadComponent: () =>
@@ -61,6 +62,14 @@ export const routes: Routes = [
         path: "admin",
         loadChildren: () =>
           import(`./admin/admin.routes`).then((routes) => routes.routes),
+      },
+      {
+        path: "access-denied",
+        loadComponent: () =>
+          import(`./system-errors/access-denied/access-denied.component`).then(
+            (mod) => mod.AccessDeniedComponent,
+          ),
+        data: { animation: "AccessDeniedPage" },
       },
     ],
   },
