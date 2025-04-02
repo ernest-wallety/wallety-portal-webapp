@@ -24,7 +24,7 @@ $light-green: #d4edda;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   grid-gap: 24px;
-  // max-width: 50%;
+  max-width: 99%;
 
   li {
     padding: 1rem;
@@ -70,6 +70,7 @@ $light-green: #d4edda;
       h3 {
         font-size: 24px;
         font-weight: 600;
+
         color: $dark;
       }
 
@@ -91,6 +92,11 @@ $light-green: #d4edda;
         font-weight: 500;
         color: $dark;
         margin-bottom: 5px;
+
+        span {
+          font-size: 24px;
+          font-weight: 600;
+        }
       }
 
       .activity-flag {
