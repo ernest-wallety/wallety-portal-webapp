@@ -1,5 +1,5 @@
 <div class="list-height">
-  <ul class="box-info">
+  <ul *ngIf="!IsLoading" class="box-info">
     <li>
       <i class="bx bxs-group"></i>
       <span class="text">
@@ -7,26 +7,34 @@
         <p>Total Customers</p>
       </span>
     </li>
-    <li class="activity-overview">
+
+    <li *ngFor="let a of ViewModel.ActivityData">
       <i class="bx bx-bar-chart-alt-2"></i>
-      <div
-        class="activity-item"
-        *ngFor="let activity of ViewModel.ActivityData"
-      >
-        <div class="activity-header">
-          <span>{{ activity.Label }}</span>
-          <span class="activity-count">{{ activity.Count | number }}</span>
-          <span class="activity-percentage">({{ activity.Percentage }}%)</span>
+      <span class="text">
+        <div class="activity-item">
+          <div class="activity-header">
+            <span class="activity-count">{{ a.Count | number }}</span>
+            <span class="activity-percentage">({{ a.Percentage }}%)</span>
+          </div>
+          <div class="activity-bar">
+            <div class="activity-fill" [style.width.%]="a.Percentage"></div>
+          </div>
         </div>
-        <div class="activity-bar">
-          <div
-            class="activity-fill"
-            [style.width.%]="activity.Percentage"
-          ></div>
-        </div>
-      </div>
-      <p>Activity</p>
+        <p>{{ a.Label }}</p>
+      </span>
     </li>
+
+    <!-- <li class="activity-overview">
+      <i class="bx bx-bar-chart-alt-2"></i>
+      <span class="text">
+        <div
+          class="activity-item"
+          *ngFor="let activity of ViewModel.ActivityData"
+        >
+                  </div>
+        <p>Activity</p>
+      </span>
+    </li> -->
 
     <li>
       <i class="bx bx-money"></i>

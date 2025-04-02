@@ -10,6 +10,8 @@ $yellow: #ffce26;
 $light-yellow: #fff2c6;
 $orange: #fd7238;
 $light-orange: #ffe0d3;
+$green: #4caf50; // A balanced green
+$light-green: #d4edda; // A soft, pastel green
 
 .box-info {
   display: grid;
@@ -17,13 +19,59 @@ $light-orange: #ffe0d3;
   grid-gap: 24px;
   max-width: 50%;
 
-  /* Activity Styling */
-  .activity-overview {
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
-    grid-gap: 10px;
+  li {
+    padding: 1rem;
+    background: $light;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    grid-gap: 24px;
 
+    .bx {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      font-size: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &:nth-child(1) .bx {
+      background: $light-blue;
+      color: $blue;
+    }
+
+    &:nth-child(2) .bx {
+      background: $light-green;
+      color: $green;
+    }
+    &:nth-child(3) .bx {
+      background: $light-yellow;
+      color: $yellow;
+    }
+    &:nth-child(4) .bx {
+      background: $light-orange;
+      color: $orange;
+    }
+    //&:nth-child(5) .bx {
+    //      background: $light-orange;
+    //      color: $orange;
+    //    }
+
+    .text {
+      h3 {
+        font-size: 24px;
+        font-weight: 600;
+        color: $dark;
+      }
+
+      p {
+        color: $dark;
+      }
+    }
+
+    /* Activity Styling */
     .activity-item {
       width: 100%;
       margin-bottom: 10px;
@@ -58,52 +106,6 @@ $light-orange: #ffe0d3;
           background: $orange;
           transition: width 0.5s ease-in-out;
         }
-      }
-    }
-  }
-
-  li {
-    padding: 1rem;
-    background: $light;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    grid-gap: 24px;
-
-    .bx {
-      width: 80px;
-      height: 80px;
-      border-radius: 10px;
-      font-size: 36px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    &:nth-child(1) .bx {
-      background: $light-blue;
-      color: $blue;
-    }
-
-    &:nth-child(2) .bx {
-      background: $light-yellow;
-      color: $yellow;
-    }
-
-    &:nth-child(3) .bx {
-      background: $light-orange;
-      color: $orange;
-    }
-
-    .text {
-      h3 {
-        font-size: 24px;
-        font-weight: 600;
-        color: $dark;
-      }
-
-      p {
-        color: $dark;
       }
     }
   }
