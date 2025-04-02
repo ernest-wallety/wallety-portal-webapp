@@ -122,29 +122,6 @@
         <th class="d-none d-lg-table-cell">Beneficiary / Payer</th>
         <th class="d-none d-md-table-cell"></th>
       </tr>
-      <tr class="filter-row table-fixed-header">
-        <td class="d-none d-md-table-cell"></td>
-        <td class="d-none d-md-table-cell"></td>
-        <td></td>
-        <td class="d-none d-lg-table-cell"></td>
-
-        <td class="d-none d-lg-table-cell">
-          <!-- <app-select-multi-lookup
-            #country
-            name="product"
-            id="product"
-            from="body"
-            [ApiMethod]="'Products'"
-            [appendTo]="'Body'"
-            [width]="'90%'"
-            (OnInitEmitter)="initialiseLookup('tr.ProductId')"
-            (OnChangeEmitter)="onChangeMultiLookup($event, 'u.ProductId')"
-          ></app-select-multi-lookup> -->
-        </td>
-        <td></td>
-        <td class="d-none d-lg-table-cell"></td>
-        <td class="d-none d-md-table-cell"></td>
-      </tr>
     </thead>
     <tbody>
       <tr *ngFor="let a of ViewModel?.Items">
@@ -166,7 +143,7 @@
           </div>
         </td>
         <td class="d-none d-lg-table-cell">
-          {{ a.TransactionDate | date: "yyyy, dd MMM" }}
+          {{ a.TransactionDate | date: "yyyy, dd MMM HH:mm:ss" }}
         </td>
 
         <td class="d-none d-lg-table-cell">

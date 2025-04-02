@@ -1,23 +1,30 @@
 // Color variables
 $light: #f9f9f9;
+
 $blue: #3c91e6;
 $light-blue: #cfe8ff;
+
 $grey: #eee;
 $dark-grey: #aaaaaa;
 $dark: #342e37;
+
 $red: #db504a;
+$light-red: #f8d7da;
+
 $yellow: #ffce26;
 $light-yellow: #fff2c6;
+
 $orange: #fd7238;
 $light-orange: #ffe0d3;
-$green: #4caf50; // A balanced green
-$light-green: #d4edda; // A soft, pastel green
+
+$green: #4caf50;
+$light-green: #d4edda;
 
 .box-info {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   grid-gap: 24px;
-  max-width: 50%;
+  // max-width: 50%;
 
   li {
     padding: 1rem;
@@ -51,13 +58,13 @@ $light-green: #d4edda; // A soft, pastel green
       color: $yellow;
     }
     &:nth-child(4) .bx {
+      background: $light-red;
+      color: $red;
+    }
+    &:nth-child(5) .bx {
       background: $light-orange;
       color: $orange;
     }
-    //&:nth-child(5) .bx {
-    //      background: $light-orange;
-    //      color: $orange;
-    //    }
 
     .text {
       h3 {
