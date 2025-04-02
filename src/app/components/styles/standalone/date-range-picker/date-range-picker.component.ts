@@ -71,7 +71,6 @@ export class DateRangePickerComponent
 
   changeEvent(changeEvent: any) {
     console.log(changeEvent);
-
     this.DateChangeEvent.emit(this.DateRange);
     this.OnSearchEmitter.emit(this.DateRange);
   }
