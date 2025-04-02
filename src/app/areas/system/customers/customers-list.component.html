@@ -142,14 +142,14 @@
           {{ a.AccountCreationDate | date: "yyyy, dd MMM" }}
         </td>
         <td>
-          <span
+          <p
             class="badge"
             [ngClass]="a.LastActivityColour"
             placement="top"
             [ngbTooltip]="a.LastActivityDescription"
           >
             {{ a.LastActivityStatus }}
-          </span>
+          </p>
         </td>
 
         <!-- <td class="d-none d-md-table-cell">
