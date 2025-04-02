@@ -17,6 +17,51 @@ $light-orange: #ffe0d3;
   grid-gap: 24px;
   max-width: 50%;
 
+  /* Activity Styling */
+  .activity-overview {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    grid-gap: 10px;
+
+    .activity-item {
+      width: 100%;
+      margin-bottom: 10px;
+
+      .activity-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        font-weight: 500;
+        color: $dark;
+        margin-bottom: 5px;
+      }
+
+      .activity-flag {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+
+      .activity-bar {
+        width: 100%;
+        height: 6px;
+        background: $grey;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+
+        .activity-fill {
+          height: 100%;
+          background: $orange;
+          transition: width 0.5s ease-in-out;
+        }
+      }
+    }
+  }
+
   li {
     padding: 1rem;
     background: $light;

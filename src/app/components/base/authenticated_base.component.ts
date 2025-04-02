@@ -73,6 +73,13 @@ export class AuthenticatedBaseComponent extends BaseComponent {
         : ExtensionMethods.to_base_64_image(
             this.LoggedInUser.User?.ProfileImage || "",
           );
+
+    const menu = MenuHelper.get_menu_detail(this.platformId);
+
+    if (menu.length > 0) {
+      if (!this.has_menu_access)
+        this.router.navigateByUrl("/system/access-denied");
+    }
   }
 
   public store_menu = async (): Promise<void> => {
@@ -102,5 +109,26 @@ export class AuthenticatedBaseComponent extends BaseComponent {
 
   get is_customer(): boolean {
     return AuthenticationHelper.is_customer(this.platformId);
+  }
+
+  get has_menu_access(): boolean {
+    // Checks if the user has access to a certain path by checking if the 'path' argument matches any of the RouterLink values in MenuAccess
+    const items = MenuHelper.get_menu_detail(this.platformId);
+    const path = this.router.url;
+
+    const hasAccess =
+      Array.isArray(items) &&
+      items.some((x: any) => {
+        const module = path.includes(x.ModuleRoute);
+
+        const moduleItems =
+          x.ModuleItems !== null
+            ? x.ModuleItems.some((y: any) => path.includes(y.ModuleItemRoute))
+            : false;
+
+        return module || moduleItems;
+      });
+
+    return hasAccess;
   }
 }

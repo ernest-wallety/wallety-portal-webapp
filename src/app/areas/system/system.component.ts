@@ -1,10 +1,12 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import {
+  Component,
+  // ,OnInit
+} from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { AuthenticatedBaseComponent } from "../../components/base/authenticated_base.component";
 import { NavbarComponent } from "../../components/styles/standalone/navbar/navbar.component";
 import { SidebarComponent } from "../../components/styles/standalone/sidebar/sidebar.component";
-import { MenuHelper } from "../../components/helpers/menu_helper";
 
 @Component({
   selector: "app-sysem-layout",
@@ -49,34 +51,4 @@ import { MenuHelper } from "../../components/helpers/menu_helper";
     `,
   ],
 })
-export class SystemComponent
-  extends AuthenticatedBaseComponent
-  implements OnInit
-{
-  ngOnInit(): void {
-    if (!this.has_menu_access) {
-      this.router.navigateByUrl("/system/access-denied");
-    }
-  }
-
-  get has_menu_access(): boolean {
-    // Checks if the user has access to a certain path by checking if the 'path' argument matches any of the RouterLink values in MenuAccess
-    const items = MenuHelper.get_menu_detail(this.platformId);
-    const path = this.router.url;
-
-    const hasAccess =
-      Array.isArray(items) &&
-      items.some((x: any) => {
-        const module = path.includes(x.ModuleRoute);
-
-        const moduleItems =
-          x.ModuleItems !== null
-            ? x.ModuleItems.some((y: any) => path.includes(y.ModuleItemRoute))
-            : false;
-
-        return module || moduleItems;
-      });
-
-    return hasAccess;
-  }
-}
+export class SystemComponent extends AuthenticatedBaseComponent {}

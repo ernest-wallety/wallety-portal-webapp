@@ -7,6 +7,27 @@
         <p>Total Customers</p>
       </span>
     </li>
+    <li class="activity-overview">
+      <i class="bx bx-bar-chart-alt-2"></i>
+      <div
+        class="activity-item"
+        *ngFor="let activity of ViewModel.ActivityData"
+      >
+        <div class="activity-header">
+          <span>{{ activity.Label }}</span>
+          <span class="activity-count">{{ activity.Count | number }}</span>
+          <span class="activity-percentage">({{ activity.Percentage }}%)</span>
+        </div>
+        <div class="activity-bar">
+          <div
+            class="activity-fill"
+            [style.width.%]="activity.Percentage"
+          ></div>
+        </div>
+      </div>
+      <p>Activity</p>
+    </li>
+
     <li>
       <i class="bx bx-money"></i>
       <span class="text">
@@ -87,15 +108,6 @@
         <th>Activity</th>
         <!-- <th class="d-none d-md-table-cell"></th> -->
       </tr>
-      <tr class="filter-row table-fixed-header">
-        <td></td>
-        <td class="d-none d-md-table-cell"></td>
-        <td class="d-none d-lg-table-cell"></td>
-        <td></td>
-        <td class="d-none d-md-table-cell"></td>
-        <td></td>
-        <!-- <td class="d-none d-md-table-cell"></td> -->
-      </tr>
     </thead>
     <tbody>
       <tr *ngFor="let a of ViewModel?.Customers?.Items">
@@ -122,14 +134,14 @@
           {{ a.AccountCreationDate | date: "yyyy, dd MMM" }}
         </td>
         <td>
-          <p
+          <span
             class="badge"
             [ngClass]="a.LastActivityColour"
             placement="top"
             [ngbTooltip]="a.LastActivityDescription"
           >
             {{ a.LastActivityStatus }}
-          </p>
+          </span>
         </td>
 
         <!-- <td class="d-none d-md-table-cell">
