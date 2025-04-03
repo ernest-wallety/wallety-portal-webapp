@@ -67,8 +67,9 @@ export class SelectSingleLookupComponent
   @ViewChild(NgSelectComponent) ngSelect!: NgSelectComponent;
 
   @Output() OnInitEmitter: EventEmitter<any> = new EventEmitter<any>();
-  @Output() OnChangeEmitter: EventEmitter<any> = new EventEmitter<any>(); // Renamed
-  @Output() OnBlurEmitter: EventEmitter<any> = new EventEmitter<any>(); // Renamed
+  @Output() OnChangeEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output() OnBlurEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output() OnClearEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnInit() {
     this.OnInitEmitter.emit();
@@ -162,6 +163,11 @@ export class SelectSingleLookupComponent
 
   onBlur($event: any) {
     this.OnBlurEmitter.emit($event);
+  }
+
+  onClear() {
+    this.value = null;
+    this.OnClearEmitter.emit();
   }
 
   customSearchFn(term: string, item: any) {
