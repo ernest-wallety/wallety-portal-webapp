@@ -287,7 +287,11 @@
         type="button"
         class="btn btn-primary btn-sm"
         (click)="update()"
-        [disabled]="!(form.controls['reason'] && form.controls['reason'].value)"
+        [disabled]="
+          !(form.controls['reason'] && form.controls['reason'].value) &&
+          form.controls['status'] &&
+            form.controls['status'].value !== 'Approved'
+        "
       >
         <i class="bx bxs-edit"></i>
         Update
