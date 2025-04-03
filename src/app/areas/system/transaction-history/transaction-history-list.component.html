@@ -113,13 +113,13 @@
             Date
           </app-sort>
         </th>
-        <th class="d-none d-lg-table-cell">Transaction Type</th>
+        <th class="d-none d-lg-table-cell">Transaction Description</th>
         <th>
           <app-sort [sortField]="'tr.Amount'" (OnClick)="sort($event)">
             Amount
           </app-sort>
         </th>
-        <th class="d-none d-lg-table-cell">Beneficiary / Payer</th>
+        <th class="d-none d-lg-table-cell">Transaction Status</th>
         <th class="d-none d-md-table-cell"></th>
       </tr>
     </thead>
@@ -147,13 +147,13 @@
         </td>
 
         <td class="d-none d-lg-table-cell">
-          {{ a.TransactionTypeAndProduct }}
+          {{ a.TransactionDescription }}
         </td>
         <td>
           {{ a.Amount | customCurrency }}
         </td>
         <td class="d-none d-md-table-cell">
-          {{ a.TransactionBeneficiaryPayer }}
+          {{ a.TransactionStatus }}
         </td>
 
         <td class="d-none d-md-table-cell">

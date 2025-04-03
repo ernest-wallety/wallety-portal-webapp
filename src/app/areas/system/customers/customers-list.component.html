@@ -13,8 +13,8 @@
       <span class="text">
         <div class="activity-item">
           <div class="activity-header">
-            <span class="activity-count">{{ a.Count | number }}</span>
-            <span class="activity-percentage">({{ a.Percentage }}%)</span>
+            <span>{{ a.Count | number }}</span>
+            <span>({{ a.Percentage }}%)</span>
           </div>
           <div class="activity-bar">
             <div class="activity-fill" [style.width.%]="a.Percentage"></div>
