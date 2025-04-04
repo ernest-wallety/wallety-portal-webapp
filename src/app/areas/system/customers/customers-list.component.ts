@@ -45,6 +45,7 @@ export class CustomersComponent
     this.titleService.setTitle("Customers");
     this.Criteria.sortField = LookupHelper.transform("t.TransactionDate");
     this.Criteria.sortAscending = false;
+    this.Criteria.pageSize = 100;
 
     this.refresh();
   }
