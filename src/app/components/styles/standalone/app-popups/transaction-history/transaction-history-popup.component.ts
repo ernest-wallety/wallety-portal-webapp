@@ -11,8 +11,8 @@ import {
 import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { NgbModalOptions, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
-import { AuthenticatedBaseComponent } from "../../../../base/authenticated_base.component";
 import { CustomCurrencyPipe } from "../../../../../components/utils/pipes/currency.pipe";
+import { AuthenticatedBaseComponent } from "../../../../base/authenticated_base.component";
 
 @Component({
   selector: "app-transaction-history-popup",
@@ -23,6 +23,10 @@ import { CustomCurrencyPipe } from "../../../../../components/utils/pipes/curren
 })
 export class TransactionHistoryPopupComponent extends AuthenticatedBaseComponent {
   TransactionReference?: string;
+
+  CustomerName?: string;
+  CustomerDetails?: string;
+
   IsBeneficiary?: boolean;
 
   @ViewChild("transactionsTemplate")
@@ -45,11 +49,16 @@ export class TransactionHistoryPopupComponent extends AuthenticatedBaseComponent
 
   showDialog(item: any) {
     this.TransactionReference = item.TransactionReference;
+
+    this.CustomerName = `${item.FirstName} ${item.Surname}`;
+    this.CustomerDetails = item.Email ?? item.PhoneNumber;
+
     this.IsBeneficiary = item.BeneficiaryId != null ? true : false;
 
     const option: NgbModalOptions = {
       windowClass: "modal-standard-height",
       size: "xl",
+      // fullscreen: "xxl",
       centered: true,
       animation: true,
     };

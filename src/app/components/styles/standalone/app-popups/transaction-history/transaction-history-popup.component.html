@@ -1,8 +1,12 @@
 <ng-template #transactionsTemplate>
   <div class="modal-header" *ngIf="!IsLoading">
-    <h5 class="modal-title">
-      Reference -
-      <span [style.color]="'teal'">{{ TransactionReference }}</span>
+    <h5 class="modal-title d-flex flex-column">
+      <p>
+        Reference:
+        <span [style.color]="'teal'">{{ TransactionReference }}</span>
+      </p>
+
+      <p [style.color]="'orange'">{{ CustomerName }} ({{ CustomerDetails }})</p>
     </h5>
 
     <button
