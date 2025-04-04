@@ -1,0 +1,51 @@
+<ng-select
+  [items]="Items"
+  bindLabel="{{ BindLabel }}"
+  bindValue="{{ BindValue }}"
+  groupBy="{{ groupBy }}"
+  [multiple]="true"
+  [disabled]="disabled"
+  (blur)="onBlur($event)"
+  [(ngModel)]="val"
+  [addTag]="addTag"
+  [closeOnSelect]="false"
+  [clearable]="clearable"
+  (change)="onValueChange($event)"
+  [searchFn]="customSearchFn"
+  appendTo="{{ appendTo }}"
+  [style.width.px]="width"
+  (focus)="onTouched($event)"
+>
+  <ng-template
+    ng-label-tmp
+    let-item="item"
+    let-clear="clear"
+    *ngIf="showCountsOnly === false"
+  >
+    <span class="ng-value-label">{{ item.Name }}</span>
+    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">
+      ×
+    </span>
+  </ng-template>
+
+  <ng-template
+    ng-multi-label-tmp
+    let-items="items"
+    let-clear="clear"
+    *ngIf="showCountsOnly === true"
+  >
+    {{ Items.length || 0 }} items selected
+  </ng-template>
+
+  <ng-template
+    ng-option-tmp
+    let-item="item"
+    let-item$="item$"
+    let-index="index"
+  >
+    <div>
+      <input id="item-{{ index }}" type="checkbox" [ngModel]="item$.selected" />
+      {{ item.Name }}
+    </div>
+  </ng-template>
+</ng-select>

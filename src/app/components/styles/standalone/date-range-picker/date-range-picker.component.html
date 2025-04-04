@@ -1,0 +1,50 @@
+<form class="d-flex" [ngStyle]="{ width: width }">
+  <input
+    type="text"
+    ngxDaterangepickerMd
+    [(ngModel)]="DateRange"
+    class="form-control form-control-sm"
+    placeholder="{{ Placeholder }}"
+    name="dateRangePicker"
+    [locale]="{
+      customRangeLabel: 'Custom range',
+      format: 'YYYY-MM-DD',
+      cancelLabel: 'Cancel',
+    }"
+    [ranges]="ranges"
+    [alwaysShowCalendars]="AlwaysShowCalendar"
+    [opens]="Opens"
+    [drops]="Drops"
+    datepicker-append-to-body="true"
+    [showClearButton]="true"
+    [linkedCalendars]="LinkedCalendars"
+    (change)="changeEvent($event)"
+  />
+
+  <div class="input-group-append">
+    <button
+      class="btn btn-primary btn-sm"
+      style="height: 34px; border-radius: 0px"
+      type="button"
+      data-toggle="tooltip"
+      title="Search"
+      (click)="searchClick()"
+      *ngIf="ShowSearch"
+    >
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
+  <div class="input-group-append">
+    <button
+      class="btn btn-secondary btn-sm"
+      style="height: 34px; border-radius: 0px"
+      type="button"
+      data-toggle="tooltip"
+      title="Clear search results"
+      (click)="clearClick()"
+      *ngIf="ShowClear"
+    >
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+</form>

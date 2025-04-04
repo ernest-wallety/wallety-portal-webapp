@@ -59,14 +59,17 @@ export class SelectSingleLookupComponent
   @Input() IsCustomRequest = false;
 
   @Input() Params = "?id=0";
+  @Input() Placeholder = "Select";
+  @Input() Icon = "";
 
   val: any;
 
   @ViewChild(NgSelectComponent) ngSelect!: NgSelectComponent;
 
   @Output() OnInitEmitter: EventEmitter<any> = new EventEmitter<any>();
-  @Output() OnChangeEmitter: EventEmitter<any> = new EventEmitter<any>(); // Renamed
-  @Output() OnBlurEmitter: EventEmitter<any> = new EventEmitter<any>(); // Renamed
+  @Output() OnChangeEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output() OnBlurEmitter: EventEmitter<any> = new EventEmitter<any>();
+  @Output() OnClearEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnInit() {
     this.OnInitEmitter.emit();
@@ -101,7 +104,7 @@ export class SelectSingleLookupComponent
     }
   }
 
-  public async loadItemsCustomQuery() {
+  private async loadItemsCustomQuery() {
     if (this.Items == null) {
       const response = await this.get_async_call_no_params(
         "/Lookup/" + this.ApiMethod + this.Params,
@@ -160,6 +163,11 @@ export class SelectSingleLookupComponent
 
   onBlur($event: any) {
     this.OnBlurEmitter.emit($event);
+  }
+
+  onClear() {
+    this.value = null;
+    this.OnClearEmitter.emit();
   }
 
   customSearchFn(term: string, item: any) {

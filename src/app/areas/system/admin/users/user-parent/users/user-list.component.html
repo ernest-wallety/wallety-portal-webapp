@@ -14,6 +14,45 @@
           Create new user
         </button>
 
+        <!-- Filters -->
+        <div class="list-page-filters">
+          <app-select-single-lookup
+            #status
+            name="status"
+            id="status"
+            from="body"
+            [Icon]="'bx bx-toggle-right'"
+            [ApiMethod]="'IsActive'"
+            [Placeholder]="'Status'"
+            (OnInitEmitter)="initialiseLookup('u.IsAccountActive')"
+            (OnChangeEmitter)="onChangeLookup($event, 'u.IsAccountActive')"
+          ></app-select-single-lookup>
+
+          <app-select-single-lookup
+            #country
+            name="country"
+            id="country"
+            from="body"
+            [Icon]="'bx bx-flag'"
+            [ApiMethod]="'Country'"
+            [Placeholder]="'Country'"
+            (OnInitEmitter)="initialiseLookup('u.CountryId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
+          ></app-select-single-lookup>
+
+          <app-select-single-lookup
+            #role
+            name="role"
+            id="role"
+            from="body"
+            [Icon]="'bx bx-group'"
+            [ApiMethod]="'Roles'"
+            [Placeholder]="'Role'"
+            (OnInitEmitter)="initialiseLookup('ur.RoleId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'ur.RoleId')"
+          ></app-select-single-lookup>
+        </div>
+
         <!-- Search Bar -->
         <div class="collapse navbar-collapse d-flex justify-content-end">
           <app-search-input
@@ -43,7 +82,7 @@
           </app-sort>
         </th>
         <th class="d-none d-lg-table-cell">Role</th>
-        <th class="d-none d-lg-table-cell">WhatsApp Number</th>
+        <!-- <th class="d-none d-lg-table-cell">WhatsApp Number</th> -->
         <!-- <th class="d-none d-lg-table-cell">Id Number</th> -->
         <th class="d-none d-lg-table-cell">
           <app-sort
@@ -53,49 +92,18 @@
             Created Date
           </app-sort>
         </th>
+        <th class="d-none d-md-table-cell">Last Login Date</th>
         <th class="d-none d-md-table-cell"></th>
       </tr>
       <tr class="filter-row table-fixed-header">
         <td class="d-none d-md-table-cell"></td>
-        <td class="d-none d-md-table-cell">
-          <app-select-single-lookup
-            #status
-            name="status"
-            id="status"
-            from="body"
-            [ApiMethod]="'IsActive'"
-            (OnInitEmitter)="initialiseLookup('u.IsAccountActive')"
-            (OnChangeEmitter)="onChangeLookup($event, 'u.IsAccountActive')"
-          ></app-select-single-lookup>
-        </td>
+        <td class="d-none d-md-table-cell"></td>
         <td></td>
-        <td class="d-none d-lg-table-cell">
-          <app-select-single-lookup
-            #country
-            name="country"
-            id="country"
-            from="body"
-            [ApiMethod]="'Countries'"
-            (OnInitEmitter)="initialiseLookup('u.CountryId')"
-            (OnChangeEmitter)="onChangeLookup($event, 'u.CountryId')"
-          ></app-select-single-lookup>
-        </td>
-        <td class="d-none d-lg-table-cell">
-          <app-select-single-lookup
-            #role
-            name="role"
-            id="role"
-            from="body"
-            [ApiMethod]="'Roles'"
-            (OnInitEmitter)="initialiseLookup('ur.RoleId')"
-            (OnChangeEmitter)="onChangeLookup($event, 'ur.RoleId')"
-          ></app-select-single-lookup>
-        </td>
-        <td class="d-none d-lg-table-cell">
-          <!-- Add your select-single-lookup component here -->
-        </td>
-        <!-- <td class="d-none d-lg-table-cell">
-          </td> -->
+        <td class="d-none d-lg-table-cell"></td>
+        <td class="d-none d-lg-table-cell"></td>
+        <!-- <td class="d-none d-lg-table-cell"></td> -->
+        <!-- <td class="d-none d-lg-table-cell"></td> -->
+        <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-md-table-cell"></td>
       </tr>
@@ -104,32 +112,36 @@
       <tr *ngFor="let a of ViewModel?.Items">
         <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-md-table-cell">
-          <span
+          <p
             class="badge"
             [ngClass]="a.IsAccountActive ? 'bg-prog-4' : 'bg-prog-1'"
           >
             {{ a.IsAccountActive ? "Active" : "Inactive" }}
-          </span>
+          </p>
         </td>
         <td>
           <div class="d-flex align-items-center">
             <app-avatar
               [Size]="'sm'"
-              [Image]="a.IdentityImage | convertImage"
+              [Image]="a.ProfileImage | convertImage"
               [FullName]="a | displayName"
             ></app-avatar>
 
             <div class="ms-3">
               <p class="fw-bold mb-1">{{ a.FirstName }} {{ a.Surname }}</p>
               <p class="text-muted mb-0">{{ a.Email }}</p>
+              <p class="text-muted mb-0">
+                {{ a.PhoneNumber }}
+              </p>
             </div>
           </div>
         </td>
         <td class="d-none d-lg-table-cell">{{ a.CountryName }}</td>
         <td class="d-none d-lg-table-cell">{{ a.RoleName }}</td>
-        <td class="d-none d-lg-table-cell">
+
+        <!-- <td class="d-none d-lg-table-cell">
           {{ a.PhoneNumber | phoneFormat: a.MobileRegex }}
-        </td>
+        </td> -->
 
         <!-- <td class="d-none d-lg-table-cell">{{ a.IdNumber }}</td> -->
         <td class="d-none d-lg-table-cell">
@@ -137,7 +149,12 @@
         </td>
 
         <td class="d-none d-md-table-cell">
+          {{ a.LastActiveTime | date: "yyyy, dd MMM HH:mm:ss" }}
+        </td>
+
+        <td class="d-none d-md-table-cell">
           <a
+            *ngIf="a.RoleName !== 'Customer'"
             href="#"
             onclick="return false;"
             class="table-action-link"

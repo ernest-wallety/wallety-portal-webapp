@@ -21,6 +21,7 @@ export const routes: Routes = [
         data: { animation: "HomePage" },
         canActivate: [AuthGuard],
       },
+
       {
         path: "merchants",
         loadComponent: () =>
@@ -42,7 +43,7 @@ export const routes: Routes = [
       {
         path: "customers",
         loadComponent: () =>
-          import(`./customers/customers.component`).then(
+          import(`./customers/customers-list.component`).then(
             (mod) => mod.CustomersComponent,
           ),
         data: { animation: "CustomersPage" },
@@ -51,9 +52,9 @@ export const routes: Routes = [
       {
         path: "transaction-history",
         loadComponent: () =>
-          import(`./transaction-history/transaction-history.component`).then(
-            (mod) => mod.TransactionHistoryComponent,
-          ),
+          import(
+            `./transaction-history/transaction-history-list.component`
+          ).then((mod) => mod.TransactionHistoryComponent),
         data: { animation: "TransactionHistoryPage" },
         canActivate: [AuthGuard],
       },
@@ -61,6 +62,14 @@ export const routes: Routes = [
         path: "admin",
         loadChildren: () =>
           import(`./admin/admin.routes`).then((routes) => routes.routes),
+      },
+      {
+        path: "access-denied",
+        loadComponent: () =>
+          import(`./system-errors/access-denied/access-denied.component`).then(
+            (mod) => mod.AccessDeniedComponent,
+          ),
+        data: { animation: "AccessDeniedPage" },
       },
     ],
   },

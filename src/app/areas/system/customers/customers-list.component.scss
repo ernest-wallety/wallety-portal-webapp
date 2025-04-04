@@ -1,0 +1,121 @@
+// Color variables
+$light: #f9f9f9;
+
+$blue: #3c91e6;
+$light-blue: #cfe8ff;
+
+$grey: #eee;
+$dark-grey: #aaaaaa;
+$dark: #342e37;
+
+$red: #db504a;
+$light-red: #f8d7da;
+
+$yellow: #ffce26;
+$light-yellow: #fff2c6;
+
+$orange: #fd7238;
+$light-orange: #ffe0d3;
+
+$green: #4caf50;
+$light-green: #d4edda;
+
+.box-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-gap: 24px;
+  max-width: 99%;
+
+  li {
+    padding: 1rem;
+    background: $light;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    grid-gap: 24px;
+
+    .bx {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      font-size: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &:nth-child(1) .bx {
+      background: $light-blue;
+      color: $blue;
+    }
+
+    &:nth-child(2) .bx {
+      background: $light-green;
+      color: $green;
+    }
+    &:nth-child(3) .bx {
+      background: $light-yellow;
+      color: $yellow;
+    }
+    &:nth-child(4) .bx {
+      background: $light-red;
+      color: $red;
+    }
+    &:nth-child(5) .bx {
+      background: $light-orange;
+      color: $orange;
+    }
+
+    .text {
+      h3,
+      span {
+        font-size: 20px;
+        font-weight: 600;
+
+        color: $dark;
+      }
+
+      p {
+        color: $dark;
+      }
+    }
+
+    /* Activity Styling */
+    .activity-item {
+      width: 100%;
+      margin-bottom: 10px;
+
+      .activity-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        font-weight: 500;
+        color: $dark;
+        margin-bottom: 5px;
+      }
+
+      .activity-flag {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+
+      .activity-bar {
+        width: 100%;
+        height: 6px;
+        background: $grey;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+
+        .activity-fill {
+          height: 100%;
+          background: $orange;
+          transition: width 0.5s ease-in-out;
+        }
+      }
+    }
+  }
+}

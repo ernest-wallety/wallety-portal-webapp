@@ -72,6 +72,8 @@ export class CustomerVerificationPopupComponent extends AuthenticatedBaseCompone
     const option: NgbModalOptions = {
       windowClass: "modal-standard-height",
       size: "lg",
+      centered: true,
+      animation: true,
     };
 
     this.modalDialog = this.ngbModalService.open(

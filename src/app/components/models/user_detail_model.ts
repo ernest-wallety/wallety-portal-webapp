@@ -1,5 +1,6 @@
 export class UserDetailsModel {
   Name = "";
+  FirstName = "";
   Surname = "";
   Email?: string;
   IdNumber?: string;
@@ -17,4 +18,7 @@ export class UserDetailsModel {
   PanicCode = "";
 
   DisplayNumber?: string;
+
+  OneTimePasswordGuid?: string;
+  ProfileImage?: string;
 }

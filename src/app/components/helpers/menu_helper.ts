@@ -34,10 +34,10 @@ export class MenuHelper extends BaseHelper {
    * Get the information about the logged-in user and convert it to a LoginResultModel.
    * Returns a default value if not running in a browser.
    */
-  public static get_menu_detail(platformId: object): MenuListModel {
+  public static get_menu_detail(platformId: object): MenuListModel[] {
     if (!BaseHelper.is_browser(platformId)) {
       // Default value for server-side environment.
-      return new MenuListModel();
+      return [];
     }
 
     try {
@@ -46,16 +46,16 @@ export class MenuHelper extends BaseHelper {
       );
 
       if (!jsonString) {
-        return new MenuListModel();
+        return [];
       }
 
       const jsonObject = JSON.parse(jsonString);
 
-      return jsonObject as MenuListModel;
+      return jsonObject as MenuListModel[];
     } catch (error) {
       console.error("Error parsing menu detail from localStorage:", error);
 
-      return new MenuListModel();
+      return [];
     }
   }
 

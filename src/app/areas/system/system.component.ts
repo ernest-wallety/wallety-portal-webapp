@@ -1,5 +1,8 @@
 import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
+import {
+  Component,
+  // ,OnInit
+} from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { AuthenticatedBaseComponent } from "../../components/base/authenticated_base.component";
 import { NavbarComponent } from "../../components/styles/standalone/navbar/navbar.component";

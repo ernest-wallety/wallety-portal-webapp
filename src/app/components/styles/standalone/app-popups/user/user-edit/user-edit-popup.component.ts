@@ -18,6 +18,7 @@ import { ConvertImagePipe } from "../../../../../utils/pipes/convert-image.pipe"
 import { DisplayNamePipe } from "../../../../../utils/pipes/display-name.pipe";
 import { EmailValidatorPipe } from "../../../../../utils/pipes/email-validator.pipe";
 import { AvatarComponent } from "../../../avatar/avatar.component";
+import { SelectSingleLookupComponent } from "../../../../../../components/styles/standalone/select-single-lookup/select-single-lookup.component";
 
 @Component({
   selector: "app-user-edit-popup",
@@ -32,6 +33,7 @@ import { AvatarComponent } from "../../../avatar/avatar.component";
     ConvertImagePipe,
     DisplayNamePipe,
     EmailValidatorPipe,
+    SelectSingleLookupComponent,
   ],
 })
 export class UserEditPopupComponent extends AuthenticatedBaseComponent {
@@ -61,19 +63,21 @@ export class UserEditPopupComponent extends AuthenticatedBaseComponent {
     }
   }
 
-  showDialog(id: string) {
+  showDialog(id?: string) {
     this.UserId = id;
 
     const option: NgbModalOptions = {
       windowClass: "modal-standard-height",
       size: "lg",
+      centered: true,
+      animation: true,
     };
 
     this.modalDialog = this.ngbModalService.open(this.userEditTemplate, option);
 
     this.ViewModel = Object.assign(new Object());
 
-    if (id !== "") this.refresh(id);
+    if (id !== undefined) this.refresh(id!);
 
     this.emailCheck$.subscribe((isValid) => {
       this.emailValid = isValid;
@@ -129,5 +133,20 @@ export class UserEditPopupComponent extends AuthenticatedBaseComponent {
   validateEmail(email: string): boolean {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailPattern.test(email);
+  }
+
+  public get_initial(role: string | undefined): string {
+    return role ? role.charAt(0).toUpperCase() : "?";
+  }
+
+  shouldShowIcon(item: any): boolean {
+    const roles = this.ViewModel.Roles;
+    if (!roles || roles.length === 0) return false;
+
+    if (roles.length === 1) {
+      return true; // Show the icon if there's only one role
+    }
+
+    return item.IsDefault; // Show the icon only for the default role if there are multiple roles
   }
 }

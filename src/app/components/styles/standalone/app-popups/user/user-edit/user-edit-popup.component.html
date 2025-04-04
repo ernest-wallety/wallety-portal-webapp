@@ -137,6 +137,57 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="UserId !== undefined" class="row">
+        <div class="mb-3 col">
+          <label for="roles" class="col-form-label">Roles</label>
+          <div class="profile-roles">
+            <ul class="roles-list">
+              <li *ngFor="let item of ViewModel.Roles">
+                <div class="role-item">
+                  <i
+                    class="fa fa-circle px-3"
+                    [ngClass]="{
+                      'text-success': shouldShowIcon(item),
+                      'text-muted': !shouldShowIcon(item),
+                    }"
+                    [attr.title]="shouldShowIcon(item) ? 'Active' : 'Inactive'"
+                    data-bs-toggle="tooltip"
+                  ></i>
+
+                  <div class="role-avatar">
+                    {{ get_initial(item?.RoleName ?? "") }}
+                  </div>
+                  <div class="role-info">
+                    <p class="role-name">{{ item?.RoleName }}</p>
+                    <p class="role-description">
+                      {{ item?.Code }}
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="UserId === undefined" class="row">
+        <div class="mb-3 col">
+          <label for="roles" class="col-form-label">Roles</label>
+          <app-select-single-lookup
+            #role
+            name="role"
+            id="role"
+            from="body"
+            [Icon]="'bx bx-group'"
+            [ApiMethod]="'Roles'"
+            [IsCustomRequest]="true"
+            [Params]="'?isPopup=true'"
+            [Placeholder]="'Role'"
+            [(ngModel)]="ViewModel.Role"
+          ></app-select-single-lookup>
+        </div>
+      </div>
     </form>
   </div>
 
@@ -147,12 +198,11 @@
       class="btn btn-outline-success me-2"
       [disabled]="true"
     >
-      <i class="fa fa-spinner fa-spin"></i>
-      Busy ...
+      <i class="bx bx-loader-alt bx-spin bx-rotate-90"></i>
     </button>
 
     <button
-      *ngIf="!IsLoading && UserId !== ''"
+      *ngIf="!IsLoading && UserId !== undefined"
       [disabled]="
         !ViewModel.FirstName ||
         !ViewModel.Surname ||
@@ -168,7 +218,7 @@
     </button>
 
     <button
-      *ngIf="!IsLoading && UserId === ''"
+      *ngIf="!IsLoading && UserId === undefined"
       [disabled]="
         !ViewModel.FirstName ||
         !ViewModel.Surname ||

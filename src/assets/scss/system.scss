@@ -12,3 +12,131 @@ body {
   margin-top: 0.25rem; /* Add some spacing from the input field */
   display: block; /* Ensure the error message takes up full width */
 }
+
+// ================================================
+// SLIDER
+// =================================================
+
+.slider-header {
+  bottom: 0;
+  height: 50px;
+  padding: 5px;
+  background-color: $off-white;
+  border-bottom: solid 1px $off-white-border;
+}
+
+.slider-body {
+  width: 100%;
+  height: calc(100% - 100px);
+  overflow-y: auto;
+}
+
+.slider-footer {
+  bottom: 0;
+  height: 50px;
+  padding: 5px;
+  background-color: $off-white;
+  border-top: solid 1px $off-white-border;
+}
+
+.slide-in {
+  animation: slide-in 0.2s forwards;
+  -webkit-animation: slide-in 0.2s forwards;
+}
+
+.slide-out {
+  animation: slide-out 0.2s forwards;
+  -webkit-animation: slide-out 0.2s forwards;
+}
+
+@keyframes slide-in {
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@-webkit-keyframes slide-in {
+  100% {
+    -webkit-transform: translateX(0%);
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@-webkit-keyframes slide-out {
+  0% {
+    -webkit-transform: translateX(0%);
+  }
+
+  100% {
+    -webkit-transform: translateX(-100%);
+  }
+}
+
+// ================================================
+// USER ROLES
+// =================================================
+.profile-roles {
+  overflow: hidden;
+  transition:
+    height 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
+}
+
+.roles-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.role-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #f1f3f4;
+  }
+}
+
+.role-avatar {
+  width: 35px;
+  height: 35px;
+  background-color: #dadce0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #5f6368;
+  margin-right: 10px;
+}
+
+.role-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.role-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #202124;
+  margin: 0;
+}
+
+.role-description {
+  font-size: 12px;
+  color: #5f6368;
+  margin: 0;
+}

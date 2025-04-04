@@ -1,0 +1,22 @@
+<div class="modal-header modal-validation-header" [@fade]>
+  <h4 class="modal-title pull-left">Token expired</h4>
+</div>
+<div class="modal-body" [@fade]>
+  <p>Time remaining: {{ timeRemaining }} seconds</p>
+
+  <table class="table mt-4">
+    <thead class="thead-light">
+      <tr>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          The access token provided is expired, revoked, malformed, or invalid
+          for other reasons.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

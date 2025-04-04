@@ -1,0 +1,189 @@
+<app-transaction-history-popup
+  #transactionHistoryPopup
+></app-transaction-history-popup>
+
+<app-filter-slider
+  #filterSlider
+  (OnChangeEmitter)="onFilterSliderCriteriaChange($event)"
+  [showSimColumns]="false"
+></app-filter-slider>
+
+<div class="list-height">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-between w-100">
+        <!-- Filters -->
+        <div class="list-page-filters">
+          <app-select-single-lookup
+            #product
+            name="product"
+            id="product"
+            from="body"
+            [Icon]="'bx bx-cart-alt'"
+            [Placeholder]="'Product'"
+            [ApiMethod]="'Products'"
+            [appendTo]="'Body'"
+            [width]="'90%'"
+            (OnInitEmitter)="initialiseLookup('x.ProductId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'x.ProductId')"
+          ></app-select-single-lookup>
+
+          <app-select-single-lookup
+            #transaction
+            name="transaction"
+            id="transaction"
+            from="body"
+            [Icon]="'bx bx-transfer-alt'"
+            [Placeholder]="'Transaction Type'"
+            [ApiMethod]="'TransactionTypes'"
+            [appendTo]="'Body'"
+            [width]="'90%'"
+            (OnInitEmitter)="initialiseLookup('x.TransactionTypeId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'x.TransactionTypeId')"
+          ></app-select-single-lookup>
+
+          <app-select-single-lookup
+            #payment
+            name="payment"
+            id="payment"
+            from="body"
+            [Icon]="'bx bx-purchase-tag'"
+            [Placeholder]="'Payment Method'"
+            [ApiMethod]="'PaymentOptions'"
+            [appendTo]="'Body'"
+            [width]="'90%'"
+            (OnInitEmitter)="initialiseLookup('x.PaymentOptionId')"
+            (OnChangeEmitter)="onChangeLookup($event, 'x.PaymentOptionId')"
+          ></app-select-single-lookup>
+
+          <app-date-range-picker
+            #fromtoDatePicker
+            name="#fromtoDatePicker"
+            id="#fromtoDatePicker"
+            [ShowSearch]="true"
+            [ShowClear]="true"
+            ngbTooltip="Transaction Date Filter"
+            (OnInitEmitter)="initialiseDateRange('x.TransactionDate')"
+            (OnSearchEmitter)="onChangeDateRange($event, 'x.TransactionDate')"
+            (OnClearEmitter)="onClearDateRange('x.TransactionDate')"
+            [Opens]="'right'"
+            [width]="'120%'"
+          ></app-date-range-picker>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="collapse navbar-collapse d-flex justify-content-end">
+          <app-search-input
+            [searchText]="Criteria.search"
+            (ValueChange)="Criteria.search = $event; refresh()"
+            placeholder="Search for something..."
+          ></app-search-input>
+
+          <!-- <button
+          type="button"
+          class="btn btn-sm btn-primary mx-3"
+          (click)="toggleShowFilters()"
+        >
+          <i class="bx bx-filter-alt"></i>
+          Filter
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-sm btn-primary mx-3"
+          (click)="export()"
+        >
+          <i class="bx bx-cloud-download"></i>
+          Export
+        </button> -->
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Table -->
+  <table class="iq-list-table">
+    <thead>
+      <tr>
+        <th class="d-none d-md-table-cell"></th>
+        <th class="d-none d-md-table-cell">Reference</th>
+        <th>Customer Name</th>
+        <th class="d-none d-lg-table-cell">
+          <app-sort [sortField]="'tr.TransactionDate'" (OnClick)="sort($event)">
+            Date
+          </app-sort>
+        </th>
+        <th class="d-none d-lg-table-cell">Transaction Description</th>
+        <th>
+          <app-sort [sortField]="'tr.Amount'" (OnClick)="sort($event)">
+            Amount
+          </app-sort>
+        </th>
+        <th class="d-none d-lg-table-cell">Transaction Status</th>
+        <th class="d-none d-md-table-cell"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let a of ViewModel?.Items">
+        <td class="d-none d-md-table-cell"></td>
+        <td class="d-none d-md-table-cell">
+          {{ a.TransactionReference }}
+        </td>
+        <td>
+          <div class="d-flex align-items-center">
+            <app-avatar
+              [Size]="'sm'"
+              [Image]="a.IdentityImage | convertImage"
+              [FullName]="a | displayName"
+            ></app-avatar>
+            <div class="ms-3">
+              <p class="fw-bold mb-1">{{ a.FirstName }} {{ a.Surname }}</p>
+              <p class="text-muted mb-0">{{ a.Email || a.PhoneNumber }}</p>
+            </div>
+          </div>
+        </td>
+        <td class="d-none d-lg-table-cell">
+          {{ a.TransactionDate | date: "yyyy, dd MMM HH:mm:ss:SSS" }}
+        </td>
+
+        <td class="d-none d-lg-table-cell">
+          {{ a.TransactionDescription }}
+        </td>
+        <td>
+          {{ a.Amount | customCurrency }}
+        </td>
+        <td class="d-none d-md-table-cell">
+          {{ a.TransactionStatus }}
+        </td>
+
+        <td class="d-none d-md-table-cell">
+          <a
+            href="#"
+            onclick="return false;"
+            class="table-action-link d-none d-md-table-cell"
+            (click)="details(a)"
+          >
+            View
+          </a>
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="ViewModel?.Count === 0 && IsLoading === false">
+      <tr>
+        <td colspan="10" class="text-center border-bottom-0">
+          <h4 class="mt-5 mb-5">
+            <i class="fa fa-exclamation-triangle me-2"></i>
+            No results found
+          </h4>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-paging
+  #paging
+  [criteria]="Criteria"
+  [RecordTotal]="ViewModel?.Count"
+  (PagingEmitter)="refresh()"
+></app-paging>

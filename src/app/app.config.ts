@@ -4,7 +4,11 @@ import {
   withFetch,
   withInterceptorsFromDi,
 } from "@angular/common/http";
-import { ApplicationConfig, provideZoneChangeDetection } from "@angular/core";
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideZoneChangeDetection,
+} from "@angular/core";
 import {
   provideClientHydration,
   withEventReplay,
@@ -12,6 +16,7 @@ import {
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { provideRouter } from "@angular/router";
 import { JWT_OPTIONS, JwtHelperService } from "@auth0/angular-jwt";
+import { NgxDaterangepickerMd } from "ngx-daterangepicker-material";
 import { provideToastr } from "ngx-toastr";
 import { routes } from "./app.routes";
 import { AuthGuard } from "./components/guards/auth-guard.service";
@@ -19,7 +24,7 @@ import { ApiInterceptor } from "./components/services/authorisation/api.intercep
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    // provideNgbModal(),
+    importProvidersFrom(NgxDaterangepickerMd.forRoot()),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
