@@ -1,0 +1,43 @@
+<div class="custom-filter-dropdown phone-input-container">
+  <ng-select
+    class="custom-dropdown"
+    [items]="Items"
+    [(ngModel)]="SelectedCountry"
+    [disabled]="disabled"
+    [clearable]="false"
+    [appendTo]="appendTo"
+    [searchFn]="customSearchFn"
+    (change)="onValueChange($event)"
+    [placeholder]="Placeholder"
+  >
+    <ng-template ng-label-tmp let-item="item">
+      <img
+        [src]="getFlagUrl(item.Icon)"
+        [alt]="item.Name + ' flag'"
+        class="flag"
+      />
+      ({{ item.Code }})
+    </ng-template>
+    <ng-template ng-option-tmp let-item="item">
+      <img
+        [src]="getFlagUrl(item.Icon)"
+        [alt]="item.Name + ' flag'"
+        class="flag"
+      />
+      {{ item[BindLabel] }} ({{ item.Code }})
+    </ng-template>
+    <ng-template ng-arrow-tmp>
+      <i class="dropdown-icon fa fa-chevron-down"></i>
+    </ng-template>
+  </ng-select>
+
+  <input
+    type="tel"
+    class="phone-number-input"
+    [(ngModel)]="PhoneNumber"
+    [placeholder]="PhoneNumberPlaceholder"
+    [disabled]="!SelectedCountry"
+    [attr.maxlength]="getMaxPhoneNumberLength()"
+    (input)="onPhoneNumberInput($event)"
+  />
+</div>
