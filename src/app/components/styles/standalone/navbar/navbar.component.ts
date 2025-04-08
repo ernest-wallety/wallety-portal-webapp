@@ -19,6 +19,8 @@ import { AuthenticationHelper } from "../../../helpers/authentication_helper";
 import { LoginResultModel, RoleCodeModel } from "../../../models/login_result";
 import { UserProfilePopupComponent } from "../app-popups/user/user-profile/user-profile-popup.component";
 import { AvatarComponent } from "../avatar/avatar.component";
+import { CreditWalletPopupComponent } from "../app-popups/credit-wallet/credit-wallet-popup.component";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: "app-navbar",
@@ -26,8 +28,10 @@ import { AvatarComponent } from "../avatar/avatar.component";
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     AvatarComponent,
     UserProfilePopupComponent,
+    CreditWalletPopupComponent,
   ],
   templateUrl: "./navbar.component.html",
   styleUrls: ["./navbar.component.scss"],
@@ -54,6 +58,9 @@ export class NavbarComponent
 
   @ViewChild("userProfilePopupComponent")
   userProfilePopupComponent!: UserProfilePopupComponent;
+
+  @ViewChild("creditWalletPopupComponent")
+  creditWalletPopupComponent!: CreditWalletPopupComponent;
 
   ngOnInit(): void {
     this.titleService.getTitleObservable().subscribe((title) => {
@@ -141,6 +148,10 @@ export class NavbarComponent
         window.location.reload();
       });
     }
+  }
+
+  public credit_wallet() {
+    this.creditWalletPopupComponent.showDialog();
   }
 
   get NonDefaultRoles() {

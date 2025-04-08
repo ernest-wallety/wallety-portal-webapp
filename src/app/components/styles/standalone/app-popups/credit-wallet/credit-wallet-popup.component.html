@@ -1,0 +1,68 @@
+<ng-template #creditWalletTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title float-start">
+      <i class="bx bx-credit-card-front"></i>
+      Credit Wallet
+    </h4>
+    <button
+      type="button"
+      class="btn-close float-end"
+      aria-label="Close"
+      (click)="modalDialog.dismiss()"
+    ></button>
+  </div>
+
+  <form #form="ngForm" autocomplete="off">
+    <div class="modal-body rs-modal-content">
+      <div class="row">
+        <div class="mb-3 col">
+          <label for="amount" class="col-form-label">Amount</label>
+          <input
+            type="number"
+            name="amount"
+            class="form-control form-control-sm"
+            [(ngModel)]="ViewModel.Amount"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="mb-3 col">
+          <label for="mobile" class="col-form-label">WhatsApp number</label>
+          <app-custom-phone-input
+            #whatsappNumber
+            name="whatsappNumber"
+            id="whatsappNumber"
+            from="body"
+            [ApiMethod]="'Country'"
+            [Placeholder]="'Country'"
+            (OnChangeEmitter)="onChange($event)"
+          ></app-custom-phone-input>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer bg-light-gray">
+      <button
+        *ngIf="IsLoading"
+        type="button"
+        class="btn btn-outline-success me-2"
+        [disabled]="true"
+      >
+        <i class="bx bx-loader-alt bx-spin bx-rotate-90"></i>
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-primary btn-sm"
+        (click)="credit()"
+        [disabled]="
+          !(form.controls['amount'] && form.controls['amount'].value) &&
+          !(form.controls['country'] && form.controls['country'].value)
+        "
+      >
+        <i class="bx bx-credit-card-front"></i>
+        Credit
+      </button>
+    </div>
+  </form>
+</ng-template>
