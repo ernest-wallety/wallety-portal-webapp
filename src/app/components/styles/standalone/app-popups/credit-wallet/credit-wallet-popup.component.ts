@@ -54,6 +54,12 @@ export class CreditWalletPopupComponent extends AuthenticatedBaseComponent {
     );
   }
 
+  onChange($event: any) {
+    if ($event !== null || $event !== undefined) {
+      this.ViewModel.WhatsappNumber = $event;
+    }
+  }
+
   public async credit() {
     this.ViewModel.RoleCode = this.Role?.Code;
 

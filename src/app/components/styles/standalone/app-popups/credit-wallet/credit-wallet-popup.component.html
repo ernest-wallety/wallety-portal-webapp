@@ -33,10 +33,9 @@
             name="whatsappNumber"
             id="whatsappNumber"
             from="body"
-            [PhoneNumber]="ViewModel.WhatsappNumber"
             [ApiMethod]="'Country'"
             [Placeholder]="'Country'"
-            [(ngModel)]="ViewModel.WhatsappNumber"
+            (OnChangeEmitter)="onChange($event)"
           ></app-custom-phone-input>
         </div>
       </div>

@@ -161,6 +161,10 @@ export class CustomPhoneInputComponent
     } catch {
       this.PhoneNumber = inputValue; // fallback in case of parse error
     }
+
+    if (this.OnChangeEmitter != null) {
+      this.OnChangeEmitter.emit(this.PhoneNumber);
+    }
   }
 
   getMaxPhoneNumberLength(): number {
@@ -222,7 +226,7 @@ export class CustomPhoneInputComponent
     this.onChange(this.val);
 
     if (this.OnChangeEmitter != null) {
-      this.OnChangeEmitter.emit($event);
+      this.OnChangeEmitter.emit(this.value);
     }
 
     // Update the placeholder when country changes
