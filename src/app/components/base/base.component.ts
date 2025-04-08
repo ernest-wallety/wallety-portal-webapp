@@ -17,6 +17,7 @@ import { LoginResultModel } from "../models/login_result";
 import { ResponseModel } from "../models/response_model";
 import { DataService } from "../services/apiconnector/data.service";
 import { TitleService } from "../services/title.service";
+import { ConfirmDialogComponent } from "../styles/standalone/app-popups/confirm-dialog/confirm-dialog.component";
 import { ValidationPopupComponent } from "../styles/standalone/app-popups/validation/validation-popup.component";
 
 @Injectable()
@@ -143,5 +144,20 @@ export class BaseComponent {
         toastr.error(a);
       });
     }
+  }
+
+  public show_yes_no_dialog(
+    title: string,
+    message: string,
+    yesCallBack: () => void,
+    noCallback: () => void,
+  ) {
+    const modalRef = this.ngbModalService.open(ConfirmDialogComponent, {
+      centered: true,
+    });
+    modalRef.componentInstance.title = title;
+    modalRef.componentInstance.message = message;
+    modalRef.componentInstance.onYesClick = yesCallBack;
+    modalRef.componentInstance.onNoClick = noCallback;
   }
 }
