@@ -20,6 +20,7 @@ import { LoginResultModel, RoleCodeModel } from "../../../models/login_result";
 import { UserProfilePopupComponent } from "../app-popups/user/user-profile/user-profile-popup.component";
 import { AvatarComponent } from "../avatar/avatar.component";
 import { CreditWalletPopupComponent } from "../app-popups/credit-wallet/credit-wallet-popup.component";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: "app-navbar",
@@ -27,6 +28,7 @@ import { CreditWalletPopupComponent } from "../app-popups/credit-wallet/credit-w
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     AvatarComponent,
     UserProfilePopupComponent,
     CreditWalletPopupComponent,

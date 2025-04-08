@@ -114,7 +114,6 @@ export class AuthenticationHelper extends BaseHelper {
       roles?.some((role) => role.Code === "WR03" && role.IsDefault) ?? false
     );
   }
-
   /**
    * Checks if the user has a "CUSTOMERSERVICEAGENT" role and if it is the default role.
    * @returns {boolean} True if the user has a "CUSTOMERSERVICEAGENT" role and it is default, otherwise false.
@@ -123,6 +122,16 @@ export class AuthenticationHelper extends BaseHelper {
     const roles = this.role_codes(platformId);
     return (
       roles?.some((role) => role.Code === "WR02" && role.IsDefault) ?? false
+    );
+  }
+  /**
+   * Checks if the user has a "CUSTOMERSERVICEAGENT" role and if it is the default role.
+   * @returns {boolean} True if the user has a "CUSTOMERSERVICEAGENT" role and it is default, otherwise false.
+   */
+  public static is_executive(platformId: object): boolean {
+    const roles = this.role_codes(platformId);
+    return (
+      roles?.some((role) => role.Code === "WR00" && role.IsDefault) ?? false
     );
   }
 }

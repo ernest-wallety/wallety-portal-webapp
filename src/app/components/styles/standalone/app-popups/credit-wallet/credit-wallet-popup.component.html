@@ -1,7 +1,7 @@
 <ng-template #creditWalletTemplate>
   <div class="modal-header">
     <h4 class="modal-title float-start">
-      <i class="bx bx-user"></i>
+      <i class="bx bx-credit-card-front"></i>
       Credit Wallet
     </h4>
     <button
@@ -13,39 +13,31 @@
   </div>
 
   <form #form="ngForm" autocomplete="off">
-    <div class="modal-body rs-modal-content d-flex justify-content-center">
-      <div class="w-100 d-flex flex-column align-items-center">
-        <div class="row">
-          <div class="col-6">
-            <div class="row">
-              <div class="mb-3 col">
-                <label for="amount" class="col-form-label">Amount</label>
-                <input
-                  type="number"
-                  name="amount"
-                  class="form-control form-control-sm"
-                  [(ngModel)]="ViewModel.Amount"
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="mb-3 col">
-                <label for="country" class="col-form-label">
-                  WhatsApp number
-                </label>
-                <app-select-single-lookup
-                  #country
-                  name="country"
-                  id="country"
-                  from="body"
-                  [Icon]="'bx bx-group'"
-                  [ApiMethod]="'Country'"
-                  [Placeholder]="'Country'"
-                  [(ngModel)]="ViewModel.Country"
-                ></app-select-single-lookup>
-              </div>
-            </div>
-          </div>
+    <div class="modal-body rs-modal-content">
+      <div class="row">
+        <div class="mb-3 col">
+          <label for="amount" class="col-form-label">Amount</label>
+          <input
+            type="number"
+            name="amount"
+            class="form-control form-control-sm"
+            [(ngModel)]="ViewModel.Amount"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="mb-3 col">
+          <label for="mobile" class="col-form-label">WhatsApp number</label>
+          <app-custom-phone-input
+            #whatsappNumber
+            name="whatsappNumber"
+            id="whatsappNumber"
+            from="body"
+            [PhoneNumber]="ViewModel.WhatsappNumber"
+            [ApiMethod]="'Country'"
+            [Placeholder]="'Country'"
+            [(ngModel)]="ViewModel.WhatsappNumber"
+          ></app-custom-phone-input>
         </div>
       </div>
     </div>

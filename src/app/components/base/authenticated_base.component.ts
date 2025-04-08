@@ -106,9 +106,12 @@ export class AuthenticatedBaseComponent extends BaseComponent {
   get is_service_agent(): boolean {
     return AuthenticationHelper.is_service_agent(this.platformId);
   }
-
   get is_customer(): boolean {
     return AuthenticationHelper.is_customer(this.platformId);
+  }
+
+  get is_executive(): boolean {
+    return AuthenticationHelper.is_executive(this.platformId);
   }
 
   get has_menu_access(): boolean {

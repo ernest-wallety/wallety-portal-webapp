@@ -138,10 +138,18 @@
     color: #333;
     font-weight: 500;
   }
+
+  button {
+    background: #f8d7da;
+    color: #a94442;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 }
 
-/* Sign Out Styling */
-.profile-options li a {
+.profile-options li a,
+.profile-options li button {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -175,5 +183,21 @@
 
   &:hover {
     color: #000;
+  }
+}
+
+.role-button {
+  width: 100%; // Make it full width
+  border: none; // Remove border
+  background-color: transparent; // Optional: match background
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
   }
 }

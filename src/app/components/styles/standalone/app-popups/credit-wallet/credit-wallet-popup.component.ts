@@ -12,19 +12,14 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { NgbModalOptions, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { AuthenticatedBaseComponent } from "../../../../base/authenticated_base.component";
-import { SelectSingleLookupComponent } from "../../select-single-lookup/select-single-lookup.component";
+import { CustomPhoneInputComponent } from "../../custom-phone-input/custom-phone-input.component";
 
 @Component({
   selector: "app-credit-wallet-popup",
   templateUrl: "./credit-wallet-popup.component.html",
   styleUrls: ["./credit-wallet-popup.component.scss"],
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule,
-    SelectSingleLookupComponent,
-  ],
+  imports: [CommonModule, FormsModule, RouterModule, CustomPhoneInputComponent],
 })
 export class CreditWalletPopupComponent extends AuthenticatedBaseComponent {
   @ViewChild("creditWalletTemplate")
@@ -48,7 +43,7 @@ export class CreditWalletPopupComponent extends AuthenticatedBaseComponent {
   showDialog() {
     const option: NgbModalOptions = {
       windowClass: "modal-standard-height",
-      size: "lg",
+      size: "sm",
       centered: true,
       animation: true,
     };
@@ -59,7 +54,17 @@ export class CreditWalletPopupComponent extends AuthenticatedBaseComponent {
     );
   }
 
-  credit() {
-    console.log("credit");
+  public async credit() {
+    this.ViewModel.RoleCode = this.Role?.Code;
+
+    const response = await this.post_sync_call(
+      "/Wallet/CreditWallet",
+      this.ViewModel,
+    );
+
+    if (!response.IsError) {
+      this.OnSave.emit(response.Data);
+      this.modalDialog.close();
+    }
   }
 }

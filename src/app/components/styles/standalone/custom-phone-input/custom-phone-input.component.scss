@@ -1,0 +1,123 @@
+.custom-filter-dropdown {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  height: 38px;
+  width: 300px;
+  padding: 0 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+  .filter-icon {
+    color: #718096;
+    margin-right: 10px;
+    font-size: 16px;
+  }
+
+  .custom-dropdown {
+    flex-grow: 1;
+
+    .ng-select-container {
+      border: none;
+      padding: 0;
+      min-height: 36px;
+    }
+
+    .ng-value-container {
+      padding: 0;
+    }
+
+    .ng-placeholder {
+      color: #a0aec0;
+      font-size: 14px;
+    }
+
+    .ng-dropdown-panel {
+      border: none;
+      border-radius: 4px;
+      box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+      .ng-dropdown-panel-items {
+        width: 100%;
+      }
+
+      .ng-option {
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: #f7fafc;
+        }
+
+        &.ng-option-selected {
+          background-color: #e6f6f3;
+          color: #2d3748;
+        }
+      }
+    }
+  }
+}
+
+.dropdown-icon {
+  color: #a0aec0;
+  font-size: 12px;
+}
+
+::ng-deep .ng-select {
+  .ng-select-container {
+    border: none !important;
+  }
+
+  .ng-dropdown-panel {
+    width: 12vw !important;
+  }
+}
+
+.phone-input-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 4px 8px;
+  width: 100%;
+
+  .custom-dropdown {
+    flex: 1.2;
+
+    .ng-select-container {
+      border: none;
+      padding: 0;
+    }
+
+    .flag {
+      width: 20px;
+      margin-right: 6px;
+    }
+
+    .ng-placeholder {
+      font-size: 13px;
+      color: #a0aec0;
+    }
+  }
+
+  .phone-number-input {
+    flex: 2;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: 4px;
+    background: transparent;
+  }
+
+  .dropdown-icon {
+    font-size: 12px;
+    color: #a0aec0;
+  }
+}
