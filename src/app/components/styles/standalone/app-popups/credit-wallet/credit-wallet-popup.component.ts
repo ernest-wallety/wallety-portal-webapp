@@ -52,6 +52,8 @@ export class CreditWalletPopupComponent extends AuthenticatedBaseComponent {
       this.CreditWalletTemplate,
       option,
     );
+
+    this.ViewModel = Object.assign(new Object());
   }
 
   onChange($event: any) {
