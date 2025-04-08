@@ -132,38 +132,99 @@ export class CustomPhoneInputComponent
     return "Enter number";
   }
 
+  //onPhoneNumberInput(event: any): void {
+  //  if (!this.SelectedCountry) return;
+
+  //  let inputValue = event.target.value.replace(/\D/g, ""); // digits only
+
+  //  const maxLength = this.getMaxPhoneNumberLength();
+  //  if (inputValue.length > maxLength) {
+  //    inputValue = inputValue.slice(0, maxLength);
+  //    event.target.value = inputValue;
+  //  }
+
+  //  try {
+  //    const parsedNumber = this.phoneUtil.parse(
+  //      inputValue,
+  //      this.SelectedCountry.Icon,
+  //    );
+  //    if (this.phoneUtil.isValidNumber(parsedNumber)) {
+  //      const formatted = this.phoneUtil.format(
+  //        parsedNumber,
+  //        this.PNF.NATIONAL,
+  //      );
+  //      this.PhoneNumber = formatted;
+  //      event.target.value = formatted;
+  //    } else {
+  //      this.PhoneNumber = inputValue; // still show unformatted if invalid
+  //    }
+  //  } catch {
+  //    this.PhoneNumber = inputValue; // fallback in case of parse error
+  //  }
+
+  //  if (this.OnChangeEmitter != null) {
+  //    this.OnChangeEmitter.emit(this.PhoneNumber);
+  //  }
+  //}
+
   onPhoneNumberInput(event: any): void {
     if (!this.SelectedCountry) return;
 
-    let inputValue = event.target.value.replace(/\D/g, ""); // digits only
+    let inputValue = event.target.value.replace(/\D/g, ""); // Remove all non-digit characters
 
     const maxLength = this.getMaxPhoneNumberLength();
     if (inputValue.length > maxLength) {
-      inputValue = inputValue.slice(0, maxLength);
+      inputValue = inputValue.slice(0, maxLength); // Limit input length
       event.target.value = inputValue;
     }
 
     try {
+      // Parse the phone number to check validity
       const parsedNumber = this.phoneUtil.parse(
         inputValue,
         this.SelectedCountry.Icon,
       );
+
+      // Check if the parsed number is valid
       if (this.phoneUtil.isValidNumber(parsedNumber)) {
+        // Get the national significant number (without the country code)
+        let nationalNumber =
+          this.phoneUtil.getNationalSignificantNumber(parsedNumber);
+
+        // Remove the leading zero if it's present
+        if (nationalNumber.startsWith("0")) {
+          nationalNumber = nationalNumber.substring(1); // Remove the leading zero
+        }
+
+        // Include the country code with the national number
+        const rawPhoneNumber =
+          this.phoneUtil.getCountryCodeForRegion(this.SelectedCountry.Icon) +
+          nationalNumber;
+
+        // Store the raw phone number as digits (including the country code)
+        this.PhoneNumber = rawPhoneNumber;
+
+        // Format the number with country code for display in the placeholder
         const formatted = this.phoneUtil.format(
           parsedNumber,
-          this.PNF.NATIONAL,
+          this.PNF.INTERNATIONAL,
         );
-        this.PhoneNumber = formatted;
-        event.target.value = formatted;
+
+        // Update the placeholder with the formatted number
+        this.PhoneNumberPlaceholder = formatted;
+        event.target.value = formatted; // Display formatted value in input field
       } else {
-        this.PhoneNumber = inputValue; // still show unformatted if invalid
+        // If the number is invalid, display the raw input
+        this.PhoneNumber = inputValue;
+        event.target.value = inputValue;
       }
     } catch {
-      this.PhoneNumber = inputValue; // fallback in case of parse error
+      // Handle errors gracefully (fallback to raw input)
+      this.PhoneNumber = inputValue;
     }
 
     if (this.OnChangeEmitter != null) {
-      this.OnChangeEmitter.emit(this.PhoneNumber);
+      this.OnChangeEmitter.emit(this.PhoneNumber); // Emit the raw phone number (digits only, with country code)
     }
   }
 
@@ -179,7 +240,7 @@ export class CustomPhoneInputComponent
       const nationalNumber =
         this.phoneUtil.getNationalSignificantNumber(exampleNumber);
 
-      return nationalNumber.length + 1;
+      return nationalNumber.length + 3;
     }
 
     return 15; // fallback
