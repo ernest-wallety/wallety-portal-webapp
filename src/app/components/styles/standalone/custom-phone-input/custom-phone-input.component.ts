@@ -179,7 +179,7 @@ export class CustomPhoneInputComponent
       const nationalNumber =
         this.phoneUtil.getNationalSignificantNumber(exampleNumber);
 
-      return nationalNumber.length + 1;
+      return nationalNumber.length + 3;
     }
 
     return 15; // fallback
