@@ -143,16 +143,23 @@ export class CustomPhoneInputComponent
       event.target.value = inputValue;
     }
 
-    const parsedNumber = this.phoneUtil.parse(
-      inputValue,
-      this.SelectedCountry.Icon,
-    );
-    if (this.phoneUtil.isValidNumber(parsedNumber)) {
-      const formatted = this.phoneUtil.format(parsedNumber, this.PNF.NATIONAL);
-      this.PhoneNumber = formatted;
-      event.target.value = formatted;
-    } else {
-      this.PhoneNumber = inputValue; // still show unformatted if invalid
+    try {
+      const parsedNumber = this.phoneUtil.parse(
+        inputValue,
+        this.SelectedCountry.Icon,
+      );
+      if (this.phoneUtil.isValidNumber(parsedNumber)) {
+        const formatted = this.phoneUtil.format(
+          parsedNumber,
+          this.PNF.NATIONAL,
+        );
+        this.PhoneNumber = formatted;
+        event.target.value = formatted;
+      } else {
+        this.PhoneNumber = inputValue; // still show unformatted if invalid
+      }
+    } catch {
+      this.PhoneNumber = inputValue; // fallback in case of parse error
     }
   }
 
