@@ -143,6 +143,10 @@ export class NavbarComponent
     }
   }
 
+  public credit_wallet() {
+    console.log("open popup");
+  }
+
   get NonDefaultRoles() {
     return this.LoggedInUser?.RoleCodes?.filter(
       (role: RoleCodeModel) => !role.IsDefault,
