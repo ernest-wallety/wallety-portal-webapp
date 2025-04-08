@@ -12,6 +12,7 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { NgbModalOptions, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { AuthenticatedBaseComponent } from "../../../../base/authenticated_base.component";
+import { CustomCurrencyPipe } from "../../../../utils/pipes/currency.pipe";
 import { CustomPhoneInputComponent } from "../../custom-phone-input/custom-phone-input.component";
 
 @Component({
@@ -62,27 +63,29 @@ export class CreditWalletPopupComponent extends AuthenticatedBaseComponent {
     }
   }
 
-  public async credit() {
-  this.show_yes_no_dialog(
-    'Confirm Wallety Credit',
-    `Are you sure you want to proceed with this transaction? An amount of ${this.ViewModel.Amount} will be credited to ${this.ViewModel.WhatsappNumber}.`,
-    async () => {
-      this.ViewModel.RoleCode = this.Role?.Code;
+  public credit() {
+    const pipe = new CustomCurrencyPipe();
+    const formattedAmount = pipe.transform(this.ViewModel.Amount);
 
-      const response = await this.post_sync_call(
-        "/Wallet/CreditWallet",
-        this.ViewModel
-      );
+    this.show_yes_no_dialog(
+      "Confirm Wallety Credit",
+      `Are you sure you want to proceed with this transaction? ${formattedAmount} will be credited to ${this.ViewModel.WhatsappNumber}.`,
+      async () => {
+        this.ViewModel.RoleCode = this.Role?.Code;
 
-      if (!response.IsError) {
-        this.OnSave.emit(response.Data);
-        this.modalDialog.close();
-      }
-    },
-    () => {
-      // No callback (user canceled)
-    }
-  );
-}
+        const response = await this.post_sync_call(
+          "/Wallet/CreditWallet",
+          this.ViewModel,
+        );
 
+        if (!response.IsError) {
+          this.OnSave.emit(response.Data);
+          this.modalDialog.close();
+        }
+      },
+      () => {
+        // Cancelled
+      },
+    );
+  }
 }
