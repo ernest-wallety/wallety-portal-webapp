@@ -63,16 +63,26 @@ export class CreditWalletPopupComponent extends AuthenticatedBaseComponent {
   }
 
   public async credit() {
-    this.ViewModel.RoleCode = this.Role?.Code;
+  this.show_yes_no_dialog(
+    'Confirm Wallety Credit',
+    `Are you sure you want to proceed with this transaction? An amount of ${this.ViewModel.Amount} will be credited to ${this.ViewModel.WhatsappNumber}.`,
+    async () => {
+      this.ViewModel.RoleCode = this.Role?.Code;
 
-    const response = await this.post_sync_call(
-      "/Wallet/CreditWallet",
-      this.ViewModel,
-    );
+      const response = await this.post_sync_call(
+        "/Wallet/CreditWallet",
+        this.ViewModel
+      );
 
-    if (!response.IsError) {
-      this.OnSave.emit(response.Data);
-      this.modalDialog.close();
+      if (!response.IsError) {
+        this.OnSave.emit(response.Data);
+        this.modalDialog.close();
+      }
+    },
+    () => {
+      // No callback (user canceled)
     }
-  }
+  );
+}
+
 }
