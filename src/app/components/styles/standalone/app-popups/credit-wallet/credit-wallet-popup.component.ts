@@ -49,12 +49,18 @@ export class CreditWalletPopupComponent extends AuthenticatedBaseComponent {
       animation: true,
     };
 
+    this.IsLoading = true;
+
     this.modalDialog = this.ngbModalService.open(
       this.CreditWalletTemplate,
       option,
     );
 
     this.ViewModel = Object.assign(new Object());
+
+    setTimeout(() => {
+      this.IsLoading = false;
+    }, 1000);
   }
 
   onChange($event: any) {

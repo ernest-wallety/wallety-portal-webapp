@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm run start:development --no-hmr",
-    "start:development": "NODE_ENV=development ng serve --no-hmr --port 4201",
+    "start:development": "NODE_ENV=development ng serve --no-hmr --port 3000",
     "start:local": "NODE_ENV=local ng serve --no-hmr --port 3000",
     "start:production": "NODE_ENV=production ng serve --no-hmr",
     "build": "ng build:development",

@@ -13,7 +13,12 @@
   </div>
 
   <form #form="ngForm" autocomplete="off">
-    <div class="modal-body rs-modal-content">
+    <div *ngIf="IsLoading" class="p-3">
+      <div class="skeleton" style="height: 38px; margin-bottom: 10px"></div>
+      <div class="skeleton" style="height: 38px"></div>
+    </div>
+
+    <div *ngIf="!IsLoading" class="modal-body rs-modal-content">
       <div class="row">
         <div class="mb-3 col">
           <label for="amount" class="col-form-label">Amount</label>
@@ -27,7 +32,9 @@
       </div>
       <div class="row">
         <div class="mb-3 col">
-          <label for="mobile" class="col-form-label">WhatsApp number</label>
+          <label for="whatsappNumber" class="col-form-label">
+            WhatsApp number
+          </label>
           <app-custom-phone-input
             #whatsappNumber
             name="whatsappNumber"
@@ -45,20 +52,18 @@
       <button
         *ngIf="IsLoading"
         type="button"
-        class="btn btn-outline-success me-2"
+        class="btn btn-primary btn-sm"
         [disabled]="true"
       >
         <i class="bx bx-loader-alt bx-spin bx-rotate-90"></i>
       </button>
 
       <button
+        *ngIf="!IsLoading"
         type="button"
         class="btn btn-primary btn-sm"
         (click)="credit()"
-        [disabled]="
-          !(form.controls['amount'] && form.controls['amount'].value) &&
-          !(form.controls['country'] && form.controls['country'].value)
-        "
+        [disabled]="!ViewModel.Amount || !ViewModel.WhatsappNumber"
       >
         <i class="bx bx-credit-card-front"></i>
         Credit
