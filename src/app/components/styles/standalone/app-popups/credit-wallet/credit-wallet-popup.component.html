@@ -14,8 +14,8 @@
 
   <form #form="ngForm" autocomplete="off">
     <div *ngIf="IsLoading" class="p-3">
-      <div class="skeleton" style="height: 38px; margin-bottom: 10px"></div>
-      <div class="skeleton" style="height: 38px"></div>
+      <ejs-skeleton height="40px" width="100%"></ejs-skeleton>
+      <ejs-skeleton height="40px" width="100%"></ejs-skeleton>
     </div>
 
     <div *ngIf="!IsLoading" class="modal-body rs-modal-content">

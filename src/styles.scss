@@ -5,6 +5,10 @@
 @import "@ng-select/ng-select/themes/default.theme.css";
 @import "ngx-toastr/toastr";
 
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-angular-notifications/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-layouts/styles/material.css";
+
 .form-check {
   display: block;
   min-height: 1.5rem;

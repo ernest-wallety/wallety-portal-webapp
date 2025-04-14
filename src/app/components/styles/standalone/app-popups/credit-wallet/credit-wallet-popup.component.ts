@@ -14,13 +14,20 @@ import { NgbModalOptions, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { AuthenticatedBaseComponent } from "../../../../base/authenticated_base.component";
 import { CustomCurrencyPipe } from "../../../../utils/pipes/currency.pipe";
 import { CustomPhoneInputComponent } from "../../custom-phone-input/custom-phone-input.component";
+import { SkeletonModule } from "@syncfusion/ej2-angular-notifications";
 
 @Component({
   selector: "app-credit-wallet-popup",
   templateUrl: "./credit-wallet-popup.component.html",
   styleUrls: ["./credit-wallet-popup.component.scss"],
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, CustomPhoneInputComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    CustomPhoneInputComponent,
+    SkeletonModule,
+  ],
 })
 export class CreditWalletPopupComponent extends AuthenticatedBaseComponent {
   @ViewChild("creditWalletTemplate")
