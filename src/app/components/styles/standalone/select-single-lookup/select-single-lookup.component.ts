@@ -114,6 +114,7 @@ export class SelectSingleLookupComponent
         this.Items = response.Data.Items;
         if (this.autoSelectFirstItem) {
           this.writeValue(this.Items![0].Id);
+          this.OnChangeEmitter.emit(this.Items![0]);
         }
       }
     }
