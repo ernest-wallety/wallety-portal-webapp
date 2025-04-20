@@ -38,6 +38,9 @@ export class CustomerVerificationListComponent
 
   ngOnInit(): void {
     this.titleService.setTitle("Customer Verification");
+    this.Criteria.sortField = LookupHelper.transform("u.AccountCreationDate");
+    this.Criteria.sortAscending = false;
+
     this.refresh();
   }
 

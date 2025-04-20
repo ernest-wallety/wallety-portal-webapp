@@ -25,7 +25,6 @@
           name="status"
           id="status"
           from="body"
-          [autoSelectFirstItem]="true"
           [Icon]="'bx bx-toggle-right'"
           [Placeholder]="'Status'"
           [ApiMethod]="'RegistrationStatuses'"
@@ -121,6 +120,7 @@
           <p
             class="badge"
             [ngClass]="{
+              'bg-prog-7': a.RegistrationStatus === 'Resubmitted',
               'bg-prog-4': a.RegistrationStatus === 'Approved',
               'bg-prog-2': a.RegistrationStatus === 'Pending',
               'bg-prog-1': a.RegistrationStatus === 'Rejected',
