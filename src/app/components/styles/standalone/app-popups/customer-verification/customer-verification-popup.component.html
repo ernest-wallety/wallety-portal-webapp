@@ -58,7 +58,7 @@
                       [disabled]="true"
                       name="name"
                       class="form-control form-control-sm"
-                      [(ngModel)]="model.Name"
+                      [(ngModel)]="model.name"
                     />
                   </div>
                 </div>
@@ -70,7 +70,7 @@
                       [disabled]="true"
                       name="surname"
                       class="form-control form-control-sm"
-                      [(ngModel)]="model.Surname"
+                      [(ngModel)]="model.surname"
                     />
                   </div>
                 </div>
@@ -83,19 +83,19 @@
                     <input
                       [disabled]="true"
                       *ngIf="
-                        model.PassportNumber !== null &&
-                        model.PassportNumber !== ''
+                        model.passportNumber !== null &&
+                        model.passportNumber !== ''
                       "
                       name="passport"
                       class="form-control form-control-sm"
-                      [(ngModel)]="model.PassportNumber"
+                      [(ngModel)]="model.passportNumber"
                     />
                     <input
                       [disabled]="true"
-                      *ngIf="model.IdNumber !== null && model.IdNumber !== ''"
+                      *ngIf="model.idNumber !== null && model.idNumber !== ''"
                       name="idNumber"
                       class="form-control form-control-sm"
-                      [(ngModel)]="model.IdNumber"
+                      [(ngModel)]="model.idNumber"
                     />
                   </div>
                 </div>
@@ -107,7 +107,7 @@
                       [disabled]="true"
                       name="country"
                       class="form-control form-control-sm"
-                      [(ngModel)]="model.Country"
+                      [(ngModel)]="model.country"
                     />
                   </div>
                 </div>
@@ -121,7 +121,7 @@
                       [disabled]="true"
                       name="phoneNumber"
                       class="form-control form-control-sm"
-                      [(ngModel)]="model.PhoneNumber"
+                      [(ngModel)]="model.phoneNumber"
                     />
                   </div>
                 </div>
@@ -135,7 +135,7 @@
                       [disabled]="true"
                       name="accountCreationDate"
                       class="form-control form-control-sm"
-                      [(ngModel)]="model.AccountCreationDate"
+                      [(ngModel)]="model.accountCreationDate"
                     />
                   </div>
                 </div>
@@ -151,7 +151,7 @@
                       id="status"
                       from="body"
                       [ApiMethod]="'RegistrationStatuses'"
-                      [BindValue]="'Name'"
+                      [BindValue]="'name'"
                       [(ngModel)]="RegistrationStatus"
                       (OnChangeEmitter)="
                         onChangeLookup($event, 'RegistrationStatusId')
@@ -177,7 +177,7 @@
                       id="reason"
                       from="body"
                       [ApiMethod]="'VerificationRejectReasons'"
-                      [BindValue]="'Name'"
+                      [BindValue]="'name'"
                       [(ngModel)]="RejectionReason"
                       (OnChangeEmitter)="
                         onChangeLookup($event, 'RejectReasonId')
@@ -191,7 +191,7 @@
                 <div class="image-container">
                   <div class="image-wrapper">
                     <ng-container
-                      *ngIf="model?.IdentityImage !== ''; else noImage"
+                      *ngIf="model?.identityImage !== ''; else noImage"
                     >
                       <div class="image-section">
                         <img
@@ -236,32 +236,32 @@
           <div class="view-content">
             <!-- Show message when no records are available -->
             <div
-              *ngIf="!model.History || model.History.length === 0"
+              *ngIf="!model.history || model.history.length === 0"
               class="no-records"
             >
               <p>No history records found.</p>
             </div>
 
             <!-- Display history records -->
-            <div *ngIf="model.History && model.History.length > 0">
-              <div *ngFor="let record of model.History" class="history-card">
+            <div *ngIf="model.history && model.history.length > 0">
+              <div *ngFor="let record of model.history" class="history-card">
                 <div class="history-header">
                   <span
                     class="status"
-                    [class.rejected]="record.Status === 'Rejected'"
+                    [class.rejected]="record.status === 'Rejected'"
                   >
-                    Status: {{ record.Status }}
+                    Status: {{ record.status }}
                   </span>
-                  <span class="date">Updated on: {{ record.Date }}</span>
+                  <span class="date">Updated on: {{ record.date }}</span>
                 </div>
                 <div class="history-content">
                   <p><strong>Rejection Reason:</strong></p>
-                  <p>{{ record.RejectionReason }}</p>
+                  <p>{{ record.rejectionReason }}</p>
                 </div>
                 <div class="history-footer">
                   <p>
                     <strong>Updated By:</strong>
-                    {{ record.UpdatedBy }}
+                    {{ record.updatedBy }}
                   </p>
                 </div>
               </div>
@@ -289,7 +289,7 @@
         [disabled]="
           !(form.controls['reason'] && form.controls['reason'].value) &&
           form.controls['status'] &&
-            form.controls['status'].value !== 'Approved'
+          form.controls['status'].value !== 'Approved'
         "
       >
         <i class="bx bxs-edit"></i>

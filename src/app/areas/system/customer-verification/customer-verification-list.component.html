@@ -25,12 +25,11 @@
           name="status"
           id="status"
           from="body"
-          [autoSelectFirstItem]="true"
           [Icon]="'bx bx-toggle-right'"
           [Placeholder]="'Status'"
           [ApiMethod]="'RegistrationStatuses'"
           [IsCustomRequest]="true"
-          [Params]="'?isListPage=true'"
+          [Params]="'?isFilter=true'"
           (OnInitEmitter)="initialiseLookup('u.RegistrationStatusId')"
           (OnChangeEmitter)="onChangeLookup($event, 'u.RegistrationStatusId')"
         ></app-select-single-lookup>
@@ -104,39 +103,39 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let a of ViewModel?.Items">
+      <tr *ngFor="let a of ViewModel?.items">
         <td class="d-none d-md-table-cell"></td>
         <td>
-          {{ a.Name }}
-          <strong>{{ a.Surname }}</strong>
+          {{ a.name }}
+          <strong>{{ a.surname }}</strong>
         </td>
         <td class="d-none d-md-table-cell">
-          {{ a.PhoneNumber }}
+          {{ a.phoneNumber }}
         </td>
-        <td class="d-none d-lg-table-cell">{{ a.Country }}</td>
+        <td class="d-none d-lg-table-cell">{{ a.country }}</td>
         <td class="d-none d-lg-table-cell">
-          {{ a.AccountCreationDate | date: "yyyy, dd MMM" }}
+          {{ a.accountCreationDate | date: "yyyy, dd MMM" }}
         </td>
         <td>
           <p
             class="badge"
             [ngClass]="{
-              'bg-prog-7': a.RegistrationStatus === 'Resubmitted',
-              'bg-prog-4': a.RegistrationStatus === 'Approved',
-              'bg-prog-2': a.RegistrationStatus === 'Pending',
-              'bg-prog-1': a.RegistrationStatus === 'Rejected',
+              'bg-prog-7': a.registrationStatus === 'Resubmitted',
+              'bg-prog-4': a.registrationStatus === 'Approved',
+              'bg-prog-2': a.registrationStatus === 'Pending',
+              'bg-prog-1': a.registrationStatus === 'Rejected',
             }"
           >
-            {{ a.RegistrationStatus }}
+            {{ a.registrationStatus }}
             <span
-              *ngIf="a.History && a.History.length > 0"
+              *ngIf="a.history && a.history.length > 0"
               class="status-notification-badge"
             >
-              {{ a.History.length }}
+              {{ a.history.length }}
             </span>
           </p>
         </td>
-        <td class="d-none d-lg-table-cell">{{ a.CustomerServiceAgent }}</td>
+        <td class="d-none d-lg-table-cell">{{ a.customerServiceAgent }}</td>
         <td>
           <a
             href="#"
@@ -149,7 +148,7 @@
         </td>
       </tr>
     </tbody>
-    <tbody *ngIf="ViewModel?.Count === 0 && IsLoading === false">
+    <tbody *ngIf="ViewModel?.count === 0 && IsLoading === false">
       <tr>
         <td colspan="10" class="text-center border-bottom-0">
           <h4 class="mt-5 mb-5">
@@ -165,6 +164,6 @@
 <app-paging
   #paging
   [criteria]="Criteria"
-  [RecordTotal]="ViewModel?.Count"
+  [RecordTotal]="ViewModel?.count"
   (PagingEmitter)="refresh()"
 ></app-paging>

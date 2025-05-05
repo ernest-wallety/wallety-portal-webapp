@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { AuthenticatedBaseListComponent } from "../../../components/base/authenticated_base_list.component";
 import { LookupHelper } from "../../../components/helpers/lookup_helper";
-import { Lookup } from "../../../components/models/lookup";
+import { LookupModel } from "../../../components/models/lookup_model";
 import { AvatarComponent } from "../../../components/styles/standalone/avatar/avatar.component";
 import { PagingComponent } from "../../../components/styles/standalone/pagination/paging.component";
 import { SearchInputComponent } from "../../../components/styles/standalone/search-input/search-input.component";
@@ -54,12 +54,12 @@ export class TransactionHistoryComponent
 
   public async refresh() {
     const response = await this.get_list_sync_call(
-      "/TransactionHistory/List",
+      "TransactionHistory/List",
       this.Criteria,
     );
 
-    if (!response.IsError) {
-      this.ViewModel = response.Data;
+    if (!response.isError) {
+      this.ViewModel = response.data;
     }
   }
 
@@ -76,7 +76,7 @@ export class TransactionHistoryComponent
     LookupHelper.initialiseLookup(listFieldName);
   }
 
-  public async onChangeLookup(lookup: Lookup, listFieldName: string) {
+  public async onChangeLookup(lookup: LookupModel, listFieldName: string) {
     this.Criteria.lookups =
       lookup != undefined
         ? LookupHelper.onChangeLookup(lookup, listFieldName)
@@ -86,7 +86,7 @@ export class TransactionHistoryComponent
   }
 
   public async onChangeMultiLookup(
-    multiLookup: Lookup[],
+    multiLookup: LookupModel[],
     listFieldName: string,
   ) {
     this.Criteria.lookups =

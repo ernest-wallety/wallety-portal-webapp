@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import moment from "moment";
-import { DateRange } from "../models/date_range";
-import { Lookup } from "../models/lookup";
+import { DateRangeModel } from "../models/date_range_model";
+import { LookupModel } from "../models/lookup_model";
 
 @Injectable()
 export class LookupHelper {
@@ -10,29 +10,32 @@ export class LookupHelper {
   // ==============================================================================================================================
 
   // Saves the state of the lookups list - without ever being overwrriten, except when initialised.
-  public static lookups: Lookup[] = [];
+  public static lookups: LookupModel[] = [];
 
   // Pushes all the lookup dropdowns from an angular component to an array object (of type Lookup). Identifier = Field name on Primary Table (Main List Table)
   public static initialiseLookup(listFieldName: string) {
     this.lookups.push({
-      Name: this.transform(listFieldName),
-      Id: null,
-      IdArr: [],
+      name: this.transform(listFieldName),
+      id: null,
+      idArr: [],
     });
   }
 
-  public static onChangeLookup(lookup: Lookup, listFieldName: string): string {
+  public static onChangeLookup(
+    lookup: LookupModel,
+    listFieldName: string,
+  ): string {
     // Find item index in the component's lookup list with corresponding field name.
 
     const index = this.lookups.findIndex(
-      (item) => item.Name === this.transform(listFieldName),
+      (item) => item.name === this.transform(listFieldName),
     );
 
     if (index !== -1) {
       // If item is found in the list then...
 
       // Assign the id to the corresponding lookup record.
-      this.lookups[index].Id = `'${lookup.Id}'`;
+      this.lookups[index].id = `'${lookup.id}'`;
 
       // Return new encoded json string with the all the lookups on the component appropriately populated.
       return encodeURIComponent(JSON.stringify(this.lookups));
@@ -45,15 +48,12 @@ export class LookupHelper {
   // A means to populate lookup string parameter, from a multi lookup which controls an int array.
   // There may be a more elegant way to override this change lookup function, but for now I am leaving it here as a separate function as to separate responsibility.
   public static onChangeMultiLookup(
-    multiLookup: Lookup[],
+    multiLookup: LookupModel[],
     listFieldName: string,
   ): string {
     // Find item index in the component's lookup list with corresponding field name.
     const index = this.lookups.findIndex((item) => {
-      const isMatch = item.Name === this.transform(listFieldName);
-
-      console.log(item.Name);
-      console.log(listFieldName);
+      const isMatch = item.name === this.transform(listFieldName);
 
       return isMatch;
     });
@@ -62,10 +62,10 @@ export class LookupHelper {
       // If item is found in the list then...
 
       // Assign the array of id's to the corresponding lookup record.
-      this.lookups[index].IdArr = [];
+      this.lookups[index].idArr = [];
 
       multiLookup.forEach((part) => {
-        this.lookups[index].IdArr.push(part.Id ?? 0);
+        this.lookups[index].idArr.push(part.id ?? 0);
       });
 
       // Return new encoded json string with the all the lookups on the component appropriately populated.
@@ -80,7 +80,7 @@ export class LookupHelper {
   // Date Search Criteria Methods
   // ====================================================================================
 
-  public static rangeArr: DateRange[] = [];
+  public static rangeArr: DateRangeModel[] = [];
 
   public static initialiseDateRange(listFieldName: string) {
     this.rangeArr.push({
@@ -152,11 +152,11 @@ export class LookupHelper {
   }
 
   private static setSearchByDateBehaviour(
-    range: DateRange = new DateRange(),
+    range: DateRangeModel = new DateRangeModel(),
     isOnChange = false,
     isOnClear = false,
     isRange = false,
-  ): DateRange {
+  ): DateRangeModel {
     range.isOnChange = isOnChange;
     range.isOnClear = isOnClear;
     range.isRange = isRange;
@@ -165,9 +165,9 @@ export class LookupHelper {
   }
 
   private static setSearchByDateCriteriaValues(
-    oldRange: DateRange = new DateRange(),
+    oldRange: DateRangeModel = new DateRangeModel(),
     newRange: any,
-  ): DateRange {
+  ): DateRangeModel {
     if (oldRange.isOnClear == false) {
       oldRange.startDate = newRange.startDate ?? moment(newRange);
       oldRange.endDate = newRange.endDate ?? moment(newRange);

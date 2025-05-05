@@ -41,8 +41,8 @@ export class CustomPhoneInputComponent
 
   @Input() PhoneNumber = "";
 
-  @Input() BindLabel = "Name";
-  @Input() BindValue = "Id";
+  @Input() BindLabel = "name";
+  @Input() BindValue = "id";
   @Input() ApiMethod = "";
   @Input() Name = "";
 
@@ -92,11 +92,14 @@ export class CustomPhoneInputComponent
   private async loadItems() {
     if (this.Items == null) {
       const response = await this.get_async_call_no_params(
-        "/Lookup/" + this.ApiMethod,
+        "Lookup/" + this.ApiMethod,
       );
 
-      if (!response.IsError) {
-        this.Items = response.Data.Items;
+      if (!response.isError) {
+        this.Items = response.data.items;
+
+        console.log(this.Items);
+
         if (this.autoSelectFirstItem) {
           this.writeValue(this.Items![0].Id);
         }
@@ -118,7 +121,7 @@ export class CustomPhoneInputComponent
     if (!this.SelectedCountry) return "Enter number";
 
     // Get country code from Icon field (e.g., 'ZW' for Zimbabwe)
-    const countryCode = this.SelectedCountry.Icon;
+    const countryCode = this.SelectedCountry.icon;
 
     // Generate an example number for the country
     const exampleNumber = this.phoneUtil.getExampleNumberForType(
@@ -182,7 +185,7 @@ export class CustomPhoneInputComponent
       // Parse the phone number to check validity
       const parsedNumber = this.phoneUtil.parse(
         inputValue,
-        this.SelectedCountry.Icon,
+        this.SelectedCountry.icon,
       );
 
       // Check if the parsed number is valid
@@ -198,7 +201,7 @@ export class CustomPhoneInputComponent
 
         // Include the country code with the national number
         const rawPhoneNumber =
-          this.phoneUtil.getCountryCodeForRegion(this.SelectedCountry.Icon) +
+          this.phoneUtil.getCountryCodeForRegion(this.SelectedCountry.icon) +
           nationalNumber;
 
         // Store the raw phone number as digits (including the country code)
@@ -232,7 +235,7 @@ export class CustomPhoneInputComponent
     if (!this.SelectedCountry) return 15; // default global max
 
     const exampleNumber = this.phoneUtil.getExampleNumberForType(
-      this.SelectedCountry.Icon,
+      this.SelectedCountry.icon,
       googleLibphonenumber.PhoneNumberType.MOBILE,
     );
 

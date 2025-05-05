@@ -13,7 +13,7 @@ import { EnumValidationDisplay } from "../enum/enum_validation_display";
 import { AuthenticationHelper } from "../helpers/authentication_helper";
 import { ExtensionMethods } from "../helpers/extension_methods";
 import { ListCriteria } from "../models/_base_list_criteria";
-import { LoginResultModel } from "../models/login_result";
+import { LoginResultModel } from "../models/login_result_model";
 import { ResponseModel } from "../models/response_model";
 import { DataService } from "../services/apiconnector/data.service";
 import { TitleService } from "../services/title.service";
@@ -106,27 +106,27 @@ export class BaseComponent {
 
   //This uses the responses received by the data service http calls and decides what to do with it.
   public handle_response(response: ResponseModel) {
-    if (ExtensionMethods.is_error_status(response.StatusCode!))
-      response.IsError = true;
+    if (ExtensionMethods.is_error_status(response.statusCode!))
+      response.isError = true;
 
-    if (response.IsError && response.ShowError) {
+    if (response.isError && response.showError) {
       this.handle_dialogs(response);
-    } else if (response.IsException && response.ShowException) {
+    } else if (response.isException && response.showException) {
       //Only want popups for exception errors.
-      response.ErrorDisplay = EnumValidationDisplay.Popup;
+      response.errorDisplay = EnumValidationDisplay.Popup;
       this.handle_dialogs(response);
-    } else if (response.IsError == false && response.ShowSuccess == true) {
-      if (ExtensionMethods.is_error_status(response.StatusCode!)) {
-        this.toastr.error(response.ResponseMessage);
+    } else if (response.isError == false && response.showSuccess == true) {
+      if (ExtensionMethods.is_error_status(response.statusCode!)) {
+        this.toastr.error(response.responseMessage);
       } else {
-        this.toastr.success(response.ResponseMessage);
+        this.toastr.success(response.responseMessage);
       }
     }
   }
 
   //Handle the toastr or popup dialogs based off the response model.
   private handle_dialogs(response: ResponseModel) {
-    if (response.ErrorDisplay == EnumValidationDisplay.Popup) {
+    if (response.errorDisplay == EnumValidationDisplay.Popup) {
       const modalRef = this.ngbModalService.open(ValidationPopupComponent, {
         backdrop: "static",
         size: "lg",
@@ -134,13 +134,13 @@ export class BaseComponent {
         centered: true,
       });
 
-      modalRef.componentInstance.ListString = response.ErrorList;
-      modalRef.componentInstance.Title = response.ErrorTitle;
-      modalRef.componentInstance.Raw = response.ErrorRaw;
-      modalRef.componentInstance.Type = response.ErrorType;
-    } else if (response.ErrorDisplay == EnumValidationDisplay.Toastr) {
+      modalRef.componentInstance.ListString = response.errorList;
+      modalRef.componentInstance.Title = response.errorTitle;
+      modalRef.componentInstance.Raw = response.errorRaw;
+      modalRef.componentInstance.Type = response.errorType;
+    } else if (response.errorDisplay == EnumValidationDisplay.Toastr) {
       const toastr = this.toastr;
-      response.ErrorList.forEach(function (a) {
+      response.errorList.forEach(function (a) {
         toastr.error(a);
       });
     }

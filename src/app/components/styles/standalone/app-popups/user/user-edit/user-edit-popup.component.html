@@ -31,7 +31,7 @@
           <div class="mb-3 col-lg-12">
             <app-avatar
               [Size]="'xl'"
-              [Image]="ViewModel.IdentityImage | convertImage"
+              [Image]="ViewModel.identityImage | convertImage"
               [FullName]="ViewModel | displayName"
             ></app-avatar>
           </div>
@@ -42,12 +42,12 @@
             <div class="p-0">
               <span class="col-form-label p-0 bold">
                 <strong>
-                  {{ ViewModel.FirstName }}&nbsp;{{ ViewModel.Surname }}
+                  {{ ViewModel.firstName }}&nbsp;{{ ViewModel.surname }}
                 </strong>
               </span>
             </div>
             <div class="p-0">
-              <span class="col-form-label p-0">{{ ViewModel.Email }}</span>
+              <span class="col-form-label p-0">{{ ViewModel.email }}</span>
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@
           <input
             name="name"
             class="form-control form-control-sm"
-            [(ngModel)]="ViewModel.FirstName"
+            [(ngModel)]="ViewModel.firstName"
             required
           />
           <div
@@ -79,7 +79,7 @@
           <input
             name="surname"
             class="form-control form-control-sm"
-            [(ngModel)]="ViewModel.Surname"
+            [(ngModel)]="ViewModel.surname"
             required
           />
           <div
@@ -101,14 +101,14 @@
             [disabled]="emailValid && UserId === ''"
             name="email"
             class="form-control form-control-sm"
-            [(ngModel)]="ViewModel.Email"
+            [(ngModel)]="ViewModel.email"
             (ngModelChange)="onEmailChange($event)"
             required
           />
           <div
             *ngIf="
               form.controls['email']?.touched &&
-              !(ViewModel.Email | emailValidator)
+              !(ViewModel.email | emailValidator)
             "
             class="text-danger"
           >
@@ -123,7 +123,7 @@
           <input
             name="phoneNumber"
             class="form-control form-control-sm"
-            [(ngModel)]="ViewModel.PhoneNumber"
+            [(ngModel)]="ViewModel.phoneNumber"
             required
           />
           <div
@@ -143,7 +143,7 @@
           <label for="roles" class="col-form-label">Roles</label>
           <div class="profile-roles">
             <ul class="roles-list">
-              <li *ngFor="let item of ViewModel.Roles">
+              <li *ngFor="let item of ViewModel.roles">
                 <div class="role-item">
                   <i
                     class="fa fa-circle px-3"
@@ -156,12 +156,12 @@
                   ></i>
 
                   <div class="role-avatar">
-                    {{ get_initial(item?.RoleName ?? "") }}
+                    {{ get_initial(item?.roleName ?? "") }}
                   </div>
                   <div class="role-info">
-                    <p class="role-name">{{ item?.RoleName }}</p>
+                    <p class="role-name">{{ item?.roleName }}</p>
                     <p class="role-description">
-                      {{ item?.Code }}
+                      {{ item?.roleCode }}
                     </p>
                   </div>
                 </div>
@@ -182,9 +182,9 @@
             [Icon]="'bx bx-group'"
             [ApiMethod]="'Roles'"
             [IsCustomRequest]="true"
-            [Params]="'?isPopup=true'"
+            [Params]="'?isFilter=true'"
             [Placeholder]="'Role'"
-            [(ngModel)]="ViewModel.Role"
+            [(ngModel)]="ViewModel.roleId"
           ></app-select-single-lookup>
         </div>
       </div>
@@ -204,10 +204,10 @@
     <button
       *ngIf="!IsLoading && UserId !== undefined"
       [disabled]="
-        !ViewModel.FirstName ||
-        !ViewModel.Surname ||
-        !ViewModel.Email ||
-        !ViewModel.PhoneNumber
+        !ViewModel.firstName ||
+        !ViewModel.surname ||
+        !ViewModel.email ||
+        !ViewModel.phoneNumber
       "
       type="button"
       class="btn btn-primary btn-sm"
@@ -220,10 +220,11 @@
     <button
       *ngIf="!IsLoading && UserId === undefined"
       [disabled]="
-        !ViewModel.FirstName ||
-        !ViewModel.Surname ||
-        !ViewModel.Email ||
-        !ViewModel.PhoneNumber
+        !ViewModel.firstName ||
+        !ViewModel.surname ||
+        !ViewModel.email ||
+        !ViewModel.phoneNumber ||
+        !ViewModel.roleId
       "
       type="button"
       class="btn btn-primary btn-sm"

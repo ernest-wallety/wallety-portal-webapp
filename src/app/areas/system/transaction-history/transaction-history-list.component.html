@@ -124,36 +124,36 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let a of ViewModel?.Items">
+      <tr *ngFor="let a of ViewModel?.items">
         <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-md-table-cell">
-          {{ a.TransactionReference }}
+          {{ a.transactionReference }}
         </td>
         <td>
           <div class="d-flex align-items-center">
             <app-avatar
               [Size]="'sm'"
-              [Image]="a.IdentityImage | convertImage"
+              [Image]="a.identityImage | convertImage"
               [FullName]="a | displayName"
             ></app-avatar>
             <div class="ms-3">
-              <p class="fw-bold mb-1">{{ a.FirstName }} {{ a.Surname }}</p>
-              <p class="text-muted mb-0">{{ a.Email || a.PhoneNumber }}</p>
+              <p class="fw-bold mb-1">{{ a.firstName }} {{ a.surname }}</p>
+              <p class="text-muted mb-0">{{ a.email || a.phoneNumber }}</p>
             </div>
           </div>
         </td>
         <td class="d-none d-lg-table-cell">
-          {{ a.TransactionDate | date: "yyyy, dd MMM HH:mm:ss:SSS" }}
+          {{ a.transactionDate | date: "yyyy, dd MMM HH:mm:ss:SSS" }}
         </td>
 
         <td class="d-none d-lg-table-cell">
-          {{ a.TransactionDescription }}
+          {{ a.transactionDescription }}
         </td>
         <td>
-          {{ a.Amount | customCurrency }}
+          {{ a.amount | customCurrency }}
         </td>
         <td class="d-none d-md-table-cell">
-          {{ a.TransactionStatus }}
+          {{ a.transactionStatus }}
         </td>
 
         <td class="d-none d-md-table-cell">
@@ -168,7 +168,7 @@
         </td>
       </tr>
     </tbody>
-    <tbody *ngIf="ViewModel?.Count === 0 && IsLoading === false">
+    <tbody *ngIf="ViewModel?.count === 0 && IsLoading === false">
       <tr>
         <td colspan="10" class="text-center border-bottom-0">
           <h4 class="mt-5 mb-5">

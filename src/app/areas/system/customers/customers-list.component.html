@@ -3,24 +3,24 @@
     <li>
       <i class="bx bxs-group"></i>
       <span class="text">
-        <h3>{{ ViewModel?.TotalCustomers }}</h3>
+        <h3>{{ ViewModel?.totalCustomers }}</h3>
         <p>Total Customers</p>
       </span>
     </li>
 
-    <li *ngFor="let a of ViewModel.ActivityData">
+    <li *ngFor="let a of ViewModel.activityData">
       <i class="bx bx-bar-chart-alt-2"></i>
       <span class="text">
         <div class="activity-item">
           <div class="activity-header">
-            <span>{{ a.Count | number }}</span>
-            <span>({{ a.Percentage }}%)</span>
+            <span>{{ a.count | number }}</span>
+            <span>({{ a.percentage }}%)</span>
           </div>
           <div class="activity-bar">
             <div class="activity-fill" [style.width.%]="a.Percentage"></div>
           </div>
         </div>
-        <p>{{ a.Label }}</p>
+        <p>{{ a.label }}</p>
       </span>
     </li>
 
@@ -39,7 +39,7 @@
     <li>
       <i class="bx bx-money"></i>
       <span class="text">
-        <h3>{{ ViewModel?.TotalBalance | customCurrency }}</h3>
+        <h3>{{ ViewModel?.totalBalance | customCurrency }}</h3>
         <p>Total Balance</p>
       </span>
     </li>
@@ -118,37 +118,37 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let a of ViewModel?.Customers?.Items">
+      <tr *ngFor="let a of ViewModel?.customers?.items">
         <td class="d-none d-md-table-cell"></td>
         <td>
           <div class="d-flex align-items-center">
             <app-avatar
               [Size]="'sm'"
-              [Image]="a.ProfileImage | convertImage"
+              [Image]="a.profileImage | convertImage"
               [FullName]="a | displayName"
             ></app-avatar>
             <div class="ms-3">
-              <p class="fw-bold mb-1">{{ a.FirstName }} {{ a.Surname }}</p>
-              <p class="text-muted mb-0">{{ a.Email }}</p>
+              <p class="fw-bold mb-1">{{ a.firstName }} {{ a.surname }}</p>
+              <p class="text-muted mb-0">{{ a.email }}</p>
               <p class="text-muted mb-0">
-                {{ a.PhoneNumber }}
+                {{ a.phoneNumber }}
               </p>
             </div>
           </div>
         </td>
-        <td class="d-none d-lg-table-cell">{{ a.CountryName }}</td>
-        <td>{{ a.UsableBalance | customCurrency }}</td>
+        <td class="d-none d-lg-table-cell">{{ a.countryName }}</td>
+        <td>{{ a.usableBalance | customCurrency }}</td>
         <td class="d-none d-lg-table-cell">
-          {{ a.AccountCreationDate | date: "yyyy, dd MMM" }}
+          {{ a.accountCreationDate | date: "yyyy, dd MMM" }}
         </td>
         <td>
           <p
             class="badge"
-            [ngClass]="a.LastActivityColour"
+            [ngClass]="a.lastActivityColour"
             placement="top"
-            [ngbTooltip]="a.LastActivityDescription"
+            [ngbTooltip]="a.lastActivityDescription"
           >
-            {{ a.LastActivityStatus }}
+            {{ a.lastActivityStatus }}
           </p>
         </td>
 
@@ -164,7 +164,7 @@
         </td> -->
       </tr>
     </tbody>
-    <tbody *ngIf="ViewModel?.Customers?.Count === 0 && IsLoading === false">
+    <tbody *ngIf="ViewModel?.customers?.count === 0 && IsLoading === false">
       <tr>
         <td colspan="10" class="text-center border-bottom-0">
           <h4 class="mt-5 mb-5">
@@ -180,6 +180,6 @@
 <app-paging
   #paging
   [criteria]="Criteria"
-  [RecordTotal]="ViewModel?.Count"
+  [RecordTotal]="ViewModel?.count"
   (PagingEmitter)="refresh()"
 ></app-paging>

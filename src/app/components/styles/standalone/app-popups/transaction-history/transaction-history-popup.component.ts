@@ -48,12 +48,10 @@ export class TransactionHistoryPopupComponent extends AuthenticatedBaseComponent
   }
 
   showDialog(item: any) {
-    this.TransactionReference = item.TransactionReference;
-
-    this.CustomerName = `${item.FirstName} ${item.Surname}`;
-    this.CustomerDetails = item.Email ?? item.PhoneNumber;
-
-    this.IsBeneficiary = item.BeneficiaryId != null ? true : false;
+    this.TransactionReference = item.transactionReference;
+    this.CustomerName = `${item.firstName} ${item.surname}`;
+    this.CustomerDetails = item.email ?? item.phoneNumber;
+    this.IsBeneficiary = item.beneficiaryId != null ? true : false;
 
     const option: NgbModalOptions = {
       windowClass: "modal-standard-height",
@@ -70,20 +68,18 @@ export class TransactionHistoryPopupComponent extends AuthenticatedBaseComponent
 
     this.ViewModel = Object.assign(new Object());
 
-    if (item.TransactionReference != "" || item.TransactionReference != null)
-      this.refresh(item.TransactionReference);
+    if (item.transactionReference != "" || item.transactionReference != null)
+      this.refresh(item.transactionReference);
   }
 
   public async refresh(reference: string) {
     const response = await this.get_async_call(
-      "/TransactionHistory/GetByReference",
+      "TransactionHistory/Get",
       new HttpParams().set("reference", reference),
     );
 
-    console.log(response);
-
-    if (!response.IsError) {
-      this.ViewModel = response.Data;
+    if (!response.isError) {
+      this.ViewModel = response.data;
     }
   }
 

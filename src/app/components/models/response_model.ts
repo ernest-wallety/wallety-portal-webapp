@@ -1,37 +1,37 @@
 import { EnumValidationDisplay } from "../enum/enum_validation_display";
 
 export class ResponseModel {
-  public Data?: any = Object.assign(new Object());
-  public ResponseMessage?: string;
-  public StatusCode?: number;
+  public data?: any = Object.assign(new Object());
+  public showError = true;
+  public statusCode?: number;
+  public showSuccess = true;
+  public responseMessage?: string;
+  public errorDisplay: EnumValidationDisplay = 0;
 
-  public IsError = false;
-  public IsException?: boolean;
-  public ErrorList: string[] = new Array<string>();
+  public isError = false;
+  public isException?: boolean;
+  public errorList: string[] = new Array<string>();
+  public showException = true;
 
-  public ShowError = true;
-  public ShowException = true;
-  public ErrorDisplay: EnumValidationDisplay = 0;
-  public ShowSuccess = true;
-
-  public ErrorTitle?: string;
-  public ErrorDetail?: string;
-  public ErrorType?: string;
-  public ErrorInstance?: string;
-  public ErrorRaw?: string;
+  public errorTitle?: string;
+  public errorDetail?: string;
+  public errorType?: string;
+  public errorInstance?: string;
+  public errorRaw?: string;
 }
 
 // API exception error
 export class ProblemDetailModel {
-  Type?: string;
-  Title?: string;
-  Status?: number;
-  Detail?: string;
-  Instance?: string;
-  Extensions?: Extensions;
-}
-
-class Extensions {
+  type?: string;
+  title?: string;
+  status?: number;
+  detail?: string;
+  instance?: string;
   traceID?: string;
   raw?: string;
+  isError?: boolean;
+  errorDisplay?: EnumValidationDisplay = 0;
+  showException?: boolean;
+  errorList?: string[];
+  isException?: boolean;
 }

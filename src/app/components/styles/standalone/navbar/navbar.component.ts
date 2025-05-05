@@ -16,7 +16,10 @@ import {
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseComponent } from "../../../base/authenticated_base.component";
 import { AuthenticationHelper } from "../../../helpers/authentication_helper";
-import { LoginResultModel, RoleCodeModel } from "../../../models/login_result";
+import {
+  LoginResultModel,
+  RoleCodeModel,
+} from "../../../models/login_result_model";
 import { UserProfilePopupComponent } from "../app-popups/user/user-profile/user-profile-popup.component";
 import { AvatarComponent } from "../avatar/avatar.component";
 import { CreditWalletPopupComponent } from "../app-popups/credit-wallet/credit-wallet-popup.component";
@@ -70,10 +73,10 @@ export class NavbarComponent
     // Simulate some notifications (replace with actual notification service)
     this.UnreadNotifications = 3;
 
-    this.ViewModel.Name = this.LoggedInUser.User.FirstName;
-    this.ViewModel.Surname = this.LoggedInUser.User.Surname;
-    this.ViewModel.Email = this.LoggedInUser.User.Email;
-    this.ViewModel.PhoneNumber = this.LoggedInUser.User.PhoneNumber;
+    this.ViewModel.Name = this.LoggedInUser.user.firstName;
+    this.ViewModel.Surname = this.LoggedInUser.user.surname;
+    this.ViewModel.Email = this.LoggedInUser.user.email;
+    this.ViewModel.PhoneNumber = this.LoggedInUser.user.phoneNumber;
   }
 
   public open_notifications(): void {
@@ -101,7 +104,7 @@ export class NavbarComponent
 
   public async select_role(event: Event, role: RoleCodeModel) {
     event.stopPropagation();
-    this.ViewModel.RoleCode = role?.Code;
+    this.ViewModel.RoleCode = role?.roleCode;
     await this.save();
   }
 
@@ -116,27 +119,27 @@ export class NavbarComponent
 
   public async save() {
     const response = await this.post_sync_call(
-      "/Auth/UserRoleChange",
+      "User/UserRoleUpdate",
       this.ViewModel,
     );
 
-    if (!response.IsError) {
-      this.OnSave.emit(response.Data);
+    if (!response.isError) {
+      this.OnSave.emit(response.data);
       await this.store_menu();
       await this.refresh_user();
     }
   }
 
   public async refresh_user() {
-    const response = await this.get_async_call_no_params("/Portal/UserDetails");
+    const response = await this.get_async_call_no_params("Auth/RefreshUser");
 
-    if (!response.IsError) {
+    if (!response.isError) {
       const refresh_result: LoginResultModel = {
-        ResponseMessage: response.ResponseMessage,
-        SessionToken: response.Data.SessionToken,
-        RoleCodes: response.Data.RoleCodes,
-        User: response.Data.UserDetails,
-        Success: true,
+        responseMessage: response.responseMessage,
+        sessionToken: response.data.sessionToken,
+        roleCodes: response.data.roleCodes,
+        user: response.data.user,
+        success: true,
       };
 
       AuthenticationHelper.set_user_localstorage(
@@ -155,8 +158,8 @@ export class NavbarComponent
   }
 
   get NonDefaultRoles() {
-    return this.LoggedInUser?.RoleCodes?.filter(
-      (role: RoleCodeModel) => !role.IsDefault,
+    return this.LoggedInUser?.roleCodes?.filter(
+      (role: RoleCodeModel) => !role.isDefault,
     );
   }
 }

@@ -3,7 +3,7 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { BaseComponent } from "../../../components/base/base.component";
 import { AuthenticationHelper } from "../../../components/helpers/authentication_helper";
-import { LoginResultModel } from "../../../components/models/login_result";
+import { LoginResultModel } from "../../../components/models/login_result_model";
 import { Utils } from "../../../components/utils";
 
 @Component({
@@ -22,16 +22,10 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   public login = async (): Promise<void> => {
-    const response = await this.post_sync_call("/Portal/Login", this.ViewModel);
+    const response = await this.post_sync_call("Auth/Login", this.ViewModel);
 
-    if (!response.IsError) {
-      const login_result: LoginResultModel = {
-        ResponseMessage: response.ResponseMessage,
-        SessionToken: response.Data.SessionToken,
-        RoleCodes: response.Data.RoleCodes,
-        User: response.Data.UserDetails,
-        Success: true,
-      };
+    if (!response.isError) {
+      const login_result: LoginResultModel = response.data;
 
       AuthenticationHelper.set_user_localstorage(login_result, this.platformId);
 

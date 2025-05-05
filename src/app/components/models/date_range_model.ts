@@ -1,6 +1,6 @@
 import { Moment } from "moment";
 
-export class DateRange {
+export class DateRangeModel {
   name!: string;
   startDate?: Moment | null;
   endDate?: Moment | null;
