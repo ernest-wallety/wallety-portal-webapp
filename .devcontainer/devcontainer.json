@@ -5,7 +5,7 @@
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   "dockerFile": "Dockerfile",
   "context": "..",
-  "workspaceFolder": "/workspaces/wallety-portal",
+  "workspaceFolder": "/workspaces/wallety-portal-webapp",
   "postCreateCommand": "bash .devcontainer/scripts/post-create-commands.sh",
   "postAttachCommand": "bash .devcontainer/scripts/post-attach-commands.sh",
   // Features to add to the dev container. More info: https://containers.dev/features.
