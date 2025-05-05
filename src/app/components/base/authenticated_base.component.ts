@@ -27,13 +27,13 @@ export class AuthenticatedBaseComponent extends BaseComponent {
 
   // User related
   public ImageUrl?: string;
-  public Email = this.LoggedInUser.User.Email;
-  public FullName = `${this.LoggedInUser.User.Name || this.LoggedInUser.User.FirstName} ${this.LoggedInUser.User.Surname}`;
-  public Role = this.LoggedInUser.RoleCodes?.find(
-    (role) => role.IsDefault === true,
+  public Email = this.LoggedInUser.user.email;
+  public FullName = `${this.LoggedInUser.user.name || this.LoggedInUser.user.firstName} ${this.LoggedInUser.user.surname}`;
+  public Role = this.LoggedInUser.roleCodes?.find(
+    (role) => role.isDefault === true,
   );
   public UserRoles = Utils.lookup_converter(
-    this.LoggedInUser.RoleCodes!,
+    this.LoggedInUser.roleCodes!,
     "Code",
     "Role",
   );
@@ -65,13 +65,13 @@ export class AuthenticatedBaseComponent extends BaseComponent {
       // lookup_helper
     );
 
-    const image = this.LoggedInUser.User?.ProfileImage;
+    const image = this.LoggedInUser.user?.profileImage;
 
     this.ImageUrl =
       image === ""
         ? undefined
         : ExtensionMethods.to_base_64_image(
-            this.LoggedInUser.User?.ProfileImage || "",
+            this.LoggedInUser.user?.profileImage || "",
           );
 
     const menu = MenuHelper.get_menu_detail(this.platformId);
@@ -83,12 +83,10 @@ export class AuthenticatedBaseComponent extends BaseComponent {
   }
 
   public store_menu = async (): Promise<void> => {
-    const response = await this.get_async_call_no_params(
-      "/Portal/MenuStructure",
-    );
+    const response = await this.get_async_call_no_params("Auth/MenuStructure");
 
-    if (!response.IsError) {
-      const menu_result: MenuListModel = response.Data;
+    if (!response.isError) {
+      const menu_result: MenuListModel = response.data;
       MenuHelper.set_menu_localstorage(menu_result, this.platformId);
     }
 
@@ -122,11 +120,11 @@ export class AuthenticatedBaseComponent extends BaseComponent {
     const hasAccess =
       Array.isArray(items) &&
       items.some((x: any) => {
-        const module = path.includes(x.ModuleRoute);
+        const module = path.includes(x.moduleRoute);
 
         const moduleItems =
-          x.ModuleItems !== null
-            ? x.ModuleItems.some((y: any) => path.includes(y.ModuleItemRoute))
+          x.moduleItems !== null
+            ? x.moduleItems.some((y: any) => path.includes(y.moduleItemRoute))
             : false;
 
         return module || moduleItems;

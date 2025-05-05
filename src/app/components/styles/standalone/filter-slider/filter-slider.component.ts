@@ -5,7 +5,7 @@ import { NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { AuthenticatedBaseComponent } from "../../../base/authenticated_base.component";
 import { LookupHelper } from "../../../helpers/lookup_helper";
 import { ListCriteria } from "../../../models/_base_list_criteria";
-import { Lookup } from "../../../models/lookup";
+import { LookupModel } from "../../../models/lookup_model";
 import { SelectSingleLookupComponent } from "../select-single-lookup/select-single-lookup.component";
 
 @Component({
@@ -80,7 +80,7 @@ export class FilterSliderComponent
     LookupHelper.initialiseLookup(listFieldName);
   }
 
-  public async onChangeLookup(lookup: Lookup, listFieldName: string) {
+  public async onChangeLookup(lookup: LookupModel, listFieldName: string) {
     this.Criteria.lookups =
       lookup != undefined
         ? LookupHelper.onChangeLookup(lookup, listFieldName)

@@ -36,8 +36,8 @@ export class SelectSingleLookupComponent
   implements ControlValueAccessor, OnInit, AfterViewInit
 {
   model: any = { Id: 0 };
-  @Input() BindLabel = "Name";
-  @Input() BindValue = "Id";
+  @Input() BindLabel = "name";
+  @Input() BindValue = "id";
   @Input() ApiMethod = "";
   @Input() Name = "";
 
@@ -92,13 +92,13 @@ export class SelectSingleLookupComponent
   private async loadItems() {
     if (this.Items == null) {
       const response = await this.get_async_call_no_params(
-        "/Lookup/" + this.ApiMethod,
+        "Lookup/" + this.ApiMethod,
       );
 
-      if (!response.IsError) {
-        this.Items = response.Data.Items;
+      if (!response.isError) {
+        this.Items = response.data.items;
         if (this.autoSelectFirstItem) {
-          this.writeValue(this.Items![0].Id);
+          this.writeValue(this.Items![0].id);
         }
       }
     }
@@ -107,13 +107,13 @@ export class SelectSingleLookupComponent
   private async loadItemsCustomQuery() {
     if (this.Items == null) {
       const response = await this.get_async_call_no_params(
-        "/Lookup/" + this.ApiMethod + this.Params,
+        "Lookup/" + this.ApiMethod + this.Params,
       );
 
-      if (!response.IsError) {
-        this.Items = response.Data.Items;
+      if (!response.isError) {
+        this.Items = response.data.items;
         if (this.autoSelectFirstItem) {
-          this.writeValue(this.Items![0].Id);
+          this.writeValue(this.Items![0].id);
           this.OnChangeEmitter.emit(this.Items![0]);
         }
       }

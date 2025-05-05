@@ -1,43 +1,43 @@
 export class MenuAccessModel {
-  ModuleId?: string;
-  ModuleName?: string;
-  ModuleDescription?: string;
-  ModuleIcon?: string;
-  ModuleRoute?: string;
-  ModuleSortOrder?: number;
-  ModuleIsActive?: boolean;
-  ModuleRequireAdmin?: boolean;
-  ModuleSidebarClass?: string;
+  moduleId?: string;
+  moduleName?: string;
+  moduleDescription?: string;
+  moduleIcon?: string;
+  moduleRoute?: string;
+  moduleSortOrder?: number;
+  moduleIsActive?: boolean;
+  moduleRequireAdmin?: boolean;
+  moduleSidebarClass?: string;
 
-  ModuleItemId?: string;
-  ModuleItemName?: string;
-  ModuleItemDescription?: string;
-  ModuleItemIcon?: string;
-  ModuleItemRoute?: string;
-  ModuleItemSortOrder?: number;
-  ModuleItemIsActive?: boolean;
-  ModuleItemRequireAdmin?: boolean;
+  moduleItemId?: string;
+  moduleItemName?: string;
+  moduleItemDescription?: string;
+  moduleItemIcon?: string;
+  moduleItemRoute?: string;
+  moduleItemSortOrder?: number;
+  moduleItemIsActive?: boolean;
+  moduleItemRequireAdmin?: boolean;
 
-  RoleName?: string;
-  RoleCode?: string;
+  roleName?: string;
+  roleCode?: string;
 
-  UserId?: string;
-  FirstName?: string;
-  Surname?: string;
+  userId?: string;
+  firstName?: string;
+  surname?: string;
 
-  Hide?: boolean;
+  hide?: boolean;
 }
 
 export class MenuListModel {
-  ModuleId?: string;
-  ModuleName?: string;
-  ModuleDescription?: string;
-  ModuleIcon?: string;
-  ModuleRoute?: string;
-  ModuleSortOrder?: number;
-  ModuleIsActive?: boolean;
-  ModuleRequireAdmin?: boolean;
-  ModuleSidebarClass?: string;
+  moduleId?: string;
+  moduleName?: string;
+  moduleDescription?: string;
+  moduleIcon?: string;
+  moduleRoute?: string;
+  moduleSortOrder?: number;
+  moduleIsActive?: boolean;
+  moduleRequireAdmin?: boolean;
+  moduleSidebarClass?: string;
 
-  ModuleItems?: MenuAccessModel[];
+  moduleItems?: MenuAccessModel[];
 }

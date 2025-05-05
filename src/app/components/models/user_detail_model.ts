@@ -1,24 +1,24 @@
 export class UserDetailsModel {
-  Name = "";
-  FirstName = "";
-  Surname = "";
-  Email?: string;
-  IdNumber?: string;
-  PassportNumber?: string;
-  IdentityImage = "";
-  AccountNumber = "";
-  AccountCreationDate?: Date;
-  IsAccountActive = true;
-  CommunicationConsent?: boolean;
-  VerifyAttempts = 3;
-  IsFrozen = false;
-  IsVerified = false;
+  name = "";
+  firstName = "";
+  surname = "";
+  email?: string;
+  idNumber?: string;
+  passportNumber?: string;
+  identityImage = "";
+  accountNumber = "";
+  accountCreationDate?: Date;
+  isAccountActive = true;
+  communicationConsent?: boolean;
+  verifyAttempts = 3;
+  isFrozen = false;
+  isVerified = false;
 
-  PhoneNumber?: string;
-  PanicCode = "";
+  phoneNumber?: string;
+  panicCode = "";
 
-  DisplayNumber?: string;
+  displayNumber?: string;
 
-  OneTimePasswordGuid?: string;
-  ProfileImage?: string;
+  oneTimePasswordGuid?: string;
+  profileImage?: string;
 }

@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     const token = AuthenticationHelper.get_user_detail(
       this.platformId,
-    ).SessionToken;
+    ).sessionToken;
 
     // Check if the token is expired or not and if token is expired, redirect to login page and return false
     if (token && !this.jwtHelper.isTokenExpired(token)) {

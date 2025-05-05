@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseListComponent } from "../../../../../../components/base/authenticated_base_list.component";
 import { LookupHelper } from "../../../../../../components/helpers/lookup_helper";
-import { Lookup } from "../../../../../../components/models/lookup";
+import { LookupModel } from "../../../../../../components/models/lookup_model";
 import { UserEditPopupComponent } from "../../../../../../components/styles/standalone/app-popups/user/user-edit/user-edit-popup.component";
 import { AvatarComponent } from "../../../../../../components/styles/standalone/avatar/avatar.component";
 import { PagingComponent } from "../../../../../../components/styles/standalone/pagination/paging.component";
@@ -55,12 +55,9 @@ export class UserListComponent
   }
 
   public async refresh() {
-    const response = await this.get_list_sync_call(
-      "/Portal/GetUsers",
-      this.Criteria,
-    );
+    const response = await this.get_list_sync_call("User/List", this.Criteria);
 
-    if (!response.IsError) this.ViewModel = response.Data;
+    if (!response.isError) this.ViewModel = response.data;
   }
 
   public edit(id: string) {
@@ -75,9 +72,9 @@ export class UserListComponent
     LookupHelper.initialiseLookup(listFieldName);
   }
 
-  public async onChangeLookup(lookup: Lookup, listFieldName: string) {
+  public async onChangeLookup(lookup: LookupModel, listFieldName: string) {
     if (listFieldName.includes("IsAccountActive"))
-      lookup.Id = lookup.AltBoolValue;
+      lookup.id = lookup.altBoolValue;
 
     this.Criteria.lookups =
       lookup != undefined

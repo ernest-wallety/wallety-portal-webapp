@@ -49,13 +49,13 @@ export class SidebarComponent
     this.MenuItems.forEach((menuItem: MenuAccessModel) => {
       if (menuItem === selectedItem) {
         // Toggle the selected item (expand/collapse)
-        menuItem.ModuleSidebarClass =
-          menuItem.ModuleSidebarClass === this.expandedModuleActive
+        menuItem.moduleSidebarClass =
+          menuItem.moduleSidebarClass === this.expandedModuleActive
             ? this.expandedModuleInactive
             : this.expandedModuleActive;
       } else {
         // Collapse other menu items
-        menuItem.ModuleSidebarClass = this.expandedModuleInactive;
+        menuItem.moduleSidebarClass = this.expandedModuleInactive;
       }
     });
 
@@ -92,7 +92,7 @@ export class SidebarComponent
     this.MenuItems = response;
 
     this.MenuItems.forEach((menuItem: MenuAccessModel) => {
-      menuItem.ModuleSidebarClass = "expanded-module-item-inactive";
+      menuItem.moduleSidebarClass = "expanded-module-item-inactive";
     });
   }
 
@@ -101,19 +101,19 @@ export class SidebarComponent
     const currentUrl = this.router.url; // Get the current route
 
     this.MenuItems.forEach((menuItem: MenuListModel) => {
-      if (menuItem.ModuleRoute === currentUrl) {
-        menuItem.ModuleSidebarClass = this.expandedModuleActive;
-        this.activeModule = menuItem.ModuleSidebarClass;
+      if (menuItem.moduleRoute === currentUrl) {
+        menuItem.moduleSidebarClass = this.expandedModuleActive;
+        this.activeModule = menuItem.moduleSidebarClass;
       } else if (
-        menuItem.ModuleItems &&
-        menuItem.ModuleItems.some(
-          (subItem) => subItem.ModuleItemRoute === currentUrl,
+        menuItem.moduleItems &&
+        menuItem.moduleItems.some(
+          (subItem) => subItem.moduleItemRoute === currentUrl,
         )
       ) {
-        menuItem.ModuleSidebarClass = this.expandedModuleActive;
-        this.activeModule = menuItem.ModuleSidebarClass;
+        menuItem.moduleSidebarClass = this.expandedModuleActive;
+        this.activeModule = menuItem.moduleSidebarClass;
       } else {
-        menuItem.ModuleSidebarClass = this.expandedModuleInactive;
+        menuItem.moduleSidebarClass = this.expandedModuleInactive;
       }
     });
   }

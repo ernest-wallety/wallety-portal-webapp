@@ -51,7 +51,7 @@ export class MenuHelper extends BaseHelper {
 
       const jsonObject = JSON.parse(jsonString);
 
-      return jsonObject as MenuListModel[];
+      return jsonObject.items as MenuListModel[];
     } catch (error) {
       console.error("Error parsing menu detail from localStorage:", error);
 
