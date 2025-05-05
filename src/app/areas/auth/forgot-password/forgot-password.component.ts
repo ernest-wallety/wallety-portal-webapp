@@ -24,7 +24,7 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
     const email = form.value.email_address.trim();
 
     const response = await this.post_sync_call_non_object(
-      "/Auth/OneTimePassword",
+      "Auth/OneTimePassword",
       `"${email}"`,
     );
 
