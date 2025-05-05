@@ -17,19 +17,22 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
   public year: number = Utils.get_current_year();
 
   ngOnInit(): void {
-    this.ViewModel = { Email: "" };
+    console.log("ready to go!!!");
   }
 
   public reset = async (form: NgForm) => {
     const email = form.value.email_address.trim();
 
-    const response = await this.post_sync_call_non_object(
+    this.ViewModel = { Email: email };
+
+    const response = await this.post_sync_call(
       "Auth/OneTimePassword",
-      `"${email}"`,
+      this.ViewModel,
     );
 
     if (!response.isError) {
       this.email_sent = true;
+
       this.router.navigate(["/auth/login"]);
     } else {
       this.email_sent = false;
