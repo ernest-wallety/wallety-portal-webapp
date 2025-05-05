@@ -5,7 +5,7 @@ import { ConfigHelper } from "./config_helper";
 import { ExtensionMethods } from "./extension_methods";
 
 export class ApiHelper {
-  public static API_URL: string = ConfigHelper.NG_APP_API_URL;
+  public static API_URL = `${ConfigHelper.NG_APP_API_URL}/api/v1/`;
 
   public static HTTP_OPTIONS: any = {
     headers: new HttpHeaders({
@@ -35,30 +35,30 @@ export class ApiHelper {
     response: any,
     return_response: ResponseModel,
   ): ResponseModel {
-    if (ExtensionMethods.is_success_status(response.StatusCode)) {
+    if (ExtensionMethods.is_success_status(response.statusCode)) {
       return_response = response;
-      return_response.IsError = ExtensionMethods.is_error_status(
-        response.StatusCode,
+      return_response.isError = ExtensionMethods.is_error_status(
+        response.statusCode,
       );
-    } else if (ExtensionMethods.is_error_status(response.StatusCode)) {
+    } else if (ExtensionMethods.is_error_status(response.statusCode)) {
       return_response = response;
-      return_response.IsError = ExtensionMethods.is_error_status(
-        response.StatusCode,
+      return_response.isError = ExtensionMethods.is_error_status(
+        response.statusCode,
       );
-      return_response.ErrorList = [response.ResponseMessage];
+      return_response.errorList = [response.responseMessage];
     } else {
-      return_response.ErrorTitle = response.Title;
-      return_response.ErrorDetail = response.Detail;
-      return_response.ErrorType = response.Type;
-      return_response.ErrorInstance = response.Instance;
-      return_response.ResponseMessage = response.Detail;
-      return_response.StatusCode = response.Status;
+      return_response.errorTitle = response.title;
+      return_response.errorDetail = response.detail;
+      return_response.errorType = response.type;
+      return_response.errorInstance = response.instance;
+      return_response.responseMessage = response.detail;
+      return_response.statusCode = response.status;
 
-      return_response.IsError = response.Extensions.IsError;
-      return_response.ErrorDisplay = response.Extensions.ErrorDisplay;
-      return_response.ShowException = response.Extensions.ShowException;
-      return_response.ErrorList = response.Extensions.ErrorList;
-      return_response.ErrorRaw = response.Extensions.raw;
+      return_response.isError = response.isError;
+      return_response.errorDisplay = response.errorDisplay;
+      return_response.showException = response.showException;
+      return_response.errorList = response.errorList;
+      return_response.errorRaw = response.raw;
     }
 
     return return_response;
@@ -70,36 +70,37 @@ export class ApiHelper {
     exception: any,
     return_response: ResponseModel,
   ) {
-    return_response.IsError = true;
-    return_response.IsException = true;
+    // return_response.IsException = true;
 
     try {
       if (exception.name == "HttpErrorResponse") {
         // BadRequest - so we fetch the returned data from the api that is in the BadRequest Object
         // We dig into the exception and assign it to our response model. Value = the model being returned from C#
         if (ExtensionMethods.is_error_status(exception.status)) {
-          return_response.ErrorTitle = exception.Title;
-          return_response.ErrorDetail = exception.Detail;
-          return_response.ErrorType = exception.Type;
-          return_response.ErrorInstance = exception.Instance;
-          return_response.ErrorList.push(exception.error.ResponseMessage);
-          return_response.StatusCode = exception.status;
-          return_response.ErrorDisplay = 1;
+          return_response.isException = exception.error.isException;
+          return_response.isError = exception.error.isError;
+          return_response.errorTitle = exception.error.title;
+          return_response.errorDetail = exception.error.detail;
+          return_response.errorType = exception.error.type;
+          return_response.errorInstance = exception.error.instance;
+          return_response.errorList.push(exception.error.errorList);
+          return_response.statusCode = exception.status;
+          return_response.errorDisplay = exception.error.errorDisplay;
         }
         // Status 0 when can't communicate with the API, we do a PING to the API just to confirm and send back relevent message.
         else if (exception.status == 0) {
-          return_response.ErrorList.push(exception.message);
-          return_response.ErrorList.push(this.ping_api_message());
+          return_response.errorList.push(exception.message);
+          return_response.errorList.push(this.ping_api_message());
         } else {
-          return_response.ErrorList.push("Unknown Http Error");
+          return_response.errorList.push("Unknown Http Error");
         }
       }
       // Any other exceptions we just add to the error list
       else {
-        return_response.ErrorList.push(return_response.ResponseMessage!);
+        return_response.errorList.push(return_response.responseMessage!);
       }
     } catch (e: any) {
-      return_response.ErrorList.push(e.Message);
+      return_response.errorList.push(e.Message);
     }
 
     return return_response;

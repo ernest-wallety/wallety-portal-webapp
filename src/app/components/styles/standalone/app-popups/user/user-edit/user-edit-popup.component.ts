@@ -86,42 +86,41 @@ export class UserEditPopupComponent extends AuthenticatedBaseComponent {
 
   public async refresh(id: string): Promise<void> {
     const response = await this.get_async_call(
-      "/Portal/GetUserById",
+      "user/Get",
       new HttpParams().set("id", id),
     );
 
-    if (!response.IsError) {
-      this.ViewModel = response.Data;
+    if (!response.isError) {
+      this.ViewModel = response.data;
     }
   }
 
   public async update() {
-    this.ViewModel.Role = Utils.get_role_code(this.ViewModel.Roles);
-    this.ViewModel.RoleCode = this.ViewModel.Role.RoleCode;
-    this.ViewModel.Name = this.ViewModel.FirstName;
+    this.ViewModel.Role = Utils.get_role_code(this.ViewModel.roles);
+    this.ViewModel.RoleCode = this.ViewModel.Role.roleCode;
+    this.ViewModel.Name = this.ViewModel.firstName;
 
     const response = await this.post_sync_call(
-      "/Auth/UserRoleChange",
+      "User/UserRoleUpdate",
       this.ViewModel,
     );
 
-    if (!response.IsError) {
-      this.OnSave.emit(response.Data);
+    if (!response.isError) {
+      this.OnSave.emit(response.data);
       this.modalDialog.close();
     }
   }
 
   public async create() {
-    this.ViewModel.Name = this.ViewModel.FirstName;
-    this.ViewModel.WhatsappNumber = this.ViewModel.PhoneNumber;
+    this.ViewModel.Name = this.ViewModel.firstName;
+    this.ViewModel.WhatsappNumber = this.ViewModel.phoneNumber;
 
-    const response = await this.post_sync_call(
-      "/CustomerServiceAgent/Register",
-      this.ViewModel,
-    );
+    console.log(this.ViewModel);
 
-    if (!response.IsError) {
-      this.OnSave.emit(response.Data);
+    const response = await this.post_sync_call("User/Create", this.ViewModel);
+
+    if (!response.isError) {
+      this.OnSave.emit(response.data);
       this.modalDialog.close();
     }
   }
@@ -140,13 +139,13 @@ export class UserEditPopupComponent extends AuthenticatedBaseComponent {
   }
 
   shouldShowIcon(item: any): boolean {
-    const roles = this.ViewModel.Roles;
+    const roles = this.ViewModel.roles;
     if (!roles || roles.length === 0) return false;
 
     if (roles.length === 1) {
       return true; // Show the icon if there's only one role
     }
 
-    return item.IsDefault; // Show the icon only for the default role if there are multiple roles
+    return item.isDefault; // Show the icon only for the default role if there are multiple roles
   }
 }

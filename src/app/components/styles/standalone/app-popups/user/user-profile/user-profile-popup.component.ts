@@ -61,12 +61,12 @@ export class UserProfilePopupComponent extends AuthenticatedBaseComponent {
   }
 
   refresh(): void {
-    this.ViewModel.Name = this.LoggedInUser.User.Name;
-    this.ViewModel.Surname = this.LoggedInUser.User.Surname;
-    this.ViewModel.Email = this.LoggedInUser.User.Email;
-    this.ViewModel.PhoneNumber = this.LoggedInUser.User.PhoneNumber;
-    this.ViewModel.Role = this.Role?.Role;
-    this.ViewModel.Code = this.Role?.Code;
+    this.ViewModel.Name = this.LoggedInUser.user.firstName;
+    this.ViewModel.Surname = this.LoggedInUser.user.surname;
+    this.ViewModel.Email = this.LoggedInUser.user.email;
+    this.ViewModel.PhoneNumber = this.LoggedInUser.user.phoneNumber;
+    this.ViewModel.Role = this.Role?.roleName;
+    this.ViewModel.Code = this.Role?.roleCode;
   }
 
   async save() {
@@ -75,8 +75,8 @@ export class UserProfilePopupComponent extends AuthenticatedBaseComponent {
       this.ViewModel,
     );
 
-    if (!response.IsError) {
-      this.OnSave.emit(response.Data);
+    if (!response.isError) {
+      this.OnSave.emit(response.data);
       this.modalDialog.close();
     }
   }

@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import moment, { Moment } from "moment";
 import { NgxDaterangepickerMd } from "ngx-daterangepicker-material";
 import { AuthenticatedBaseComponent } from "../../../base/authenticated_base.component";
-import { DateRange } from "../../../models/date_range";
+import { DateRangeModel } from "../../../models/date_range_model";
 
 @Component({
   selector: "app-date-range-picker",
@@ -20,7 +20,7 @@ export class DateRangePickerComponent
   // Variables
 
   // Input
-  @Input() DateRange: DateRange | null = null;
+  @Input() DateRange: DateRangeModel | null = null;
   @Input() Opens = "left"; // left right center
   @Input() Drops = "down";
   @Input() AlwaysShowCalendar = true;
@@ -64,7 +64,7 @@ export class DateRangePickerComponent
   }
 
   setDateRange(startDate: Moment, endDate: Moment) {
-    this.DateRange = new DateRange();
+    this.DateRange = new DateRangeModel();
     this.DateRange.startDate = moment(startDate);
     this.DateRange.endDate = moment(endDate);
   }

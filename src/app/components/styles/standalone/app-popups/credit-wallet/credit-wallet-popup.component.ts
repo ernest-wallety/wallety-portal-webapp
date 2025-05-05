@@ -77,15 +77,15 @@ export class CreditWalletPopupComponent extends AuthenticatedBaseComponent {
       "Confirm Wallety Credit",
       `Are you sure you want to proceed with this transaction? ${formattedAmount} will be credited to ${this.ViewModel.WhatsappNumber}.`,
       async () => {
-        this.ViewModel.RoleCode = this.Role?.Code;
+        this.ViewModel.RoleCode = this.Role?.roleCode;
 
         const response = await this.post_sync_call(
           "/Wallet/CreditWallet",
           this.ViewModel,
         );
 
-        if (!response.IsError) {
-          this.OnSave.emit(response.Data);
+        if (!response.isError) {
+          this.OnSave.emit(response.data);
           this.modalDialog.close();
         }
       },

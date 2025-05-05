@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { AuthenticatedBaseListComponent } from "../../../components/base/authenticated_base_list.component";
 import { LookupHelper } from "../../../components/helpers/lookup_helper";
-import { Lookup } from "../../../components/models/lookup";
+import { LookupModel } from "../../../components/models/lookup_model";
 import { CustomerVerificationPopupComponent } from "../../../components/styles/standalone/app-popups/customer-verification/customer-verification-popup.component";
 import { PagingComponent } from "../../../components/styles/standalone/pagination/paging.component";
 import { SearchInputComponent } from "../../../components/styles/standalone/search-input/search-input.component";
@@ -38,17 +38,20 @@ export class CustomerVerificationListComponent
 
   ngOnInit(): void {
     this.titleService.setTitle("Customer Verification");
+    this.Criteria.sortField = LookupHelper.transform("u.AccountCreationDate");
+    this.Criteria.sortAscending = false;
+
     this.refresh();
   }
 
   public async refresh() {
     const response = await this.get_list_sync_call(
-      "/Customer/GetUnverifiedCustomers",
+      "Customer/GetUnverifiedCustomers",
       this.Criteria,
     );
 
-    if (!response.IsError) {
-      this.ViewModel = response.Data;
+    if (!response.isError) {
+      this.ViewModel = response.data;
     }
   }
 
@@ -61,9 +64,9 @@ export class CustomerVerificationListComponent
     LookupHelper.initialiseLookup(listFieldName);
   }
 
-  public async onChangeLookup(lookup: Lookup, listFieldName: string) {
+  public async onChangeLookup(lookup: LookupModel, listFieldName: string) {
     if (listFieldName.includes("RegistrationStatusId"))
-      lookup.Id = lookup.PrimaryKey;
+      lookup.id = lookup.primaryKey;
 
     this.Criteria.lookups =
       lookup != undefined
@@ -74,7 +77,7 @@ export class CustomerVerificationListComponent
   }
 
   public async onChangeMultiLookup(
-    multiLookup: Lookup[],
+    multiLookup: LookupModel[],
     listFieldName: string,
   ) {
     this.Criteria.lookups =

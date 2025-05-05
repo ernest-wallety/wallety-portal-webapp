@@ -13,7 +13,7 @@ import { RouterModule } from "@angular/router";
 import { NgbModalOptions, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { AuthenticatedBaseComponent } from "../../../../base/authenticated_base.component";
 import { ExtensionMethods } from "../../../../helpers/extension_methods";
-import { Lookup } from "../../../../models/lookup";
+import { LookupModel } from "../../../../models/lookup_model";
 import { Utils } from "../../../../utils";
 import { SelectSingleLookupComponent } from "../../select-single-lookup/select-single-lookup.component";
 
@@ -92,19 +92,19 @@ export class CustomerVerificationPopupComponent extends AuthenticatedBaseCompone
       "Reason",
     );
     this.imageUrl = ExtensionMethods.to_base_64_image(
-      this.model?.IdentityImage,
+      this.model?.identityImage,
     );
 
-    this.payload.customerId = this.model.CustomerId;
+    this.payload.customerId = this.model.customerId;
   }
 
   public async update() {
     const response = await this.post_sync_call(
-      "/Customer/VerifyAccount",
+      "Customer/VerifyAccount",
       this.payload,
     );
 
-    if (!response.IsError) {
+    if (!response.isError) {
       this.RegistrationStatus = undefined;
       this.RejectionReason = undefined;
       this.cancelClick();
@@ -120,11 +120,11 @@ export class CustomerVerificationPopupComponent extends AuthenticatedBaseCompone
     this.activeTab = tab;
   }
 
-  public async onChangeLookup(lookup: Lookup, listFieldName: string) {
+  public async onChangeLookup(lookup: LookupModel, listFieldName: string) {
     if (listFieldName === "RegistrationStatusId")
-      this.payload.registrationStatusId = lookup.Id;
+      this.payload.registrationStatusId = lookup.id;
     if (listFieldName === "RejectReasonId")
-      this.payload.verificationRejectReasonId = lookup.Id;
+      this.payload.verificationRejectReasonId = lookup.id;
 
     console.log(this.payload);
   }

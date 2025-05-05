@@ -21,10 +21,10 @@ export class ApiInterceptor implements HttpInterceptor {
     );
 
     // Intercept and add the AuthToken to the request headers if the user is logged in
-    if (logged_in_user && logged_in_user.SessionToken) {
+    if (logged_in_user && logged_in_user.sessionToken) {
       request = request.clone({
         setHeaders: {
-          Authorization: `bearer ${logged_in_user.SessionToken}`,
+          Authorization: `bearer ${logged_in_user.sessionToken}`,
         },
       });
     }

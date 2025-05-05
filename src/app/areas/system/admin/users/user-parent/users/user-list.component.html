@@ -109,35 +109,35 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let a of ViewModel?.Items">
+      <tr *ngFor="let a of ViewModel?.items">
         <td class="d-none d-md-table-cell"></td>
         <td class="d-none d-md-table-cell">
           <p
             class="badge"
-            [ngClass]="a.IsAccountActive ? 'bg-prog-4' : 'bg-prog-1'"
+            [ngClass]="a.isAccountActive ? 'bg-prog-4' : 'bg-prog-1'"
           >
-            {{ a.IsAccountActive ? "Active" : "Inactive" }}
+            {{ a.isAccountActive ? "Active" : "Inactive" }}
           </p>
         </td>
         <td>
           <div class="d-flex align-items-center">
             <app-avatar
               [Size]="'sm'"
-              [Image]="a.ProfileImage | convertImage"
+              [Image]="a.profileImage | convertImage"
               [FullName]="a | displayName"
             ></app-avatar>
 
             <div class="ms-3">
-              <p class="fw-bold mb-1">{{ a.FirstName }} {{ a.Surname }}</p>
-              <p class="text-muted mb-0">{{ a.Email }}</p>
+              <p class="fw-bold mb-1">{{ a.firstName }} {{ a.surname }}</p>
+              <p class="text-muted mb-0">{{ a.email }}</p>
               <p class="text-muted mb-0">
-                {{ a.PhoneNumber }}
+                {{ a.phoneNumber }}
               </p>
             </div>
           </div>
         </td>
-        <td class="d-none d-lg-table-cell">{{ a.CountryName }}</td>
-        <td class="d-none d-lg-table-cell">{{ a.RoleName }}</td>
+        <td class="d-none d-lg-table-cell">{{ a.countryName }}</td>
+        <td class="d-none d-lg-table-cell">{{ a.roleName }}</td>
 
         <!-- <td class="d-none d-lg-table-cell">
           {{ a.PhoneNumber | phoneFormat: a.MobileRegex }}
@@ -145,27 +145,27 @@
 
         <!-- <td class="d-none d-lg-table-cell">{{ a.IdNumber }}</td> -->
         <td class="d-none d-lg-table-cell">
-          {{ a.AccountCreationDate | date: "yyyy, dd MMM" }}
+          {{ a.accountCreationDate | date: "yyyy, dd MMM" }}
         </td>
 
         <td class="d-none d-md-table-cell">
-          {{ a.LastActiveTime | date: "yyyy, dd MMM HH:mm:ss" }}
+          {{ a.lastActiveTime | date: "yyyy, dd MMM HH:mm:ss" }}
         </td>
 
         <td class="d-none d-md-table-cell">
           <a
-            *ngIf="a.RoleName !== 'Customer'"
+            *ngIf="a.roleName !== 'Customer'"
             href="#"
             onclick="return false;"
             class="table-action-link"
-            (click)="edit(a.UserId)"
+            (click)="edit(a.userId)"
           >
             Edit
           </a>
         </td>
       </tr>
     </tbody>
-    <tbody *ngIf="ViewModel?.Count === 0 && IsLoading === false">
+    <tbody *ngIf="ViewModel?.count === 0 && IsLoading === false">
       <tr>
         <td colspan="10" class="text-center border-bottom-0">
           <h4 class="mt-5 mb-5">
@@ -181,6 +181,6 @@
 <app-paging
   #paging
   [criteria]="Criteria"
-  [RecordTotal]="ViewModel?.Count"
+  [RecordTotal]="ViewModel?.count"
   (PagingEmitter)="refresh()"
 ></app-paging>

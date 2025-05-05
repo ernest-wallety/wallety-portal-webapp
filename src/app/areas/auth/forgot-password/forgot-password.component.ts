@@ -28,7 +28,7 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
       `"${email}"`,
     );
 
-    if (!response.IsError) {
+    if (!response.isError) {
       this.email_sent = true;
       this.router.navigate(["/auth/login"]);
     } else {

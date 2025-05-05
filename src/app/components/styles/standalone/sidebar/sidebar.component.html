@@ -27,20 +27,20 @@
               href="#"
               onclick="return false;"
               class="nav_link"
-              [routerLink]="item?.ModuleRoute"
-              [ngClass]="{ active: activeModule === item.ModuleSidebarClass }"
+              [routerLink]="item?.moduleRoute"
+              [ngClass]="{ active: activeModule === item.moduleSidebarClass }"
               (click)="set_sidebar_children_class(item)"
             >
-              <i class="{{ item.ModuleIcon }} nav_icon"></i>
-              <span class="nav_name">{{ item.ModuleName }}</span>
+              <i class="{{ item.moduleIcon }} nav_icon"></i>
+              <span class="nav_name">{{ item.moduleName }}</span>
 
               <!-- Show chevron only if the item has sub-items -->
               <i
-                *ngIf="item.ModuleItems && item.ModuleItems.length > 0"
+                *ngIf="item.moduleItems && item.moduleItems.length > 0"
                 class="bx bx-chevron-down"
                 [ngClass]="{
                   'rotate-icon':
-                    item.ModuleSidebarClass === expandedModuleActive,
+                    item.moduleSidebarClass === expandedModuleActive,
                 }"
               ></i>
             </a>
@@ -48,23 +48,23 @@
             <!-- Sub-menu for ModuleItems -->
             <ul
               *ngIf="
-                item.ModuleSidebarClass === expandedModuleActive &&
-                item.ModuleItems?.length > 0
+                item.moduleSidebarClass === expandedModuleActive &&
+                item.moduleItems?.length > 0
               "
               class="nav flex-column ms-3"
             >
-              <li *ngFor="let subItem of item.ModuleItems">
+              <li *ngFor="let subItem of item.moduleItems">
                 <a
                   href="#"
                   onclick="return false;"
                   class="nav_link"
-                  [routerLink]="subItem.ModuleItemRoute"
+                  [routerLink]="subItem.moduleItemRoute"
                   [ngClass]="{
-                    active: is_active_route(subItem.ModuleItemRoute),
+                    active: is_active_route(subItem.moduleItemRoute),
                   }"
                 >
-                  <i class="{{ subItem.ModuleItemIcon }} nav_icon"></i>
-                  <span class="nav_name">{{ subItem.ModuleItemName }}</span>
+                  <i class="{{ subItem.moduleItemIcon }} nav_icon"></i>
+                  <span class="nav_name">{{ subItem.moduleItemName }}</span>
                 </a>
               </li>
             </ul>

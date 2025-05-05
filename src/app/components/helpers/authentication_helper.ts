@@ -1,5 +1,5 @@
 import { Inject, PLATFORM_ID } from "@angular/core";
-import { LoginResultModel, RoleCodeModel } from "../models/login_result";
+import { LoginResultModel, RoleCodeModel } from "../models/login_result_model";
 import { BaseHelper } from "./base_helper";
 import { ConfigHelper } from "./config_helper";
 
@@ -70,8 +70,8 @@ export class AuthenticationHelper extends BaseHelper {
 
   public static is_user_detail_stored(platformId: object): boolean {
     return (
-      this.get_user_detail(platformId).User.Email !== null ||
-      this.get_user_detail(platformId).User.Email !== undefined
+      this.get_user_detail(platformId).user.email !== null ||
+      this.get_user_detail(platformId).user.email !== undefined
     );
   }
 
@@ -81,7 +81,7 @@ export class AuthenticationHelper extends BaseHelper {
    */
   public static is_logged_in(platformId: object): boolean {
     const userDetail = this.get_user_detail(platformId);
-    return userDetail ? userDetail.Success! : false;
+    return userDetail ? userDetail.success! : false;
   }
 
   /**
@@ -89,7 +89,7 @@ export class AuthenticationHelper extends BaseHelper {
    * @returns {RoleCodeModel[] | undefined} An array of role objects or undefined if no roles exist.
    */
   private static role_codes(platformId: object): RoleCodeModel[] | undefined {
-    const roleDetail = this.get_user_detail(platformId).RoleCodes;
+    const roleDetail = this.get_user_detail(platformId).roleCodes;
     return roleDetail;
   }
 
@@ -100,7 +100,7 @@ export class AuthenticationHelper extends BaseHelper {
   public static is_admin(platformId: object): boolean {
     const roles = this.role_codes(platformId);
     return (
-      roles?.some((role) => role.Code === "WR01" && role.IsDefault) ?? false
+      roles?.some((role) => role.roleCode === "WR01" && role.isDefault) ?? false
     );
   }
 
@@ -111,7 +111,7 @@ export class AuthenticationHelper extends BaseHelper {
   public static is_customer(platformId: object): boolean {
     const roles = this.role_codes(platformId);
     return (
-      roles?.some((role) => role.Code === "WR03" && role.IsDefault) ?? false
+      roles?.some((role) => role.roleCode === "WR03" && role.isDefault) ?? false
     );
   }
   /**
@@ -121,7 +121,7 @@ export class AuthenticationHelper extends BaseHelper {
   public static is_service_agent(platformId: object): boolean {
     const roles = this.role_codes(platformId);
     return (
-      roles?.some((role) => role.Code === "WR02" && role.IsDefault) ?? false
+      roles?.some((role) => role.roleCode === "WR02" && role.isDefault) ?? false
     );
   }
   /**
@@ -131,7 +131,7 @@ export class AuthenticationHelper extends BaseHelper {
   public static is_executive(platformId: object): boolean {
     const roles = this.role_codes(platformId);
     return (
-      roles?.some((role) => role.Code === "WR00" && role.IsDefault) ?? false
+      roles?.some((role) => role.roleCode === "WR00" && role.isDefault) ?? false
     );
   }
 }

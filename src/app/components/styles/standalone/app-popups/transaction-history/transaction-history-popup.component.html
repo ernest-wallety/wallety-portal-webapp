@@ -81,33 +81,33 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let a of ViewModel">
+                <tr *ngFor="let a of ViewModel?.items">
                   <td>
-                    {{ a.TransactionTypeName }}
+                    {{ a.transactionTypeName }}
                   </td>
                   <td>
-                    {{ a.Amount | customCurrency }}
+                    {{ a.amount | customCurrency }}
                   </td>
                   <td>
-                    {{ a.TransactionMessage }}
+                    {{ a.transactionMessage }}
                   </td>
                   <td>
-                    {{ a.TransactionStatus }}
+                    {{ a.transactionStatus }}
                   </td>
                   <td *ngIf="!IsBeneficiary">
-                    {{ a.ProductDisplayName }}
+                    {{ a.productDisplayName }}
                   </td>
                   <td>
-                    {{ a.PaymentOptionName }}
+                    {{ a.paymentOptionName }}
                   </td>
                   <td *ngIf="IsBeneficiary">
-                    {{ a.BeneficiaryWhatsappNumber }}
+                    {{ a.beneficiaryWhatsappNumber }}
                   </td>
                   <td *ngIf="!IsBeneficiary">
-                    {{ a.PayerWhatsappNumber || a.PhoneNumber }}
+                    {{ a.payerWhatsappNumber || a.phoneNumber }}
                   </td>
                   <td>
-                    {{ a.TransactionDate | date: "yyyy, dd MMM  HH:mm:ss:SSS" }}
+                    {{ a.transactionDate | date: "yyyy, dd MMM  HH:mm:ss:SSS" }}
                   </td>
                 </tr>
               </tbody>
