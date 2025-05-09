@@ -249,6 +249,7 @@
                   <span
                     class="status"
                     [class.rejected]="record.status === 'Rejected'"
+                    [class.resubmitted]="record.status === 'Resubmitted'"
                   >
                     Status: {{ record.status }}
                   </span>

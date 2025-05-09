@@ -27,6 +27,9 @@
     &.rejected {
       color: #ff0000;
     }
+    &.resubmitted {
+      color: #ee82ee;
+    }
   }
 
   .date {
