@@ -80,7 +80,7 @@ export class CreditWalletPopupComponent extends AuthenticatedBaseComponent {
         this.ViewModel.RoleCode = this.Role?.roleCode;
 
         const response = await this.post_sync_call(
-          "/Wallet/CreditWallet",
+          "Wallet/CreditWallet",
           this.ViewModel,
         );
 

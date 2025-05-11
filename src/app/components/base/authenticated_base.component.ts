@@ -29,9 +29,7 @@ export class AuthenticatedBaseComponent extends BaseComponent {
   public ImageUrl?: string;
   public Email = this.LoggedInUser.user.email;
   public FullName = `${this.LoggedInUser.user.name || this.LoggedInUser.user.firstName} ${this.LoggedInUser.user.surname}`;
-  public Role = this.LoggedInUser.roleCodes?.find(
-    (role) => role.isDefault === true,
-  );
+  public Role = this.LoggedInUser.roleCodes?.find((role) => role.isDefault);
   public UserRoles = Utils.lookup_converter(
     this.LoggedInUser.roleCodes!,
     "Code",
